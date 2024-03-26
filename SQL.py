@@ -8,14 +8,12 @@ host = 'localhost'
 
 
 def personExists(e):
-    # The name you are searching for
     name = e.split(" ")
-    # Connect to your postgres DB
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
-        
-    # Open a cursor to perform database operations
     with conn.cursor() as cur:
-        # This is the SQL query you will use
+        #Covers person with 1 name (error)
+        if(len(name) == 1):
+            name.append("Invalid")
         findStudent = "SELECT * FROM Members WHERE firstname = '{}' AND lastname = '{}';".format(name[0], name[1])
         cur.execute(findStudent)
         potential = cur.fetchone()
