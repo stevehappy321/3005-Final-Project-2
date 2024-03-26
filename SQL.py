@@ -6,6 +6,7 @@ user = 'postgres'
 password = 'postgres'
 host = 'localhost'
 
+#Ryan
 
 def personExists(e):
     name = e.split(" ")
