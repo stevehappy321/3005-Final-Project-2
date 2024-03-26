@@ -20,8 +20,8 @@ def user_input_received(user_input):
     
 
 if __name__ == "__main__":
-    GUI.Initialize(user_input_received)
-    #GUI.AdminPortal()
+    #GUI.Initialize(user_input_received)
+    GUI.AdminPortal()
     #GUI.test()
     # At this point, the GUI window has been closed
     print("The GUI has been closed.")

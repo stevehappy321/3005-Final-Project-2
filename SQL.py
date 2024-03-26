@@ -45,3 +45,9 @@ def deleteSomething(e):
         cur.execute("Delete From {}".format(e))
         conn.commit()
 
+def UpdateSomething(e):
+    conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
+    with conn.cursor() as cur:
+        cur.execute("UPDATE {}".format(e))
+        conn.commit()
+

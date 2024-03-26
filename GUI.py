@@ -121,6 +121,54 @@ def AdminPortal():
         button3.pack_forget()
         button4.pack_forget()
         button5.pack(side=tk.LEFT, padx=10)
+
+        def filter():
+            global x
+            if(x == 0):   
+                listbox.delete(0, tk.END)
+                equip = SQL.getAllSomething("Rooms r WHERE NOT EXISTS (SELECT * FROM PrivateSession ps WHERE ps.RoomID = r.RoomID) AND NOT EXISTS (SELECT * FROM FitnessClass fc WHERE fc.RoomID = r.RoomID);")
+                listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
+                for item in equip:
+                    listbox.insert(tk.END, str(item))
+                x=x+1
+            else:
+                reset()
+                x=0
+        def reset():
+                listbox.delete(0, tk.END)
+                equip = SQL.getAllSomething("Rooms")
+                listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
+                # Insert items into the Listbox
+                for item in equip:
+                    listbox.insert(tk.END, str(item))
+        def addNew():
+            login_label = tk.Label(frame, text="Enter Room Details (Seperate by commas and spaces *no brackets*)", font=('Helvetica', '14'))
+            login_label.pack()
+            login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
+            login_entry.pack(padx=40)
+            def dingl():
+                user_input = login_entry.get()
+                SQL.addSomething("Rooms (Name, Capacity, Type) VALUES ({});".format(user_input))
+                reset()
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8.pack()
+
+        def delete():
+            index = listbox.curselection()
+            selected_item = listbox.get(index)
+            desired = selected_item.split(",")
+            SQL.deleteSomething("Rooms Where RoomID = {};".format(desired[0].replace("(", "")))
+            reset()
+
+        global button_frame1
+        button_frame1 = tk.Frame(root)
+        button_frame1.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(button_frame1, text="Filter By Un-Used", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6.pack(side=tk.LEFT, padx=10)
+        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button7.pack(side=tk.LEFT, padx=10)
+        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button77.pack(side=tk.LEFT, padx=10)
       
    
 
@@ -202,7 +250,140 @@ def AdminPortal():
         button5.pack(side=tk.LEFT, padx=10)
 
     def button3_click():
-        print("button3")
+        global frame
+
+        frame = tk.Frame(root)
+        frame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
+
+        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        equip = SQL.getAllSomething("FitnessClass")
+        listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
+        # Insert items into the Listbox
+        for item in equip:
+            listbox.insert(tk.END, str(item).replace("datetime.date", ""))
+
+        def filter():
+            global x
+            if(x == 0):   
+                listbox.delete(0, tk.END)
+                equip = SQL.getAllSomething("FitnessClass ORDER BY ClassDate ASC;")
+                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
+                for item in equip:
+                    listbox.insert(tk.END, str(item).replace("datetime.date", ""))
+                x=x+1
+            else:
+                reset()
+                x=0
+        def reset():
+                listbox.delete(0, tk.END)
+                equip = SQL.getAllSomething("FitnessClass")
+                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
+                # Insert items into the Listbox
+                for item in equip:
+                    listbox.insert(tk.END, str(item).replace("datetime.date", ""))
+
+        def addNew():
+            login_label = tk.Label(frame, text="Enter Fitness Class Details", font=('Helvetica', '14'))
+            login_label.pack()
+            login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
+            login_entry.pack(padx=40)
+            def dingl():
+                user_input = login_entry.get()
+                SQL.addSomething("FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, Cost) VALUES ({});".format(user_input))
+                reset()
+                login_label.pack_forget()
+                login_entry.pack_forget()
+                button8.pack_forget()
+                #removes text from textbox
+                login_entry.delete(0, tk.END)
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8.pack()
+
+        def delete():
+            index = listbox.curselection()
+            selected_item = listbox.get(index)
+            desired = selected_item.split(",")
+            SQL.deleteSomething("FitnessClass Where lassID = {};".format(desired[0].replace("(", "")))
+            reset()
+
+        def update():
+            login_label = tk.Label(frame, text="Enter Fitness Class Change", font=('Helvetica', '14'))
+            login_label.pack()
+            entries = []
+            #Creates the fields to check
+            info = {0:"ClassName", 1:"TrainerID", 2:"RoomID", 3:"ClassDate", 4:"SessionTime", 5:"Cost"}
+            info2 = ["ClassName", "TrainerID", "RoomID", "ClassDate", "SessionTime", "Cost"]
+            def dingl():
+                newClass = []
+                #gets the index from the box to be updated
+                index = listbox.curselection()
+                selected_item = listbox.get(index)
+                desired = selected_item.split(",")
+                #Checks the input boxes for changed values. If it finds it'll add to the newClass array
+                for i in range(6):
+                    if(entries[i].get() != info.get(i)):
+                        print(entries[i].get())
+                        newClass.append(info.get(i))
+                        newClass.append(entries[i].get())
+                    entries[i].pack_forget()
+                login_label.pack_forget()
+                button8.pack_forget()
+                #X means that we have a value to extract, when X is true we extract its value from the next element on next iteration
+                x=False
+                query =''
+                #for each element that was changed, create the query
+                for i in newClass:
+                    if(i in info2 or x == True):
+                        if(x==True):
+                            query +='\''
+                            query +=i
+                            query += '\', '
+                            x= False
+                        else:
+                            query += i
+                            query += " = "
+                            x=True
+                #takes the ClassID from the box and inserts into query
+                query += ' WHERE ClassID = {};'.format(desired[0].replace("(", ""))
+                #updates the database. The format and.replace is removing the last occurance of a , for the query
+                SQL.UpdateSomething("FitnessClass SET {}".format(query[::-1].replace(',', '', 1)[::-1]))
+                #resets the view
+                reset()
+
+            #Creates the buttons to change the fields
+            for i in range(6):
+                string = str(info.get(i))
+                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry.pack(pady=1)  
+                entry.insert(0, string)  
+                entries.append(entry)  
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8.pack()
+        
+
+                
+
+        global button_frame1
+        button_frame1 = tk.Frame(root)
+        button_frame1.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(button_frame1, text="Filter By Upcoming", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6.pack(side=tk.LEFT, padx=10)
+        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button7.pack(side=tk.LEFT, padx=10)
+        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button77.pack(side=tk.LEFT, padx=10)
+        button777 = tk.Button(button_frame1, text="Update Selected", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777.pack(side=tk.LEFT, padx=10)
+
+        button1.pack_forget()
+        button2.pack_forget()
+        button3.pack_forget()
+        button4.pack_forget()
+        button5.pack(side=tk.LEFT, padx=10)
+
+
 
     def button4_click():
         print("button4")
