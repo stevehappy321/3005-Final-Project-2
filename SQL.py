@@ -49,3 +49,9 @@ def UpdateSomething(e):
         cur.execute("UPDATE {}".format(e))
         conn.commit()
 
+def StrictSelect(e):
+    conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
+    with conn.cursor() as cur:
+        cur.execute("{}".format(e))
+        records = cur.fetchall()
+        return records

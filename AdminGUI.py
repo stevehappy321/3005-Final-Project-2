@@ -291,8 +291,57 @@ def AdminPortal():
         button5.pack(side=tk.LEFT, padx=10)
 
     def button4_click():
-        print("button4")
+        global frame
 
+        frame = tk.Frame(root)
+        frame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
+
+        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        equip = SQL.StrictSelect("SELECT m.MemberID, m.FirstName, m.LastName, p.PaymentDate, p.AmountPayed, p.AmountOwed, p.PaymentMethod FROM Members m JOIN Payment p ON m.MemberID = p.MemberID ORDER BY m.MemberID;")
+        listbox.insert(tk.END, "MemberID, FirstName, LastName, Last Payment Date, AmountPayed, AmountOwed, PaymentMethod")
+        # Insert items into the Listbox
+        for item in equip:
+            item = str(item).replace("datetime.date", "")
+            item = item.replace("Decimal", "")
+            listbox.insert(tk.END, item)
+
+        def filter():
+            global x
+            if(x == 0):   
+                listbox.delete(0, tk.END)
+                equip = SQL.StrictSelect("SELECT m.MemberID, m.FirstName, m.LastName, p.PaymentDate, p.AmountPayed, p.AmountOwed, p.PaymentMethod FROM Members m JOIN Payment p ON m.MemberID = p.MemberID ORDER BY p.amountOwed DESC;")
+                listbox.insert(tk.END, "MemberID, FirstName, LastName, Last Payment Date, AmountPayed, AmountOwed, PaymentMethod")
+                for item in equip:
+                    item = str(item).replace("datetime.date", "")
+                    item = item.replace("Decimal", "")
+                    listbox.insert(tk.END, item)
+                x=x+1
+            else:
+                reset()
+                x=0
+        def reset():
+                listbox.delete(0, tk.END)
+                equip = SQL.StrictSelect("SELECT m.MemberID, m.FirstName, m.LastName, p.PaymentDate, p.AmountPayed, p.AmountOwed, p.PaymentMethod FROM Members m JOIN Payment p ON m.MemberID = p.MemberID ORDER BY m.MemberID;")
+                listbox.insert(tk.END, "MemberID, FirstName, LastName, Last Payment Date, AmountPayed, AmountOwed, PaymentMethod")
+                # Insert items into the Listbox
+                for item in equip:
+                    item = str(item).replace("datetime.date", "")
+                    item = item.replace("Decimal", "")
+                    listbox.insert(tk.END, item)
+
+        global button_frame1
+        button_frame1 = tk.Frame(root)
+        button_frame1.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(button_frame1, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6.pack()
+
+        button1.pack_forget()
+        button2.pack_forget()
+        button3.pack_forget()
+        button4.pack_forget()
+        button5.pack(side=tk.LEFT, padx=10)
     
     
     def returnButton():
