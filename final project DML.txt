@@ -1,0 +1,156 @@
+CREATE TABLE IF NOT EXISTS Members (
+    MemberID SERIAL Primary Key,
+    FirstName varchar(150) NOT NULL,
+    LastName varchar(150)  NOT NULL,
+    Address TEXT,
+    City varchar(50),
+	PhoneNumber varchar(150),
+	Email TEXT UNIQUE NOT NULL
+);
+--re-work
+CREATE TABLE IF NOT EXISTS FitnessStuffs (
+    MemberID INT PRIMARY KEY,
+    DistanceRunningGoal VARCHAR(255),
+    FastestLapGoal VARCHAR(255),
+    BenchPressGoal INT,
+	SquatGoal INT,
+	SwimmingDistanceGoal INT,
+	CurrentRunDistance	VARCHAR(255),
+	CurrentFastestLap	VARCHAR(255),
+	CurrentBenchPress	INT,
+	CurrentSquat		INT,
+	CurrentSwimDistance	INT,
+    FOREIGN KEY (MemberID) REFERENCES Members (MemberID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS HealthStuffs (
+    MemberID INT PRIMARY KEY,
+    MeasurementDate DATE,
+    Weight DECIMAL(5, 2),
+    BloodPressure VARCHAR(50),
+    HeartRate INT,
+	WeightGoal DECIMAL(5, 2),
+	HeartRateGoal INT,
+    FOREIGN KEY (MemberID) REFERENCES Members (MemberID) ON DELETE CASCADE
+);
+-- 1 to 1 with member
+CREATE TABLE Payment (
+    MemberID INT PRIMARY KEY,
+    PaymentDate DATE NOT NULL,
+    AmountPayed DECIMAL(10, 2) NOT NULL,
+	AmountOwed DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    PaymentMethod VARCHAR(20),
+    FOREIGN KEY (MemberID) REFERENCES Members (MemberID) ON DELETE CASCADE
+);
+
+--Maybe remove address
+CREATE TABLE IF NOT EXISTS Trainers (
+    TrainerID SERIAL Primary Key,
+    FirstName varchar(150) NOT NULL,
+    LastName varchar(150)  NOT NULL,
+    Address TEXT,
+    City varchar(50),
+	PhoneNumber varchar(150),
+	Email Text UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Rooms (
+    RoomID SERIAL PRIMARY KEY,
+    Name Text NOT NULL,
+    Capacity INT,
+    Type VARCHAR(100)
+);
+-- many to many with room
+CREATE TABLE IF NOT EXISTS Equipment (
+    EquipmentID SERIAL PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    Type VARCHAR(100),
+    PurchaseDate DATE,
+    Condition VARCHAR(100),
+    RoomID INT,
+    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS FitnessClass (
+    ClassID SERIAL PRIMARY KEY,
+    ClassName VARCHAR(255) NOT NULL,
+    TrainerID INT,
+    RoomID INT,
+    ClassDate DATE NOT NULL,
+	SessionTime varChar(25) NOT NULL,
+	Cost VARCHAR(10),
+    FOREIGN KEY (TrainerID) REFERENCES Trainers (TrainerID),
+    FOREIGN KEY (RoomID) REFERENCES Rooms (RoomID)
+);
+-- needed for one to many 
+CREATE TABLE IF NOT EXISTS ClassMembers (
+    ClassID INT,
+    MemberID INT,
+    FOREIGN KEY (ClassID) REFERENCES FitnessClass (ClassID) ON DELETE CASCADE,
+    FOREIGN KEY (MemberID) REFERENCES Members (MemberID) ON DELETE CASCADE,
+    PRIMARY KEY (ClassID, MemberID)
+);
+-- 1 to 1 relation with member trainer
+CREATE TABLE IF NOT EXISTS PrivateSession (
+    SessionID SERIAL PRIMARY KEY,
+    TrainerID INT NOT NULL,
+    MemberID INT NOT NULL,
+    RoomID INT,
+    SessionDate DATE NOT NULL,
+	SessionTime varChar(25) NOT NULL,
+	Cost VARCHAR(10),
+    FOREIGN KEY (TrainerID) REFERENCES Trainers (TrainerID),
+    FOREIGN KEY (MemberID) REFERENCES Members (MemberID),
+    FOREIGN KEY (RoomID) REFERENCES Rooms (RoomID) ON DELETE SET NULL
+);
+
+
+
+--Inserts
+--Inserts
+INSERT INTO Members (FirstName, LastName, Address, City, PhoneNumber, Email) VALUES 
+('Jane', 'Doe', '123 Maple Street', 'Springfield', '555-6789', 'jane.doe@example.com'),
+('Ryan', 'Mastin', '323 Mallard Avenue', 'Burlington', '905-555-6789', 'rmastin@gmail.com');
+
+INSERT INTO Trainers (FirstName, LastName, Address, City, PhoneNumber, Email) VALUES 
+('John', 'Smith', '456 Oak Road', 'Springfield','555-1234', 'john.smith@example.com'),
+('TrainerTwo', 'Two', '456 Oak Road', 'Springfield','905-444-4321', 'TrainerTwo@gym.com');
+
+INSERT INTO Rooms (Name, Capacity, Type) VALUES 
+('Yoga Studio', 20, 'Yoga'),
+('Weight Room', 20, 'Weight Training');
+
+INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES 
+('Yoga Mats', 'Yoga', '2023-01-15', 'New', 1),
+('Weight set 1', 'Weights', '2023-01-15', 'Old', 2);
+
+INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, Cost) VALUES 
+('Morning Yoga', 1, 1, '2024-04-15', '10:00', '10$'),
+('Lifting Class', 2, 2, '2024-04-15', '12:00', '12$');
+
+INSERT INTO PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, Cost) VALUES 
+(1, 1, 1, '2024-04-16', '10:00', '50$'),
+(2, 2, 2, '2024-04-15', '2:00', '100$');
+
+INSERT INTO ClassMembers (ClassID, MemberID) VALUES 
+(1, 1),
+(2, 2);
+
+INSERT INTO FitnessStuffs (MemberID, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES 
+(1, '5km', '4:00 min/km', 100, 150, 1000, '3km', '4:30 min/km', 80, 120, 500),
+(2, '10km', '5:00 min/km', 120, 200, 1500, '7km', '5:30 min/km', 90, 160, 700);
+
+
+INSERT INTO HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal) VALUES 
+(1, '2024-03-25', 200.00, '120/80', 70, 180.00, 65),
+(2, '2024-03-25', 150.00, '115/75', 75, 140.00, 72);
+
+INSERT INTO Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMethod) VALUES
+(1, '024-03-25', 80.0, 100.0, 'Credit Card'),
+(2, '024-03-10', 1, 300, 'Debt'); 
+ 
+
+
+
+--how to return fitness stuffs
+SELECT * FROM FitnessStuffs WHERE MemberID = 1;
