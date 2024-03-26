@@ -91,7 +91,7 @@ def AdminPortal():
                 equip = SQL.getAllSomething("Equipment ORDER BY Condition DESC;")
                 listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
                 for item in equip:
-                    listbox.insert(tk.END, str(item))
+                    listbox.insert(tk.END, str(item).replace("datetime.date", ""))
                 x=x+1
             else:
                 reset()
@@ -102,7 +102,7 @@ def AdminPortal():
                 listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
                 # Insert items into the Listbox
                 for item in equip:
-                    listbox.insert(tk.END, str(item))
+                    listbox.insert(tk.END, str(item).replace("datetime.date", ""))
         def addNew():
             login_label = tk.Label(frame, text="Enter First and Last Name", font=('Helvetica', '14'))
             login_label.pack()
@@ -214,7 +214,7 @@ def AdminPortal():
             index = listbox.curselection()
             selected_item = listbox.get(index)
             desired = selected_item.split(",")
-            SQL.deleteSomething("FitnessClass Where lassID = {};".format(desired[0].replace("(", "")))
+            SQL.deleteSomething("FitnessClass Where classID = {};".format(desired[0].replace("(", "")))
             reset()
 
         def update():
@@ -233,7 +233,7 @@ def AdminPortal():
                 #Checks the input boxes for changed values. If it finds it'll add to the newClass array
                 for i in range(6):
                     if(entries[i].get() != info.get(i)):
-                        print(entries[i].get())
+                        #print(entries[i].get())
                         newClass.append(info.get(i))
                         newClass.append(entries[i].get())
                     entries[i].pack_forget()
