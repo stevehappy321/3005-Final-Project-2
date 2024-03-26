@@ -33,7 +33,8 @@ def AdminPortal():
 
         def filter():
             global x
-            if(x == 0):   
+            if(x == 0):
+                button6.config(foreground='white', background='#9389E5')   
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Rooms r WHERE NOT EXISTS (SELECT * FROM PrivateSession ps WHERE ps.RoomID = r.RoomID) AND NOT EXISTS (SELECT * FROM FitnessClass fc WHERE fc.RoomID = r.RoomID);")
                 listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
@@ -44,6 +45,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
+                button6.config(foreground='Black', background='#7A2727') 
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Rooms")
                 listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
@@ -51,6 +53,7 @@ def AdminPortal():
                 for item in equip:
                     listbox.insert(tk.END, str(item))
         def addNew():
+            button7.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter Room Details (Seperate by commas and spaces *no brackets*)", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
@@ -59,7 +62,7 @@ def AdminPortal():
                 user_input = login_entry.get()
                 SQL.addSomething("Rooms (Name, Capacity, Type) VALUES ({});".format(user_input))
                 reset()
-            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
 
         def delete():
@@ -87,6 +90,7 @@ def AdminPortal():
         def filter():
             global x
             if(x == 0):   
+                button6.config(foreground='white', background='#9389E5')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment ORDER BY Condition DESC;")
                 listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
@@ -97,6 +101,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
+                button6.config(foreground='Black', background='#7A2727')  
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment")
                 listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
@@ -104,6 +109,7 @@ def AdminPortal():
                 for item in equip:
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
         def addNew():
+            button7.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter First and Last Name", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
@@ -112,7 +118,7 @@ def AdminPortal():
                 user_input = login_entry.get()
                 SQL.addSomething("Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES ({});".format(user_input))
                 reset()
-            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
 
         def delete():
@@ -175,7 +181,8 @@ def AdminPortal():
 
         def filter():
             global x
-            if(x == 0):   
+            if(x == 0):
+                button6.config(foreground='white', background='#9389E5')   
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass ORDER BY ClassDate ASC;")
                 listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
@@ -186,6 +193,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
+                button6.config(foreground='Black', background='#7A2727')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass")
                 listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
@@ -194,6 +202,7 @@ def AdminPortal():
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
 
         def addNew():
+            button7.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter Fitness Class Details", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
@@ -207,7 +216,7 @@ def AdminPortal():
                 button8.pack_forget()
                 #removes text from textbox
                 login_entry.delete(0, tk.END)
-            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
 
         def delete():
@@ -218,6 +227,7 @@ def AdminPortal():
             reset()
 
         def update():
+            button777.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter Fitness Class Change", font=('Helvetica', '14'))
             login_label.pack()
             entries = []
@@ -268,7 +278,7 @@ def AdminPortal():
                 entry.pack(pady=1)  
                 entry.insert(0, string)  
                 entries.append(entry)  
-            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#7A2727')
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
         
 
@@ -309,7 +319,8 @@ def AdminPortal():
 
         def filter():
             global x
-            if(x == 0):   
+            if(x == 0):
+                button6.config(foreground='white', background='#9389E5')   
                 listbox.delete(0, tk.END)
                 equip = SQL.StrictSelect("SELECT m.MemberID, m.FirstName, m.LastName, p.PaymentDate, p.AmountPayed, p.AmountOwed, p.PaymentMethod FROM Members m JOIN Payment p ON m.MemberID = p.MemberID ORDER BY p.amountOwed DESC;")
                 listbox.insert(tk.END, "MemberID, FirstName, LastName, Last Payment Date, AmountPayed, AmountOwed, PaymentMethod")
@@ -322,6 +333,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
+                button6.config(foreground='Black', background='#7A2727') 
                 listbox.delete(0, tk.END)
                 equip = SQL.StrictSelect("SELECT m.MemberID, m.FirstName, m.LastName, p.PaymentDate, p.AmountPayed, p.AmountOwed, p.PaymentMethod FROM Members m JOIN Payment p ON m.MemberID = p.MemberID ORDER BY m.MemberID;")
                 listbox.insert(tk.END, "MemberID, FirstName, LastName, Last Payment Date, AmountPayed, AmountOwed, PaymentMethod")

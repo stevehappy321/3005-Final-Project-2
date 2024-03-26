@@ -15,7 +15,7 @@ Trainer Functions:
 1. Room Booking Management
 2. Equipment Maintenance Monitoring
 3. Class Schedule Updating
-4. Billing and Payment Processing (Your system should assume integration with a payment service
+4. Billing and Payment Processing 
 
 ~~Login Screen~~
 
@@ -27,3 +27,6 @@ SQL Functions
 5. UpdateSomething() - Update (passed in)
 6. StrictSelect() - (Passed in) *For cases where we have 1-1 search*
 
+
+**BUGS**
+1. In Admin you can keep adding, add buttons
