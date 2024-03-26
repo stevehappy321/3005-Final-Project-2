@@ -363,8 +363,6 @@ def AdminPortal():
             button8.pack()
         
 
-                
-
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=30)
@@ -383,10 +381,10 @@ def AdminPortal():
         button4.pack_forget()
         button5.pack(side=tk.LEFT, padx=10)
 
-
-
     def button4_click():
         print("button4")
+
+    
     
     def returnButton():
         button1.pack(side=tk.LEFT, padx=10)
