@@ -27,11 +27,7 @@ def AdminPortal():
         for item in equip:
             listbox.insert(tk.END, str(item))
 
-        button1.pack_forget()
-        button2.pack_forget()
-        button3.pack_forget()
-        button4.pack_forget()
-        button5.pack(side=tk.LEFT, padx=10)
+        forgetButtons()
 
         def filter():
             global x
@@ -160,11 +156,7 @@ def AdminPortal():
         for item in equip:
             listbox.insert(tk.END, str(item))
         
-        button1.pack_forget()
-        button2.pack_forget()
-        button3.pack_forget()
-        button4.pack_forget()
-        button5.pack(side=tk.LEFT, padx=10)
+        forgetButtons()
 
     def button3_click():
         global frame
@@ -296,11 +288,7 @@ def AdminPortal():
         button777 = tk.Button(button_frame1, text="Update Selected", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
 
-        button1.pack_forget()
-        button2.pack_forget()
-        button3.pack_forget()
-        button4.pack_forget()
-        button5.pack(side=tk.LEFT, padx=10)
+        forgetButtons()
 
     def button4_click():
         global frame
@@ -351,11 +339,7 @@ def AdminPortal():
         button6 = tk.Button(button_frame1, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         button6.pack()
 
-        button1.pack_forget()
-        button2.pack_forget()
-        button3.pack_forget()
-        button4.pack_forget()
-        button5.pack(side=tk.LEFT, padx=10)
+        forgetButtons()
     
     
     def returnButton():
@@ -366,6 +350,13 @@ def AdminPortal():
         button5.pack_forget()
         frame.destroy()
         button_frame1.destroy()
+
+    def forgetButtons():
+        button1.pack_forget()
+        button2.pack_forget()
+        button3.pack_forget()
+        button4.pack_forget()
+        button5.pack(side=tk.LEFT, padx=10)
 
     # Create the main window
     root = tk.Tk()
