@@ -6,11 +6,11 @@ from tkinter import messagebox
 root = None
 x=[]
 def Initialize(submit_callback):
-    def button1_click():
+    def memberLogin_click():
         enable_login()
         messagebox.showinfo("Member Login", "You are now logging in as a Member")
         root.title("Member Login")
-        button4.pack()
+        switchLoginButton.pack()
     
     def submit_click():
         # Retrieve the input from the text box
@@ -19,17 +19,17 @@ def Initialize(submit_callback):
         submit_callback(user_input)
             
 
-    def button2_click():
+    def trainerLogin_click():
         enable_login()
         messagebox.showinfo("Trainer Login", "You are now logging in as a Trainer")
         root.title("Trainer Login")
-        button4.pack()
+        switchLoginButton.pack()
 
-    def button3_click():
+    def adminLogin_click():
         enable_login()
         messagebox.showinfo("Admin Login", "You are now logging in as a Admin")
         root.title("Admin Login")
-        button4.pack()
+        switchLoginButton.pack()
 
     def Switch_login():
         login_label.pack_forget()
@@ -39,7 +39,7 @@ def Initialize(submit_callback):
         button_frame = tk.Frame(root)
         button_frame.pack(pady=20)
         packButtons()
-        button4.pack_forget()
+        switchLoginButton.pack_forget()
     
     def enable_login():
         login_label.pack()
@@ -70,13 +70,29 @@ def Initialize(submit_callback):
     button_frame = tk.Frame(root)
     button_frame.pack(pady=20)
 
-    button1 = tk.Button(button_frame, text="Member Login", command=button1_click, height=2, width=12, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(button_frame, text="Trainer Login", command=button2_click, height=2, width=12, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(button_frame, text="Admin Login", command=button3_click, height=2, width=12, font=('Helvetica', '16'), bg='#9389E5')
-    button4 = tk.Button(button_frame, text="Switch Login", command=Switch_login, height=2, width=12, font=('Helvetica', '16'), bg='#7A2727')
+    memberLoginButton = tk.Button(
+        button_frame, 
+        text="Member Login", 
+        command=memberLogin_click, 
+        height=2, width=12, font=('Helvetica', '16'), bg='#89BAE5')
+    trainerLoginButton = tk.Button(
+        button_frame, 
+        text="Trainer Login", 
+        command=trainerLogin_click, 
+        height=2, width=12, font=('Helvetica', '16'), bg='#E59989')
+    adminLoginButton = tk.Button(
+        button_frame, 
+        text="Admin Login", 
+        command=adminLogin_click, 
+        height=2, width=12, font=('Helvetica', '16'), bg='#9389E5')
+    switchLoginButton = tk.Button(
+        button_frame, 
+        text="Switch Login", 
+        command=Switch_login, 
+        height=2, width=12, font=('Helvetica', '16'), bg='#7A2727')
 
     global x
-    x = [button1, button2, button3]
+    x = [memberLoginButton, trainerLoginButton, adminLoginButton]
 
     packButtons()
 

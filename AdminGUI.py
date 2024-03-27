@@ -38,7 +38,10 @@ def AdminPortal():
             if(x == 0):
                 button6.config(foreground='white', background='#9389E5')   
                 listbox.delete(0, tk.END)
-                equip = SQL.getAllSomething("Rooms r WHERE NOT EXISTS (SELECT * FROM PrivateSession ps WHERE ps.RoomID = r.RoomID) AND NOT EXISTS (SELECT * FROM FitnessClass fc WHERE fc.RoomID = r.RoomID);")
+                equip = SQL.getAllSomething(
+                    "Rooms r WHERE NOT EXISTS (SELECT * FROM PrivateSession ps WHERE ps.RoomID = r.RoomID) AND "
+                    "NOT EXISTS (SELECT * FROM FitnessClass fc WHERE fc.RoomID = r.RoomID);")
+                print(equip)
                 listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
                 for item in equip:
                     listbox.insert(tk.END, str(item))
@@ -52,6 +55,7 @@ def AdminPortal():
                 equip = SQL.getAllSomething("Rooms")
                 listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
                 # Insert items into the Listbox
+                print(equip)
                 for item in equip:
                     listbox.insert(tk.END, str(item))
         def addNew():
