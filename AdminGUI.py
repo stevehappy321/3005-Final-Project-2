@@ -7,7 +7,7 @@ root = None
 curFrame = None
 button_frame1 = None
 x=0
-
+addCounter = False
 def AdminPortal():
     print("Admin Portal")
     
@@ -55,6 +55,9 @@ def AdminPortal():
                 for item in equip:
                     listbox.insert(tk.END, str(item))
         def addNew():
+            global addCounter
+            if addCounter == True:
+                return
             button7.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter Room Details (Seperate by commas and spaces *no brackets*)", font=('Helvetica', '14'))
             login_label.pack()
@@ -66,6 +69,7 @@ def AdminPortal():
                 reset()
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
+            addCounter = True
 
         def delete():
             index = listbox.curselection()
@@ -114,6 +118,9 @@ def AdminPortal():
                 for item in equip:
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
         def addNew():
+            global addCounter
+            if addCounter == True:
+                return
             button7.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter First and Last Name", font=('Helvetica', '14'))
             login_label.pack()
@@ -125,6 +132,7 @@ def AdminPortal():
                 reset()
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
+            addCounter = True
 
         def delete():
             index = listbox.curselection()
@@ -209,6 +217,9 @@ def AdminPortal():
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
 
         def addNew():
+            global addCounter
+            if addCounter == True:
+                return
             button7.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter Fitness Class Details", font=('Helvetica', '14'))
             login_label.pack()
@@ -225,6 +236,7 @@ def AdminPortal():
                 login_entry.delete(0, tk.END)
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
+            addCounter = True
 
         def delete():
             index = listbox.curselection()
@@ -373,8 +385,9 @@ def AdminPortal():
         button5.pack_forget()
         frame.destroy()
         button_frame1.destroy()
-        global x
+        global x, addCounter
         x=0
+        addCounter = False
 
     def forgetButtons():
         button1.pack_forget()
