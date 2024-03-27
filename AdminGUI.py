@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 import SQL
 
 #Ryan
@@ -12,6 +11,11 @@ x=0
 def AdminPortal():
     print("Admin Portal")
     
+    ############################
+    ###### BEGIN BUTTON 1 ###### 
+    ############################
+
+
     def button1_click():
         global frame
 
@@ -81,6 +85,9 @@ def AdminPortal():
         button77.pack(side=tk.LEFT, padx=10)
       
    
+    ############################
+    ###### BEGIN BUTTON 2 ###### 
+    ############################
 
     def button2_click():
         global frame
@@ -157,6 +164,12 @@ def AdminPortal():
             listbox.insert(tk.END, str(item))
         
         forgetButtons()
+
+
+    ############################
+    ###### BEGIN BUTTON 3 ###### 
+    ############################
+
 
     def button3_click():
         global frame
@@ -290,6 +303,12 @@ def AdminPortal():
 
         forgetButtons()
 
+
+    ############################
+    ###### BEGIN BUTTON 4 ###### 
+    ############################
+
+
     def button4_click():
         global frame
 
@@ -342,6 +361,10 @@ def AdminPortal():
         forgetButtons()
     
     
+    ############################
+    ##### MAIN WINDOW PANE ##### 
+    ############################
+
     def returnButton():
         button1.pack(side=tk.LEFT, padx=10)
         button2.pack(side=tk.LEFT, padx=10)
