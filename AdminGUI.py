@@ -373,6 +373,8 @@ def AdminPortal():
         button5.pack_forget()
         frame.destroy()
         button_frame1.destroy()
+        global x
+        x=0
 
     def forgetButtons():
         button1.pack_forget()
