@@ -33,4 +33,4 @@ None Currently Listed
 
 
 **Bug Graveyard**
-~~1. In Admin you can keep adding, add buttons~~
+1. ~~In Admin you can keep adding, add buttons~~
