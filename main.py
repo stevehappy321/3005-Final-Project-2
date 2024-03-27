@@ -23,9 +23,9 @@ def user_input_received(user_input):
 
 if __name__ == "__main__":
     #InitializeGUI.Initialize(user_input_received)
-    AdminGUI.AdminPortal()
-    #AdminGUI.test()
-    print("The AdminGUI has been closed.")
+    #AdminGUI.AdminPortal()
+    #MemberGUI.MemberPortal()
+    #TrainerGUI.TrainerPortal()
     if user_input_global is not None:
         print("User input was:", user_input_global)
     else:
