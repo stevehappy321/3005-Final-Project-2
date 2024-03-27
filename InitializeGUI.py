@@ -4,9 +4,7 @@ from tkinter import messagebox
 #Ryan
 
 root = None
-curFrame = None
-button_frame1 = None
-x=0
+x=[]
 def Initialize(submit_callback):
     def button1_click():
         enable_login()
@@ -40,18 +38,14 @@ def Initialize(submit_callback):
         root.title("Health Login")
         button_frame = tk.Frame(root)
         button_frame.pack(pady=20)
-        button1.pack(side=tk.LEFT, padx=10)
-        button2.pack(side=tk.LEFT, padx=10)
-        button3.pack(side=tk.LEFT, padx=10)
+        packButtons()
         button4.pack_forget()
     
     def enable_login():
         login_label.pack()
         login_entry.pack()
         submit_button.pack()
-        button1.pack_forget()
-        button2.pack_forget()
-        button3.pack_forget()
+        forgetButtons()
     
     global root
     root = tk.Tk()
@@ -81,11 +75,20 @@ def Initialize(submit_callback):
     button3 = tk.Button(button_frame, text="Admin Login", command=button3_click, height=2, width=12, font=('Helvetica', '16'), bg='#9389E5')
     button4 = tk.Button(button_frame, text="Switch Login", command=Switch_login, height=2, width=12, font=('Helvetica', '16'), bg='#7A2727')
 
-    button1.pack(side=tk.LEFT, padx=10)
-    button2.pack(side=tk.LEFT, padx=10)
-    button3.pack(side=tk.LEFT, padx=10)
+    global x
+    x = [button1, button2, button3]
+
+    packButtons()
 
     root.mainloop()
+
+def forgetButtons():
+    for item in x:
+        item.pack_forget()
+
+def packButtons():
+    for item in x:
+        item.pack(side=tk.LEFT, padx=10)
 
 def close_gui():
         global root
