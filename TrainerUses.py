@@ -2,9 +2,13 @@ import SQL
 import Utility
 import datetime
 
-def setTrainerHours(startTime, endTime):
-    x = x
-    SQL.UpdateSomething()
+def setTrainerHours(trainerID, startTime, endTime):
+    SQL.UpdateSomething(
+        f"""
+            TRAINERS
+            SET startTime = {startTime}, endTime = {endTime}
+            WHERE trainerID = {trainerID}
+        """)
 
 def getTrainerAvailability(date, trainerID):
     trainerHours = SQL.StrictSelect( #trainer's working hours
