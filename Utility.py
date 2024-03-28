@@ -1,6 +1,6 @@
 def tupleToDict(tuple, keys):
     #tuple = (1,2,3)
-    #keys = ('a', 'b', 'c')
+    #keys = ['a', 'b', 'c']
     #half result = [ ('a', 1), ('b', 2), ('c', 3) ]
 
     tuplesList = []
