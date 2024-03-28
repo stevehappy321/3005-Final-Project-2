@@ -29,7 +29,7 @@ SQL Functions
 
 
 **BUGS**
-None Currently Listed
+1. In Update you can continuously add fields, implement fix from BG#1
 
 
 **Bug Graveyard**
