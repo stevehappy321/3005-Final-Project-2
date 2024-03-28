@@ -246,6 +246,9 @@ def AdminPortal():
             reset()
 
         def update():
+            global addCounter
+            if addCounter == True:
+                return
             button777.config(foreground='white', background='#9389E5')
             login_label = tk.Label(frame, text="Enter Fitness Class Change", font=('Helvetica', '14'))
             login_label.pack()
@@ -299,6 +302,7 @@ def AdminPortal():
                 entries.append(entry)  
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
+            addCounter = True
         
 
         global button_frame1
