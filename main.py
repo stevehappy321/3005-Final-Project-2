@@ -2,7 +2,7 @@ import datetime
 import AdminGUI
 import InitializeGUI
 import SQL
-import TrainerUses
+import TrainerBackend
 
 #Ryan
 
@@ -23,7 +23,7 @@ def user_input_received(user_input):
             InitializeGUI.broadcast(False, "No User Found")
     
 
-TrainerUses.getTrainerAvailability(datetime.date(2024, 4, 15), 1)
+TrainerBackend.getTrainerAvailability(datetime.date(2024, 4, 15), 1)
 
 if __name__ == "__main__":
     InitializeGUI.Initialize(user_input_received)
