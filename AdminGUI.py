@@ -396,9 +396,6 @@ def AdminPortal():
         button5.pack_forget()
         frame.destroy()
         button_frame1.destroy()
-        global x, addCounter
-        x=0
-        addCounter = False
 
     def forgetButtons():
         button1.pack_forget()
