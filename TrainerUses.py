@@ -1,20 +1,17 @@
-"""
-def getAllSomething(e):
-    conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
-    with conn.cursor() as cur:
-        cur.execute("SELECT * FROM {}".format(e))
-        records = cur.fetchall()
-        return records
-"""
 import SQL
 
-def setAvailability():
-    #get all the classes and private sessions that the trainer leads
-    #trainer is available during other times
-    trainerClasses = SQL.getAllSomething(
-        ""
-    )
+def setAvailability(trainerID):
+    unavailableTimes = SQL.StrictSelect( #this returns a list of dates and times where this trainer is busy
+        f"""
+        SELECT classDate AS date, sessionTime AS time FROM FitnessClass
+        WHERE trainerID = {trainerID}
 
+        UNION
+
+        SELECT sessionDate AS date, sessionTime AS time FROM PrivateSession
+        WHERE trainerID = {trainerID}
+        """
+    )
 
 def searchMemberByName(name):
     givenNamesList = name.split(' '); #split name by space
@@ -22,9 +19,12 @@ def searchMemberByName(name):
 
     if len(givenNamesList) == 1:
          members = SQL.StrictSelect(
-            "SELECT * FROM Members WHERE "
-            "FirstName LIKE {name} OR "
-            "LastName LIKE {name}"
+            f"""
+            SELECT * FROM Members WHERE 
+            FirstName LIKE {name} OR 
+            LastName LIKE {name}
+            """
+            
         )
 
     elif len(givenNamesList) > 1:
@@ -32,9 +32,11 @@ def searchMemberByName(name):
         lastName = givenNamesList[len(givenNamesList) - 1]
 
         members = SQL.StrictSelect(
-            "SELECT * FROM Members WHERE "
-            "FirstName LIKE {firstName} OR "
-            "LastName LIKE {lastName}"
+            f"""
+            SELECT * FROM Members WHERE 
+            FirstName LIKE {firstName} OR 
+            LastName LIKE {lastName}
+            """
         )
 
     return members;
