@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS FitnessClass (
     TrainerID INT,
     RoomID INT,
     ClassDate DATE NOT NULL,
-	SessionTime varChar(25) NOT NULL,
+	SessionTime TIME NOT NULL,
 	Cost VARCHAR(10),
     FOREIGN KEY (TrainerID) REFERENCES Trainers (TrainerID),
     FOREIGN KEY (RoomID) REFERENCES Rooms (RoomID)
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS PrivateSession (
     MemberID INT NOT NULL,
     RoomID INT,
     SessionDate DATE NOT NULL,
-	SessionTime varChar(25) NOT NULL,
+	SessionTime TIME NOT NULL,
 	Cost VARCHAR(10),
     FOREIGN KEY (TrainerID) REFERENCES Trainers (TrainerID),
     FOREIGN KEY (MemberID) REFERENCES Members (MemberID),
@@ -127,12 +127,12 @@ INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES
 ('Weight set 1', 'Weights', '2023-01-15', 'Old', 2);
 
 INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, Cost) VALUES 
-('Morning Yoga', 1, 1, '2024-04-15', '10:00', '10$'),
-('Lifting Class', 2, 2, '2024-04-15', '12:00', '12$');
+('Morning Yoga', 1, 1, '2024-04-15', '10:00:00', '10$'),
+('Lifting Class', 2, 2, '2024-04-15', '12:00:00', '12$');
 
 INSERT INTO PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, Cost) VALUES 
-(1, 1, 1, '2024-04-16', '10:00', '50$'),
-(2, 2, 2, '2024-04-15', '2:00', '100$');
+(1, 1, 1, '2024-04-16', '10:00:00', '50$'),
+(2, 2, 2, '2024-04-15', '02:00:00', '100$');
 
 INSERT INTO ClassMembers (ClassID, MemberID) VALUES 
 (1, 1),
