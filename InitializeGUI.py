@@ -134,7 +134,7 @@ def Initialize(submit_callback):
     button2 = tk.Button(button_frame, text="Trainer Login", command=button2_click, height=2, width=12, font=('Helvetica', '16'), bg='#E59989')
     button3 = tk.Button(button_frame, text="Admin Login", command=button3_click, height=2, width=12, font=('Helvetica', '16'), bg='#9389E5')
     button4 = tk.Button(button_frame, text="Switch Login", command=Switch_login, height=2, width=12, font=('Helvetica', '16'), bg='#7A2727')
-    button5 = tk.Button(button_frame, text="User Registration", command=button4_click, height=2, width=14, font=('Helvetica', '16'), bg='#E2EC70')
+    button5 = tk.Button(button_frame, text="Member Registration", command=button4_click, height=2, width=18, font=('Helvetica', '16'), bg='#E2EC70')
 
     global x
     x = [button1, button2, button3, button5]
