@@ -173,7 +173,7 @@ def AdminPortal():
         listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
         # Insert items into the Listbox
         for item in equip:
-            listbox.insert(tk.END, str(item))
+            listbox.insert(tk.END, str(item).replace("datetime.date", ""))
         
         forgetButtons()
 
@@ -193,20 +193,25 @@ def AdminPortal():
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         equip = SQL.getAllSomething("FitnessClass")
-        listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
+        listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime(24h), Cost")
         # Insert items into the Listbox
         for item in equip:
-            listbox.insert(tk.END, str(item).replace("datetime.date", ""))
+            newItem = str(item).replace("datetime.date", "")
+            newItem = str(newItem).replace("datetime.time", "")
+            listbox.insert(tk.END, newItem)
 
         def filter():
             global x
             if(x == 0):
                 button6.config(foreground='white', background='#9389E5')   
                 listbox.delete(0, tk.END)
-                equip = SQL.getAllSomething("FitnessClass ORDER BY ClassDate ASC;")
-                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
+                equip = SQL.getAllSomething("FitnessClass ORDER BY (ClassDate + SessionTIME) ASC;")
+                #print(equip)
+                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime(24h), Cost")
                 for item in equip:
-                    listbox.insert(tk.END, str(item).replace("datetime.date", ""))
+                    newItem = str(item).replace("datetime.date", "")
+                    newItem = str(newItem).replace("datetime.time", "")
+                    listbox.insert(tk.END, str(newItem))
                 x=x+1
             else:
                 reset()
@@ -215,10 +220,12 @@ def AdminPortal():
                 button6.config(foreground='Black', background='#7A2727')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass")
-                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime, Cost")
+                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime(24h), Cost")
                 # Insert items into the Listbox
                 for item in equip:
-                    listbox.insert(tk.END, str(item).replace("datetime.date", ""))
+                    newItem = str(item).replace("datetime.date", "")
+                    newItem = str(newItem).replace("datetime.time", "")
+                    listbox.insert(tk.END, newItem)
 
         def addNew():
             global addCounter
