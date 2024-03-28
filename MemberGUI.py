@@ -4,6 +4,7 @@ import SQL
 testValue = 'Ryan Mastin'
 testValue2 = 'Ryan Mastin'.split(" ")
 frame = None
+globalBool = True
 def MemberPortal(e):
     e = testValue
 
@@ -40,11 +41,39 @@ def MemberPortal(e):
                     listbox.insert(tk.END, info2[i-2] + equip[i])
                 else:
                     listbox.insert(tk.END, info2[i] + equip[i])
+
+
+        insertString = f"""
+                        SELECT 
+                            f.DistanceRunningGoal, 
+                            f.FastestLapGoal, 
+                            f.BenchPressGoal, 
+                            f.SquatGoal, 
+                            f.SwimmingDistanceGoal, 
+                            f.CurrentRunDistance, 
+                            f.CurrentFastestLap, 
+                            f.CurrentBenchPress, 
+                            f.CurrentSquat, 
+                            f.CurrentSwimDistance
+                        FROM 
+                            Members m
+                        JOIN 
+                            FitnessStuffs f ON m.MemberID = f.MemberID
+                        WHERE 
+                            m.FirstName = '&' AND m.LastName = '*';
+                        """.replace('&', testValue2[0]).replace('*', testValue2[1])
         
-        
-        
-        
-        
+        info2 = ["RunDistanceGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
+        equip = SQL.StrictSelect(insertString)
+        equip = str(equip)
+        cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        # Insert items into the Listbox
+        print(cleaned_string)
+        equip = cleaned_string.split(", ")
+        for i in range(len(equip)):
+            if(i ==5):
+               listbox2.insert(tk.END, "-------------------------------------------------------") 
+            listbox2.insert(tk.END, info2[i] + equip[i])
         
         def on_select(event):
             current_selection = event.widget.curselection()
@@ -62,9 +91,26 @@ def MemberPortal(e):
             else:
                 # No item is selected; this block can be useful for additional logic if needed
                 pass
+        
+        def on_select2(event):
+            current_selection = event.widget.curselection()
+            if current_selection:  # Check if there's any selection
+                current_index = current_selection[0]
+                if current_index == 0 or current_index == 6:  # If the first item is selected
+                    # Revert to the previous selection (or clear selection if no previous)
+                    listbox.selection_clear(0, tk.END)
+                    listbox2.selection_clear(0, tk.END)
+                    listbox3.selection_clear(0, tk.END)
+                    for index in previous_selection:
+                        listbox.selection_set(index)
+                        listbox2.selection_set(index)
+                        listbox3.selection_set(index)
+            else:
+                # No item is selected; this block can be useful for additional logic if needed
+                pass
 
         listbox.bind('<<ListboxSelect>>', on_select)
-        listbox2.bind('<<ListboxSelect>>', on_select)
+        listbox2.bind('<<ListboxSelect>>', on_select2)
         listbox3.bind('<<ListboxSelect>>', on_select)  
     
     # Update the previous selection
