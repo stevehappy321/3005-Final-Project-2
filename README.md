@@ -1,7 +1,7 @@
 
 Functions to Implement:
 Member Functions:
-1. User Registration
+1. ~~User Registration~~
 2. Profile Management (Updating personal information, fitness goals, health metrics)
 3. Dashboard Display (Displaying exercise routines, fitness achievements, health statistics)
 4. Schedule Management (Scheduling personal training sessions or group fitness classes. The system
@@ -29,7 +29,7 @@ SQL Functions
 
 
 **BUGS**
-None Currently Listed
+1. In Update you can continuously add fields, implement fix from BG#1
 
 
 **Bug Graveyard**

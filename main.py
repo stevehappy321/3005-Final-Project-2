@@ -21,8 +21,7 @@ def user_input_received(user_input):
             InitializeGUI.broadcast(False, "No User Found")
     
 
-if __name__ == "__main__": #starts program with main.py
-    
+if __name__ == "__main__":
     InitializeGUI.Initialize(user_input_received)
     #AdminGUI.AdminPortal()
     #MemberGUI.MemberPortal()
@@ -31,4 +30,3 @@ if __name__ == "__main__": #starts program with main.py
         print("User input was:", user_input_global)
     else:
         print("No user input was received before the AdminGUI was closed.")
-    
