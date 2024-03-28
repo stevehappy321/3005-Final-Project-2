@@ -22,7 +22,7 @@ def user_input_received(user_input):
     
 
 if __name__ == "__main__":
-    #InitializeGUI.Initialize(user_input_received)
+    InitializeGUI.Initialize(user_input_received)
     #AdminGUI.AdminPortal()
     #MemberGUI.MemberPortal()
     #TrainerGUI.TrainerPortal()
