@@ -1,6 +1,7 @@
 import AdminGUI
 import InitializeGUI
 import SQL
+import TrainerUses
 
 #Ryan
 
@@ -20,6 +21,8 @@ def user_input_received(user_input):
         else:
             InitializeGUI.broadcast(False, "No User Found")
     
+
+TrainerUses.getTrainerAvailability(1)
 
 if __name__ == "__main__":
     InitializeGUI.Initialize(user_input_received)
