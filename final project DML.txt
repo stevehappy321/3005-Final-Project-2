@@ -50,8 +50,10 @@ CREATE TABLE IF NOT EXISTS Trainers (
     LastName varchar(150)  NOT NULL,
     Address TEXT,
     City varchar(50),
-	PhoneNumber varchar(150),
-	Email Text UNIQUE NOT NULL
+    PhoneNumber varchar(150),
+    Email Text UNIQUE NOT NULL,
+    StartTime TIME,
+    EndTime TIME
 );
 
 CREATE TABLE IF NOT EXISTS Rooms (
@@ -112,9 +114,9 @@ INSERT INTO Members (FirstName, LastName, Address, City, PhoneNumber, Email) VAL
 ('Jane', 'Doe', '123 Maple Street', 'Springfield', '555-6789', 'jane.doe@example.com'),
 ('Ryan', 'Mastin', '323 Mallard Avenue', 'Burlington', '905-555-6789', 'rmastin@gmail.com');
 
-INSERT INTO Trainers (FirstName, LastName, Address, City, PhoneNumber, Email) VALUES 
-('John', 'Smith', '456 Oak Road', 'Springfield','555-1234', 'john.smith@example.com'),
-('TrainerTwo', 'Two', '456 Oak Road', 'Springfield','905-444-4321', 'TrainerTwo@gym.com');
+INSERT INTO Trainers (FirstName, LastName, Address, City, PhoneNumber, Email, StartTime, EndTime) VALUES 
+('John', 'Smith', '456 Oak Road', 'Springfield','555-1234', 'john.smith@example.com', '09:00:00', '16:00:00'),
+('TrainerTwo', 'Two', '456 Oak Road', 'Springfield','905-444-4321', 'TrainerTwo@gym.com', '08:00:00', '18:00:00');
 
 INSERT INTO Rooms (Name, Capacity, Type) VALUES 
 ('Yoga Studio', 20, 'Yoga'),
