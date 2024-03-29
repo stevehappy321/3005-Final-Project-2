@@ -1,6 +1,5 @@
 import SQL
 import Utility
-import datetime
 
 def setTrainerHours(trainerID, startTime, endTime):
     SQL.UpdateSomething(
