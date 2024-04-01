@@ -127,7 +127,7 @@ def MemberPortal(e):
             else:
                 # No item is selected; this block can be useful for additional logic if needed
                 pass
-        
+        #
         def on_select2(event):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
