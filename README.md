@@ -29,8 +29,9 @@ SQL Functions
 
 
 **BUGS**
-1. In Update you can continuously add fields, implement fix from BG#1
+2. QUERIES MUST BE REVIEWED REGARDING TRAINERS FITNESS SESH AND PRIVATE SESH
 
 
 **Bug Graveyard**
 1. ~~In Admin you can keep adding, add buttons~~
+2. ~~In Update you can continuously add fields, implement fix from BG#1~~
