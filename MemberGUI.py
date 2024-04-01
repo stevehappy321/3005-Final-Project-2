@@ -8,7 +8,7 @@ globalBool = True
 def MemberPortal(e):
     e = testValue
 
-    def button1_click():
+    def button2_click():
         forgetButtons()
         global frame
         frame = tk.Frame(root)
@@ -72,9 +72,45 @@ def MemberPortal(e):
         equip = cleaned_string.split(", ")
         for i in range(len(equip)):
             if(i ==5):
-               listbox2.insert(tk.END, "-------------------------------------------------------") 
+               listbox2.insert(tk.END, "______________________________________") 
             listbox2.insert(tk.END, info2[i] + equip[i])
         
+        insertString = f"""
+                        SELECT  
+                            h.MeasurementDate, 
+                            h.Weight, 
+                            h.BloodPressure, 
+                            h.HeartRate,
+                            h.WeightGoal, 
+                            h.HeartRateGoal
+                        FROM 
+                            Members m
+                        JOIN 
+                            HealthStuffs h ON m.MemberID = h.MemberID
+                        WHERE 
+                            m.FirstName = '&' AND m.LastName = '*';
+                        """.replace('&', testValue2[0]).replace('*', testValue2[1])
+        
+        equip = SQL.StrictSelect(insertString)
+        equip = str(equip)
+        cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        # Insert items into the Listbox
+        print(cleaned_string)
+        equip21 = cleaned_string.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
+        equip = equip21.split(", ")
+        info2 = ["Last Measurement Date: ", "Weight: ", "Blood Pressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: "]
+        for i in range(len(equip)):
+            #print(str(i) +": " + equip[i])
+            if(i == 0 or i==1 or i==2 or i==6):
+                #print(equip[i])
+                if(i ==2):
+                    listbox3.insert(tk.END, info2[0] + " " + equip[0] + " " + equip[1] + " " + equip[2])
+                if(i ==6):
+                    listbox3.insert(tk.END, "_____________________________________")
+                    listbox3.insert(tk.END, info2[i-2] + " " + equip[i])
+                continue
+            listbox3.insert(tk.END, info2[i-2] + " " + equip[i])
+
         def on_select(event):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
@@ -96,7 +132,24 @@ def MemberPortal(e):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
                 current_index = current_selection[0]
-                if current_index == 0 or current_index == 6:  # If the first item is selected
+                if current_index == 0 or current_index == 6:  # If the first item or 6th
+                    # Revert to the previous selection (or clear selection if no previous)
+                    listbox.selection_clear(0, tk.END)
+                    listbox2.selection_clear(0, tk.END)
+                    listbox3.selection_clear(0, tk.END)
+                    for index in previous_selection:
+                        listbox.selection_set(index)
+                        listbox2.selection_set(index)
+                        listbox3.selection_set(index)
+            else:
+                # No item is selected; this block can be useful for additional logic if needed
+                pass
+
+        def on_select3(event):
+            current_selection = event.widget.curselection()
+            if current_selection:  # Check if there's any selection
+                current_index = current_selection[0]
+                if current_index == 0 or current_index == 5:  # If the first item or 6th
                     # Revert to the previous selection (or clear selection if no previous)
                     listbox.selection_clear(0, tk.END)
                     listbox2.selection_clear(0, tk.END)
@@ -111,7 +164,7 @@ def MemberPortal(e):
 
         listbox.bind('<<ListboxSelect>>', on_select)
         listbox2.bind('<<ListboxSelect>>', on_select2)
-        listbox3.bind('<<ListboxSelect>>', on_select)  
+        listbox3.bind('<<ListboxSelect>>', on_select3)  
     
     # Update the previous selection
         global previous_selection
@@ -140,8 +193,8 @@ def MemberPortal(e):
 
     button_frame = tk.Frame(root)
     button_frame.pack(side=tk.BOTTOM, pady=20)
-    button1 = tk.Button(button_frame, text="Profile Management", command=button1_click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(button_frame, text="Dashboard Display", command=quit, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
+    button1 = tk.Button(button_frame, text="Profile Management", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
+    button2 = tk.Button(button_frame, text="Dashboard Display", command=button2_click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
     button3 = tk.Button(button_frame, text="Schedule Management", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
     button5 = tk.Button(button_frame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
 
