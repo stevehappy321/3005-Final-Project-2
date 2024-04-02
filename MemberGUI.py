@@ -1,8 +1,8 @@
 import tkinter as tk
 import SQL
 
-testValue = 'Ryan Mastin'
-testValue2 = 'Ryan Mastin'.split(" ")
+testValue = 'Jane Doe'
+testValue2 = testValue.split(" ")
 frame = None
 globalBool = True
 updateCounter = False
@@ -125,11 +125,18 @@ def MemberPortal(e):
         button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
 
+
+
+
+
+
+
+
     def button2_click():
         forgetButtons()
         global frame
         frame = tk.Frame(root)
-        frame.pack(padx=40, pady=40, fill=tk.BOTH, expand=True)
+        frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
         listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
         listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         listbox3 = tk.Listbox(frame, font=('Helvetica', '16'))
@@ -137,6 +144,27 @@ def MemberPortal(e):
         listbox2.insert(tk.END, "                          Fitness Goals")
         listbox3.insert(tk.END, "                          Health Metrics")
 
+        def update():
+            global updateCounter
+            if updateCounter == True:
+                return
+            updateCounter = True
+            button777.config(foreground='white', background='#9389E5')
+            login_label = tk.Label(frame, text="Enter Personal Info Change", font=('Helvetica', '14'))
+            login_label.pack()
+            entries = []
+            #Creates the fields to check
+            info = {0:"MemberID", 1:"FirstName", 2:"LastName", 3:"Address", 4:"City", 5:"PhoneNumber", 6:"Email"}
+            info2 = ["MemberID", "FirstName", "LastName", "Address", "City", "PhoneNumber", "Email"]
+            
+            for i in range(7):
+                string = str(info.get(i))
+                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry.pack(pady=1)  
+                entry.insert(0, string)  
+                entries.append(entry)  
+            button8 = tk.Button(frame, text="Submit", command=quit, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+            button8.pack()
 
         insertString = f"""
                         SELECT 
@@ -167,7 +195,7 @@ def MemberPortal(e):
         equip = cleaned_string.split(", ")
         for i in range(len(equip)):
             if(i ==5):
-               listbox2.insert(tk.END, "______________________________________") 
+               listbox2.insert(tk.END, "________________________________________________________") 
             listbox2.insert(tk.END, info2[i] + equip[i])
         
         insertString = f"""
@@ -201,7 +229,7 @@ def MemberPortal(e):
                 if(i ==2):
                     listbox3.insert(tk.END, info2[0] + " " + equip[0] + " " + equip[1] + " " + equip[2])
                 if(i ==6):
-                    listbox3.insert(tk.END, "_____________________________________")
+                    listbox3.insert(tk.END, "_______________________________________________________")
                     listbox3.insert(tk.END, info2[i-2] + " " + equip[i])
                 continue
             listbox3.insert(tk.END, info2[i-2] + " " + equip[i])
@@ -242,6 +270,11 @@ def MemberPortal(e):
     # Update the previous selection
         global previous_selection
         previous_selection = listbox2.curselection()
+        global button_frame1
+        button_frame1 = tk.Frame(root)
+        button_frame1.pack(side=tk.BOTTOM, pady=0)
+        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777.pack(side=tk.LEFT, padx=10)
 
     # Create the main window
     root = tk.Tk()
