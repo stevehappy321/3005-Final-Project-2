@@ -9,7 +9,7 @@ def setTrainerHours(trainerID, startTime, endTime):
             WHERE trainerID = {trainerID}
         """)
 
-def getTrainerAvailability(date, trainerID):
+def getTrainerHours(trainerID):
     trainerHours = SQL.StrictSelect( #trainer's working hours
         f"""
         SELECT StartTime, EndTime FROM Trainers
@@ -19,7 +19,13 @@ def getTrainerAvailability(date, trainerID):
     startTime = trainerHours[0] #tuple index access - 0 = start time, 1 = end time
     endTime = trainerHours[1]
 
-    unavailableTimesRecords = SQL.StrictSelect( #list of date-time pairs where this trainer is busy
+    return Utility.tupleToDict( trainerHours, ["startTime", "endTime"] )
+
+def getTrainerAvailability(date, trainerID):
+    startTime = getTrainerHours(trainerID)["startTime"]
+    endTime = getTrainerHours(trainerID)["endTime"]
+
+    busyIntervalsRecords = SQL.StrictSelect( #list of date-time pairs where this trainer is busy
         f"""
         SELECT classDate AS date, sessionTime AS startTime, endTime FROM FitnessClass
         WHERE trainerID = {trainerID} AND classDate = '{date}'
@@ -28,11 +34,11 @@ def getTrainerAvailability(date, trainerID):
         WHERE trainerID = {trainerID} AND sessionDate = '{date}'
         """)
 
-    unavailableTimes = []
-    for tuple in unavailableTimesRecords:
-        unavailableTimes.append( Utility.tupleToDict(tuple, ["date", "startTime", "endTime"]) )
+    busyIntervals = []
+    for occupiedInterval in busyIntervalsRecords:
+        busyIntervals.append( Utility.tupleToDict(occupiedInterval, ["date", "startTime", "endTime"]) )
 
-    print( computeAvailability(startTime, endTime, unavailableTimes) );
+    print( computeAvailability(startTime, endTime, busyIntervals) );
 
 
 def computeAvailability(startTime, endTime, busyIntervals):

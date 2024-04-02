@@ -8,6 +8,7 @@ curFrame = None
 button_frame1 = None
 x=0
 addCounter = False
+
 def AdminPortal():
     print("Admin Portal")
     
