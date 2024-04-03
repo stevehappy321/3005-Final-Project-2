@@ -6,6 +6,7 @@ testValue2 = testValue.split(" ")
 frame = None
 globalBool = True
 updateCounter = False
+currentSelection = ""
 def MemberPortal(e):
     e = testValue
 
@@ -154,16 +155,46 @@ def MemberPortal(e):
             login_label.pack()
             entries = []
             #Creates the fields to check
-            info = {0:"MemberID", 1:"FirstName", 2:"LastName", 3:"Address", 4:"City", 5:"PhoneNumber", 6:"Email"}
-            info2 = ["MemberID", "FirstName", "LastName", "Address", "City", "PhoneNumber", "Email"]
-            
-            for i in range(7):
-                string = str(info.get(i))
+            def dingl():
+                global currentSelection
+                #print("Updating")
+                print(currentSelection)
+                currentSelection = currentSelection.split(" ")
+                dingle = []
+                for item in currentSelection:
+                    dingle.append(item.replace(" ", ""))
+
+                infoUpdate = [x.strip('') for x in dingle]
+                print(infoUpdate)
+                if(infoUpdate == ['']):
+                    print("returning")
+                    returnButton()
+                    button2_click()
+                    return
+                currentSelection = ''
+                memberNumber = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))[0]
+                memberNumber = str(memberNumber).replace(",)", "").replace("(", "")
+                query =''
+                if(infoUpdate[0] == 'LISTBOX2&'):
+                    print("Todo")
+                if(infoUpdate[0] == 'LISTBOX3&'):
+                    if(infoUpdate[1] == 'LastMeasurementDate:'):
+                        query+= 'HealthStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};'.format(int(memberNumber))
+                    elif(infoUpdate[1] == 'BloodPressure:'):
+                        query+= "HealthStuffs SET BloodPressure = '{}' Where MemberID = {};".format((entries[0].get()), int(memberNumber))
+                    else:
+                        query+= 'HealthStuffs SET {} = {} Where MemberID = {};'.format(str(infoUpdate[1]).strip(":"), entries[0].get(), int(memberNumber))
+                    SQL.UpdateSomething(query)
+                    returnButton()
+                    button2_click()
+
+            for i in range(1):
+                string = str("Enter Change Here")
                 entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
                 entry.pack(pady=1)  
                 entry.insert(0, string)  
                 entries.append(entry)  
-            button8 = tk.Button(frame, text="Submit", command=quit, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+            button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
             button8.pack()
 
         insertString = f"""
@@ -221,7 +252,7 @@ def MemberPortal(e):
         print(cleaned_string)
         equip21 = cleaned_string.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
         equip = equip21.split(", ")
-        info2 = ["Last Measurement Date: ", "Weight: ", "Blood Pressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: "]
+        info2 = ["LastMeasurementDate: ", "Weight: ", "BloodPressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: "]
         for i in range(len(equip)):
             #print(str(i) +": " + equip[i])
             if(i == 0 or i==1 or i==2 or i==6):
@@ -241,13 +272,13 @@ def MemberPortal(e):
                 if current_index == 0 or current_index == 6:  # If the first item or 6th
                     # Revert to the previous selection (or clear selection if no previous)
                     listbox2.selection_clear(0, tk.END)
-                    listbox3.selection_clear(0, tk.END)
                     for index in previous_selection:
-                        listbox2.selection_set(index)
-                        listbox3.selection_set(index)
-            else:
-                # No item is selected; this block can be useful for additional logic if needed
-                pass
+                        listbox2.selection_set(index)  
+                else:
+                    global currentSelection
+                    currentSelection += "LISTBOX2& "
+                    currentSelection += listbox3.get(current_index)
+                    #print(currentSelection)
 
         def on_select3(event):
             current_selection = event.widget.curselection()
@@ -255,14 +286,15 @@ def MemberPortal(e):
                 current_index = current_selection[0]
                 if current_index == 0 or current_index == 5:  # If the first item or 6th
                     # Revert to the previous selection (or clear selection if no previous
-                    listbox2.selection_clear(0, tk.END)
                     listbox3.selection_clear(0, tk.END)
                     for index in previous_selection:
-                        listbox2.selection_set(index)
                         listbox3.selection_set(index)
-            else:
-                # No item is selected; this block can be useful for additional logic if needed
-                pass
+                else:
+                    global currentSelection
+                    currentSelection += "LISTBOX3& "
+                    currentSelection += listbox3.get(current_index)
+                    #print(currentSelection)
+                
 
         listbox2.bind('<<ListboxSelect>>', on_select2)
         listbox3.bind('<<ListboxSelect>>', on_select3)  
