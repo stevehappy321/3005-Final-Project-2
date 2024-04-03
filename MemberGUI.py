@@ -1,7 +1,7 @@
 import tkinter as tk
 import SQL
 
-testValue = 'Jane Doe'
+testValue = 'Jane Dingle'
 testValue2 = testValue.split(" ")
 frame = None
 globalBool = True
@@ -92,6 +92,12 @@ def MemberPortal(e):
                 x=False
                 query =''
                 #for each element that was changed, create the query
+                if(newClass[0] == 'MemberID'):
+                    newClass.pop(0)
+                    newClass.pop(0)
+                    if (len(newClass) == 0 ):
+                        reset()
+                        return
                 for i in newClass:
                     if(i in info2 or x == True):
                         if(x==True):
@@ -103,7 +109,7 @@ def MemberPortal(e):
                             query += i
                             query += " = "
                             x=True
-
+                print(newClass)
                 query += ' WHERE MemberID = {};'.format(MemberID)
                 SQL.UpdateSomething("Members SET {}".format(query[::-1].replace(',', '', 1)[::-1]))
                 print(query)
