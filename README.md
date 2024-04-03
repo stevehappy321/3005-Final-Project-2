@@ -2,8 +2,8 @@
 Functions to Implement:
 Member Functions:
 1. ~~User Registration~~
-2. Profile Management (Updating personal information, fitness goals, health metrics)
-3. Dashboard Display (Displaying exercise routines, fitness achievements, health statistics)
+2. ~~Profile Management ~~(Updating personal information)~~, (fitness goals, health metrics)
+3. ~~Dashboard Display~~ (Displaying exercise routines),  ~~(fitness achievements, health statistics)~~
 4. Schedule Management (Scheduling personal training sessions or group fitness classes. The system
 must ensure that the trainer is available)
 
