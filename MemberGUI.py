@@ -176,7 +176,10 @@ def MemberPortal(e):
                 memberNumber = str(memberNumber).replace(",)", "").replace("(", "")
                 query =''
                 if(infoUpdate[0] == 'LISTBOX2&'):
-                    print("Todo")
+                    if(infoUpdate[1] == 'DistanceRunningGoal:' or infoUpdate[1] == 'FastestLapGoal:'or infoUpdate[1] == 'CurrentRunDistance:'or infoUpdate[1] == 'CurrentFastestLap:'):
+                        query+= "FitnessStuffs SET {} = '{}' Where MemberID = {};".format(str(infoUpdate[1]).strip(":"), (entries[0].get()), int(memberNumber))
+                    else:
+                        query+= 'FitnessStuffs SET {} = {} Where MemberID = {};'.format(str(infoUpdate[1]).strip(":"), entries[0].get(), int(memberNumber))
                 if(infoUpdate[0] == 'LISTBOX3&'):
                     if(infoUpdate[1] == 'LastMeasurementDate:'):
                         query+= 'HealthStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};'.format(int(memberNumber))
@@ -184,9 +187,9 @@ def MemberPortal(e):
                         query+= "HealthStuffs SET BloodPressure = '{}' Where MemberID = {};".format((entries[0].get()), int(memberNumber))
                     else:
                         query+= 'HealthStuffs SET {} = {} Where MemberID = {};'.format(str(infoUpdate[1]).strip(":"), entries[0].get(), int(memberNumber))
-                    SQL.UpdateSomething(query)
-                    returnButton()
-                    button2_click()
+                SQL.UpdateSomething(query)
+                returnButton()
+                button2_click()
 
             for i in range(1):
                 string = str("Enter Change Here")
@@ -217,7 +220,7 @@ def MemberPortal(e):
                             m.FirstName = '&' AND m.LastName = '*';
                         """.replace('&', testValue2[0]).replace('*', testValue2[1])
         
-        info2 = ["RunDistanceGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
+        info2 = ["DistanceRunningGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimmingDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
         equip = SQL.StrictSelect(insertString)
         equip = str(equip)
         cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
@@ -277,7 +280,7 @@ def MemberPortal(e):
                 else:
                     global currentSelection
                     currentSelection += "LISTBOX2& "
-                    currentSelection += listbox3.get(current_index)
+                    currentSelection += listbox2.get(current_index)
                     #print(currentSelection)
 
         def on_select3(event):
