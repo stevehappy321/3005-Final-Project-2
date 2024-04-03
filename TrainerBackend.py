@@ -9,6 +9,22 @@ def setTrainerHours(trainerID, startTime, endTime):
             WHERE trainerID = {trainerID}
         """)
 
+def setTrainerStartHours(trainerID, time):
+    SQL.UpdateSomething(
+        f"""
+            TRAINERS
+            SET startTime = {time}
+            WHERE trainerID = {trainerID}
+        """)
+    
+def setTrainerEndHours(trainerID, time):
+    SQL.UpdateSomething(
+        f"""
+            TRAINERS
+            SET endTime = {time}
+            WHERE trainerID = {trainerID}
+        """)
+
 def getTrainerHours(trainerID):
     trainerHours = SQL.StrictSelect( #trainer's working hours
         f"""
@@ -16,8 +32,7 @@ def getTrainerHours(trainerID):
         WHERE trainerID = {trainerID}
         """)[0] #get the only tuple in the list
 
-    startTime = trainerHours[0] #tuple index access - 0 = start time, 1 = end time
-    endTime = trainerHours[1]
+    print(trainerHours)
 
     return Utility.tupleToDict( trainerHours, ["startTime", "endTime"] )
 

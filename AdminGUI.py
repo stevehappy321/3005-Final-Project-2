@@ -34,6 +34,16 @@ def AdminPortal():
 
         forgetButtons()
 
+        def reset():
+            button6.config(foreground='Black', background='#7A2727') 
+            listbox.delete(0, tk.END)
+            equip = SQL.getAllSomething("Rooms")
+            listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
+            # Insert items into the Listbox
+            print(equip)
+            for item in equip:
+                listbox.insert(tk.END, str(item))
+                
         def filter():
             global x
             if(x == 0):
@@ -50,15 +60,7 @@ def AdminPortal():
             else:
                 reset()
                 x=0
-        def reset():
-                button6.config(foreground='Black', background='#7A2727') 
-                listbox.delete(0, tk.END)
-                equip = SQL.getAllSomething("Rooms")
-                listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
-                # Insert items into the Listbox
-                print(equip)
-                for item in equip:
-                    listbox.insert(tk.END, str(item))
+        
         def addNew():
             global addCounter
             if addCounter == True:
