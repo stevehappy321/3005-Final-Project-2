@@ -13,71 +13,54 @@ addCounter = False
 
 def trainerPortal(trainerID):
     print("Trainer Portal")
-
     def manageHours_click():
         global frame
 
         frame = tk.Frame(root)
         frame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
 
-        workingHours = TrainerBackend.getTrainerHours(trainerID)
-        print(workingHours)
-        startTime = workingHours["startTime"]
-        endTime = workingHours["endTime"]
-
-        # Insert items into the Listboxes
+        #generate listboxes
         listbox = tk.Listbox(frame, font=('Helvetica', '16'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        listbox.insert(tk.END, "CURRENT WORKING HOURS")
-        listbox.insert(tk.END, "Starting time: " + startTime.strftime("%H:%M"))
-        listbox.insert(tk.END, "Ending time: " + endTime.strftime("%H:%M"))
-
         #forgetButtons()
 
-        def reset(): #reset working hours to 9-5
-            TrainerBackend.setTrainerStartHours(
-                trainerID, 
-                datetime.time(hour=9, minute=0), 
-            )
-            
-            TrainerBackend.setTrainerEndHours(
-                trainerID, 
-                datetime.time(hour=17, minute=0)
-            )
+        def refresh(): #refresh working hours
+            workingHours = TrainerBackend.getTrainerHours(trainerID)
+            print(workingHours)
+            startTime = workingHours["startTime"]
+            endTime = workingHours["endTime"]
+
+            listbox.delete(0, tk.END)
+            listbox.insert(tk.END, "CURRENT WORKING HOURS")
+            listbox.insert(tk.END, "Starting time: " + startTime.strftime("%H:%M"))
+            listbox.insert(tk.END, "Ending time: " + endTime.strftime("%H:%M"))
 
         def changeStartTime():
-            label = tk.Label(
-                frame, 
-                text= "Enter your new starting time as hh:mm", 
-                font=('Helvetica', '14'))
-            label.pack()
-
-            entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
-            entry.pack(padx=40)
-
             def confirm():
                 value = entry.get()
                 timeArr = value.split(':') #returns array as [h, m]
 
                 TrainerBackend.setTrainerStartHours(
                     trainerID, 
-                    datetime.time(hour=timeArr[0], minute=timeArr[1]), 
+                    datetime.time(hour=int(timeArr[0]), minute=int(timeArr[1])), 
                 )
 
+                entry.destroy()
+                label.destroy()
+                submit.destroy()
+
+                refresh();
+                
+            label = tk.Label(frame, text= "Enter your new starting time as hh:mm", font=('Helvetica', '14'))
+            entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
             submit = tk.Button(frame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+
+            label.pack()
+            entry.pack(padx=40)
             submit.pack()
 
         def changeEndTime():
-            label = tk.Label(
-                frame, 
-                text= "Enter your new end time as hh:mm", 
-                font=('Helvetica', '14'))
-            label.pack()
-
-            entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
-            entry.pack(padx=40)
-
             def confirm():
                 value = entry.get()
                 timeArr = value.split(':') #returns array as [h, m]
@@ -87,8 +70,21 @@ def trainerPortal(trainerID):
                     datetime.time(hour=timeArr[0], minute=timeArr[1]), 
                 )
 
+                entry.destroy()
+                label.destroy()
+                submit.destroy()
+
+                refresh();
+
+            label = tk.Label(frame, text= "Enter your new end time as hh:mm", font=('Helvetica', '14'))
+            entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
             submit = tk.Button(frame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+
+            label.pack()
+            entry.pack(padx=40)
             submit.pack()
+
+        refresh();
 
         global trainerButtonFrame
         trainerButtonFrame = tk.Frame(root)
@@ -98,31 +94,6 @@ def trainerPortal(trainerID):
         changeEndTime_button = tk.Button(trainerButtonFrame, text="Change End Hours", command=changeEndTime, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         changeEndTime_button.pack(side=tk.LEFT, padx=10)
 
-        """
-        button_incrementStartHour = tk.Button(
-            trainerButtonFrame, 
-            text="↑", 
-            command=manageHours_click(), 
-            height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
-        
-        button_decrementStartHour = tk.Button(
-            trainerButtonFrame, 
-            text="↓", 
-            command=manageHours_click(), 
-            height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
-
-        button_incrementEndHour = tk.Button(
-            trainerButtonFrame, 
-            text="↑", 
-            command=manageHours_click(), 
-            height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
-        
-        button_decrementEndHour = tk.Button(
-            trainerButtonFrame, 
-            text="↓", 
-            command=manageHours_click(), 
-            height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
-        """
     def searchMembers_click():
 
         executeSearchMembersButton = tk.Button(
