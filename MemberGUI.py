@@ -1,21 +1,36 @@
 import tkinter as tk
 import SQL
 
-testValue = 'Jane Dingle'
-testValue2 = testValue.split(" ")
+testValue = 'Ryan Mastin'
+testValue2 = []
 frame = None
 globalBool = True
 updateCounter = False
 currentSelection = ""
+userID = 0
 def MemberPortal(e):
-    e = testValue
-
+    testValue = e
+    #TODO REMOVE THIS
+    testValue = 'Ryan Mastin'
+    testValue2 = testValue.split(" ")
+    userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
+    userID = str(userID).replace("[(", "").replace(",)]", "")
+    userID = int(userID)
+    #If User Updates name it will still work
+    def updateName():
+        needed = SQL.StrictSelect("Select Firstname, Lastname From Members Where memberId = {}".format(userID))
+        needed = (str(needed[0]).replace(",", "").replace("(", "").replace(")", "").replace("\'", ""))
+        if(testValue != needed):
+            root.destroy()
+            MemberPortal(needed)
+        return 
     def button1_click():
+        updateName()
         forgetButtons()
         global frame
         global updateCounter
         frame = tk.Frame(root)
-        frame.pack(padx=150, pady=40, fill=tk.BOTH, expand=True)
+        frame.pack(padx=150, pady=20, fill=tk.BOTH, expand=True)
         listbox = tk.Listbox(frame, font=('Helvetica', '16'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         listbox.insert(tk.END, "                           Personal Info")
@@ -64,7 +79,11 @@ def MemberPortal(e):
                 return
             updateCounter = True
             button777.config(foreground='white', background='#9389E5')
-            login_label = tk.Label(frame, text="Enter Personal Info Change", font=('Helvetica', '14'))
+            login_label = tk.Label(frame, text="Enter Personal Info Change.", font=('Helvetica', '14'))
+            login_label.pack()
+            login_label = tk.Label(frame, text="(Select the item and then type in the desinated box)", font=('Helvetica', '14'))
+            login_label.pack()
+            login_label = tk.Label(frame, text="*Please only change 1 element at a time*", font=('Helvetica', '14'))
             login_label.pack()
             entries = []
             #Creates the fields to check
