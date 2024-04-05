@@ -1,17 +1,17 @@
 import tkinter as tk
 import SQL
 
-testValue = 'Ryan Mastin'
+testValue = 'Test Tester'
 testValue2 = []
 frame = None
 globalBool = True
 updateCounter = False
 currentSelection = ""
-userID = 0
+userID = 3
 def MemberPortal(e):
     testValue = e
     #TODO REMOVE THIS
-    testValue = 'Ryan Mastin'
+    testValue = 'Test Tester'
     testValue2 = testValue.split(" ")
     userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
     userID = str(userID).replace("[(", "").replace(",)]", "")
@@ -336,6 +336,71 @@ def MemberPortal(e):
         button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
 
+
+    def button3_click():
+        forgetButtons()
+        global frame
+        frame = tk.Frame(root)
+        login_label = tk.Label(frame, text="Your Fitness Classes", font=('Helvetica', '14'))
+        login_label.pack(padx=0)
+        login_label2 = tk.Label(frame, text="Your Private Sessions", font=('Helvetica', '14'))
+        frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
+        listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        listbox3 = tk.Listbox(frame, font=('Helvetica', '16'))
+        #listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        listbox2.insert(tk.END, "ClassID, ClassName, ClassDate, StartTime, EndTime, RoomNumber, Cost")
+        #listbox3.insert(tk.END, "TODO")
+        
+        insertString = """
+                    SELECT fc.ClassID, fc.ClassName, fc.ClassDate, fc.SessionTime, fc.EndTime, fc.RoomID, fc.Cost
+                    FROM FitnessClass fc
+                    JOIN ClassMembers cm ON fc.ClassID = cm.ClassID
+                    WHERE cm.MemberID = {}
+                    Order By fc.ClassDate
+                    """.format(userID)
+
+        equip = SQL.StrictSelect(insertString)
+        # Insert items into the Listbox
+        if equip == []:
+            listbox2.insert(tk.END, "")
+            listbox2.insert(tk.END, "")
+            listbox2.insert(tk.END, "No Registed Classes")
+
+        for item in equip:
+            listbox2.insert(tk.END, item)
+
+        def viewPrivate():
+            listbox3.delete(0, tk.END)
+            insertString = """
+                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost
+                        FROM PrivateSession ps
+                        WHERE ps.MemberID = {}
+                        ORDER BY ps.SessionDate;
+            """.format(userID)
+            login_label2.pack(padx=0)
+            listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            listbox3.insert(tk.END, "SessionID, SessionDate, SessionStart, SessionEnd, RoomNumber, TrainersID, Cost")
+            listbox2.pack_forget()
+            login_label.pack_forget()
+            equip = SQL.StrictSelect(insertString)
+            # Insert items into the Listbox
+            for item in equip:
+                listbox3.insert(tk.END, item)
+            
+            if equip == []:
+                listbox3.insert(tk.END, "")
+                listbox3.insert(tk.END, "")
+                listbox3.insert(tk.END, "No Registed Sessions")
+
+        global button_frame1
+        button_frame1 = tk.Frame(root)
+        button_frame1.pack(side=tk.BOTTOM, pady=0)
+        button777 = tk.Button(button_frame1, text="Update Info", command=viewPrivate, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777.pack(side=tk.LEFT, padx=10)
+
+
+
     # Create the main window
     root = tk.Tk()
     root.title("Member Controls")
@@ -364,7 +429,7 @@ def MemberPortal(e):
     button_frame.pack(side=tk.BOTTOM, pady=20)
     button1 = tk.Button(button_frame, text="Profile Management", command=button1_click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
     button2 = tk.Button(button_frame, text="Dashboard Display", command=button2_click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(button_frame, text="Schedule Management", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
+    button3 = tk.Button(button_frame, text="Schedule Management", command=button3_click, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
     button5 = tk.Button(button_frame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
 
     button1.pack(side=tk.LEFT, padx=10)
