@@ -9,7 +9,7 @@ def setTrainerHours(trainerID, startTime, endTime):
             WHERE trainerID = {trainerID}
         """)
 
-def setTrainerStartHours(trainerID, time):
+def setTrainerStartTime(trainerID, time):
     SQL.UpdateSomething(
         f"""
             TRAINERS
@@ -17,7 +17,7 @@ def setTrainerStartHours(trainerID, time):
             WHERE trainerID = {trainerID}
         """)
     
-def setTrainerEndHours(trainerID, time):
+def setTrainerEndTime(trainerID, time):
     SQL.UpdateSomething(
         f"""
             TRAINERS

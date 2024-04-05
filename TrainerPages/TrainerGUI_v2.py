@@ -1,9 +1,8 @@
 import tkinter as tk
 import datetime
 
-import SQL
 import TrainerBackend
-import Utility
+import Page
 
 root = None
 curFrame = None
@@ -11,16 +10,70 @@ trainerButtonFrame = None
 x=0
 addCounter = False
 
-changingStartTime = False
-changingEndTime = False
-
 def trainerPortal(trainerID):
+    trainerMenu = Page.Page(
+        'trainerMenu', 
+        {
+            'button_manageWorkingHours': tk.Button(
+                button_frame, 
+                text="Manage Working Hours", 
+                command=manageHours_click, 
+                height=2, 
+                width=20, 
+                font=('Helvetica', '16'), 
+                bg='#89BAE5'),
+            'searchMembers': tk.Button(
+                button_frame, 
+                text="Search Members", 
+                command=searchMembers_click, 
+                height=2, 
+                width=30, 
+                font=('Helvetica', '16'), 
+                bg='#E59989')    
+        }
+    )
+
+    manageHoursMenu = Page.Page(
+        'manageHoursMenu', 
+        {
+            'frame' : tk.Frame(root),
+            'listbox' : tk.Listbox(frame, font=('Helvetica', '16')) 
+        }
+    )
+    
+    setStartTimePrompt = Page.Page(
+        'setStartTimerPrompt', 
+        {
+            'label' : tk.Label(frame, text= "Enter your new starting time as hh:mm", font=('Helvetica', '14')),
+            'entry' : tk.Entry(frame, font=('Helvetica', '14'), width=30),
+            'submit' : tk.Button(
+                frame, 
+                text="Submit", 
+                command=manageHours_click.changeStartTime.confirm, 
+                height=1, 
+                width=8, 
+                font=('Helvetica', '12'), 
+                bg='#9389E5')
+        }
+    )
+
+    setEndTimePrompt = Page.Page(
+        'setEndTimePrompt', 
+        {
+            'label' : tk.Label(frame, text= "Enter your new ending time as hh:mm", font=('Helvetica', '14')),
+            'entry' : tk.Entry(frame, font=('Helvetica', '14'), width=30),
+            'submit' : tk.Button(
+                frame, 
+                text="Submit", 
+                command=manageHours_click.changeEndTime.confirm, 
+                height=1, 
+                width=8, 
+                font=('Helvetica', '12'), 
+                bg='#9389E5')
+        }
+    )
+
     print("Trainer Portal")
-
-    def detach():
-        global frame
-        
-
     def manageHours_click():
         global frame
 
@@ -35,6 +88,7 @@ def trainerPortal(trainerID):
 
         def refresh(): #refresh main listbox
             workingHours = TrainerBackend.getTrainerHours(trainerID)
+            print(workingHours)
             startTime = workingHours["startTime"]
             endTime = workingHours["endTime"]
 
@@ -48,70 +102,48 @@ def trainerPortal(trainerID):
                 value = entry.get()
                 timeArr = value.split(':') #returns array as [h, m]
 
-                hour = timeArr[0]
-                minute = 0 if len(timeArr) < 2 else timeArr[1]
-
-                if hour.isnumeric() and minute.isnumeric() and len(timeArr) == 2:
-                    TrainerBackend.setTrainerStartTime(
-                        trainerID, 
-                        datetime.time(hour=int(timeArr[0]), minute=int(timeArr[1])), 
-                    )
+                TrainerBackend.setTrainerStartTime(
+                    trainerID, 
+                    datetime.time(hour=int(timeArr[0]), minute=int(timeArr[1])), 
+                )
 
                 entry.destroy()
                 label.destroy()
                 submit.destroy()
 
-                global changingStartTime
-                changingStartTime = False
-
                 refresh();
-            
-            global changingStartTime
-            if not changingStartTime:
-                label = tk.Label(frame, text= "Enter your new starting time as hh:mm", font=('Helvetica', '14'))
-                entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
-                submit = tk.Button(frame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+                
+            label = tk.Label(frame, text= "Enter your new starting time as hh:mm", font=('Helvetica', '14'))
+            entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
+            submit = tk.Button(frame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
 
             label.pack()
             entry.pack(padx=40)
             submit.pack()
-
-            changingStartTime = True
 
         def changeEndTime():
             def confirm():
                 value = entry.get()
                 timeArr = value.split(':') #returns array as [h, m]
 
-                hour = timeArr[0]
-                minute = 0 if len(timeArr) < 2 else timeArr[1]
+                TrainerBackend.setTrainerEndTime(
+                    trainerID, 
+                    datetime.time(hour=timeArr[0], minute=timeArr[1]), 
+                )
 
-                if hour.isnumeric() and minute.isnumeric() and len(timeArr) == 2:
-                    TrainerBackend.setTrainerEndTime(
-                        trainerID, 
-                        datetime.time(hour=int(timeArr[0]), minute=int(timeArr[1])), 
-                    )
-                
                 entry.destroy()
                 label.destroy()
                 submit.destroy()
 
-                global changingEndTime
-                changingEndTime = False
-
                 refresh();
-            
-            global changingEndTime
-            if not changingEndTime:
-                label = tk.Label(frame, text= "Enter your new end time as hh:mm", font=('Helvetica', '14'))
-                entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
-                submit = tk.Button(frame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+
+            label = tk.Label(frame, text= "Enter your new end time as hh:mm", font=('Helvetica', '14'))
+            entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
+            submit = tk.Button(frame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
 
             label.pack()
             entry.pack(padx=40)
             submit.pack()
-
-            changingEndTime = True            
 
         refresh();
 
@@ -148,7 +180,6 @@ def trainerPortal(trainerID):
         width=20, 
         font=('Helvetica', '16'), 
         bg='#89BAE5')
-    
     button_searchMembers = tk.Button(
         button_frame, 
         text="Search Members", 
@@ -163,10 +194,3 @@ def trainerPortal(trainerID):
 
     # Start the Tkinter event loop
     root.mainloop()
-
-
-class PromptEntry:
-    def __init__(self, masterFrame, prompt, callback):
-        self.label = tk.Label(masterFrame, text=prompt, font=('Helvetica', '14'))
-        self.entry = tk.Entry(masterFrame, font=('Helvetica', '14'), width=30)
-        self.submit = tk.Button(masterFrame, text="Submit", command=callback, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')

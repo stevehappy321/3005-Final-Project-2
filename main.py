@@ -1,13 +1,15 @@
 import AdminGUI
 import InitializeGUI
 import SQL
+
 import TrainerGUI
+from  TrainerPages import TrainerMenu #alternative to TrainerGUI
 
 #Ryan
 
 user_input_global = None
-
-def user_input_received(user_input):
+"""
+def user_input_received(user_input):    
     global user_input_global
     user_input_global = user_input
     if(user_input_global == 'ADMIN'):
@@ -32,12 +34,16 @@ def user_input_received(user_input):
             
             #InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global))
             InitializeGUI.close_gui()
-            TrainerGUI.trainerPortal(trainerID);
+            #TrainerGUI.trainerPortal(trainerID);
+            TrainerMenu.trainerPortal(trainerID)
         else:
             InitializeGUI.broadcast(False, "No User Found")
+    """
+TrainerGUI.trainerPortal(2)
+#AdminGUI.AdminPortal()
 
 if __name__ == "__main__":
-    InitializeGUI.Initialize(user_input_received)
+    #InitializeGUI.Initialize(user_input_received)
     #AdminGUI.AdminPortal()
     #MemberGUI.MemberPortal()
     #TrainerGUI.TrainerPortal()
