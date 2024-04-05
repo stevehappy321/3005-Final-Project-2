@@ -68,6 +68,12 @@ def Initialize(submit_callback):
             final = finalQuery.replace(', )', ')')
             #print('Members {}'.format(final.replace('&', '\'')))
             SQL.addSomething('Members {}'.format(final.replace('&', '\'')))
+            userID = SQL.getMemberNumber("'{}' AND LastName = '{}';".format(newClass[1], newClass[3]))
+            userID = str(userID).replace("[(", "").replace(",)]", "")
+            userID = int(userID)
+            SQL.addSomething("FitnessStuffs (MemberID, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES ({}, '0km', '0: 00 min/km', 0, 0, 0, '0km', '0:00 min/km', 0, 0, 0);".format(userID))
+            SQL.addSomething("HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal) VALUES ({}, CURRENT_DATE, 00.00, '0/0', 0, 000.00, 0);".format(userID))
+            SQL.addSomething("Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMethod) VALUES ({}, CURRENT_DATE, 0, 80, 'None Added');".format(userID))
             messagebox.showinfo("Input Received", f"Log in as: {newClass[1] + ' ' + newClass[3]}")
             button1_click()
 

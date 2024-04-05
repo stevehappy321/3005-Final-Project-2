@@ -2,7 +2,7 @@
 Functions to Implement:
 Member Functions:
 1. ~~User Registration~~
-2. ~~Profile Management ~~(Updating personal information)~~, (fitness goals, health metrics)
+2. ~~Profile Management ~~(Updating personal information)~~, (fitness goals), ~~(health metrics)~~
 3. ~~Dashboard Display~~ (Displaying exercise routines),  ~~(fitness achievements, health statistics)~~
 4. Schedule Management (Scheduling personal training sessions or group fitness classes. The system
 must ensure that the trainer is available)
@@ -30,6 +30,7 @@ SQL Functions
 
 **BUGS**
 2. QUERIES MUST BE REVIEWED REGARDING TRAINERS FITNESS SESH AND PRIVATE SESH
+3. WHEN SOMEONE UPDATES NAME IN PERSONAL INFO IT BREAKS
 
 
 **Bug Graveyard**

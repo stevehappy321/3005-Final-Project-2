@@ -75,3 +75,10 @@ def StrictSelect(e):
         cur.execute("{}".format(e))
         records = cur.fetchall()
         return records
+
+def getMemberNumber(e):
+    conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
+    with conn.cursor() as cur:
+        cur.execute("Select MemberID From Members Where FirstName = {}".format(e))
+        records = cur.fetchall()
+        return records
