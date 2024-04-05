@@ -1,17 +1,17 @@
 import tkinter as tk
 import SQL
 
-testValue = 'Test Tester'
+testValue = 'Ryan Mastin'
 testValue2 = []
 frame = None
 globalBool = True
 updateCounter = False
 currentSelection = ""
-userID = 3
+userID = 0
 def MemberPortal(e):
     testValue = e
     #TODO REMOVE THIS
-    testValue = 'Test Tester'
+    testValue = 'Ryan Mastin'
     testValue2 = testValue.split(" ")
     userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
     userID = str(userID).replace("[(", "").replace(",)]", "")
@@ -392,12 +392,17 @@ def MemberPortal(e):
                 listbox3.insert(tk.END, "")
                 listbox3.insert(tk.END, "")
                 listbox3.insert(tk.END, "No Registed Sessions")
+            button777.pack_forget()
 
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
-        button777 = tk.Button(button_frame1, text="Update Info", command=viewPrivate, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777 = tk.Button(button_frame1, text="View Private Sessions", command=viewPrivate, height=2, width=20, font=('Helvetica', '16'), bg='#4AE957')
         button777.pack(side=tk.LEFT, padx=10)
+        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#41D9DA')
+        buttonAddClass.pack(side=tk.LEFT, padx=10)
+        buttonAddClass = tk.Button(button_frame1, text="Withdraw From Class", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+        buttonAddClass.pack(side=tk.LEFT, padx=10)
 
 
 
