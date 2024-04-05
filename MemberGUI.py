@@ -373,7 +373,7 @@ def MemberPortal(e):
         def viewPrivate():
             listbox3.delete(0, tk.END)
             insertString = """
-                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost
+                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost,
                         FROM PrivateSession ps
                         WHERE ps.MemberID = {}
                         ORDER BY ps.SessionDate;
