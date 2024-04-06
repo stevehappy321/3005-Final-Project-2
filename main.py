@@ -1,4 +1,4 @@
-import AdminGUI
+import AdminGUI, MemberGUI
 import InitializeGUI
 import SQL
 
@@ -22,9 +22,9 @@ def user_input_received(user_input):
     
 
 if __name__ == "__main__":
-    InitializeGUI.Initialize(user_input_received)
+    #InitializeGUI.Initialize(user_input_received)
     #AdminGUI.AdminPortal()
-    #MemberGUI.MemberPortal()
+    #MemberGUI.MemberPortal(user_input_global)
     #TrainerGUI.TrainerPortal()
     if user_input_global is not None:
         print("User input was:", user_input_global)
