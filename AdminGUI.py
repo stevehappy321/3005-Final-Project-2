@@ -189,7 +189,7 @@ def AdminPortal():
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         equip = SQL.getAllSomething("FitnessClass")
-        listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime(24h), Cost")
+        listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
         # Insert items into the Listbox
         for item in equip:
             newItem = str(item).replace("datetime.date", "")
@@ -203,7 +203,7 @@ def AdminPortal():
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass ORDER BY (ClassDate + SessionTIME) ASC;")
                 #print(equip)
-                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime(24h), Cost")
+                listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
                 for item in equip:
                     newItem = str(item).replace("datetime.date", "")
                     newItem = str(newItem).replace("datetime.time", "")
@@ -216,7 +216,7 @@ def AdminPortal():
                 button6.config(foreground='Black', background='#7A2727')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass")
-                listbox.insert(tk.END, "ClassID, Class Name, TrainerID, RoomID, ClassDate, SessionTime(24h), Cost")
+                listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
                 # Insert items into the Listbox
                 for item in equip:
                     newItem = str(item).replace("datetime.date", "")
@@ -234,7 +234,7 @@ def AdminPortal():
             login_entry.pack(padx=40)
             def dingl():
                 user_input = login_entry.get()
-                SQL.addSomething("FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, Cost) VALUES ({});".format(user_input))
+                SQL.addSomething("FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES ({});".format(user_input))
                 reset()
                 login_label.pack_forget()
                 login_entry.pack_forget()
@@ -261,8 +261,8 @@ def AdminPortal():
             login_label.pack()
             entries = []
             #Creates the fields to check
-            info = {0:"ClassName", 1:"TrainerID", 2:"RoomID", 3:"ClassDate", 4:"SessionTime", 5:"Cost"}
-            info2 = ["ClassName", "TrainerID", "RoomID", "ClassDate", "SessionTime", "Cost"]
+            info = {0:"ClassName", 1:"TrainerID", 2:"RoomID", 3:"ClassDate", 4:"SessionTime", 5:"EndTime", 6:"Cost", 7:"Capacity"}
+            info2 = ["ClassName", "TrainerID", "RoomID", "ClassDate", "SessionTime", "EndTime", "Cost", "Capacity"]
             def dingl():
                 newClass = []
                 #gets the index from the box to be updated
@@ -270,7 +270,7 @@ def AdminPortal():
                 selected_item = listbox.get(index)
                 desired = selected_item.split(",")
                 #Checks the input boxes for changed values. If it finds it'll add to the newClass array
-                for i in range(6):
+                for i in range(8):
                     if(entries[i].get() != info.get(i)):
                         #print(entries[i].get())
                         newClass.append(info.get(i))
@@ -301,10 +301,10 @@ def AdminPortal():
                 reset()
 
             #Creates the buttons to change the fields
-            for i in range(6):
+            for i in range(8):
                 string = str(info.get(i))
                 entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
-                entry.pack(pady=1)  
+                entry.pack()  
                 entry.insert(0, string)  
                 entries.append(entry)  
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
