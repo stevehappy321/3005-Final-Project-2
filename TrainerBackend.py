@@ -35,7 +35,7 @@ def getTrainerHours(trainerID):
     return Utility.tupleToDict( trainerHours, ["startTime", "endTime"] )
 
 def trainerIsAvailable(trainerID, date, startTime, endTime):
-    trainerFreeIntervals = getTrainerAvailability(date, trainerID)
+    trainerFreeIntervals = getTrainerAvailableInvervals(date, trainerID)
 
     for interval in trainerFreeIntervals: #interval is a tuple (startTime, endTime)
         if not(
@@ -46,7 +46,26 @@ def trainerIsAvailable(trainerID, date, startTime, endTime):
         
     return True
 
-def getTrainerAvailability(date, trainerID):
+def getTrainerAvailableInvervals(date, trainerID):
+    def computeAvailableIntervals(startTime, endTime, busyIntervals):
+        freeIntervals = []
+
+        if len(busyIntervals) == 0:
+            freeIntervals.append( (startTime, endTime) )
+        
+        else:
+            for i in range( 0, len(busyIntervals) ):
+                if i == 0:
+                    freeIntervals.append( (startTime, busyIntervals[i]["startTime"]) )
+                else:
+                    freeIntervals.append( (busyIntervals[i-1]["endTime"], busyIntervals[i]["startTime"]) )
+            
+            if busyIntervals[len(busyIntervals)-1]["endTime"] != endTime:
+                freeIntervals.append( (busyIntervals[len(busyIntervals)-1]["endTime"], endTime) )
+
+        return freeIntervals;
+
+
     startTime = getTrainerHours(trainerID)["startTime"]
     endTime = getTrainerHours(trainerID)["endTime"]
 
@@ -63,26 +82,7 @@ def getTrainerAvailability(date, trainerID):
     for occupiedInterval in busyIntervalsRecords:
         busyIntervals.append( Utility.tupleToDict(occupiedInterval, ["date", "startTime", "endTime"]) )
 
-    return computeAvailability(startTime, endTime, busyIntervals); #returns a list of tuple intervals that this trainer is free to teach
-
-
-def computeAvailability(startTime, endTime, busyIntervals):
-    freeIntervals = []
-
-    if len(busyIntervals) == 0:
-        freeIntervals.append( (startTime, endTime) )
-    
-    else:
-        for i in range( 0, len(busyIntervals) ):
-            if i == 0:
-                freeIntervals.append( (startTime, busyIntervals[i]["startTime"]) )
-            else:
-                freeIntervals.append( (busyIntervals[i-1]["endTime"], busyIntervals[i]["startTime"]) )
-        
-        if busyIntervals[len(busyIntervals)-1]["endTime"] != endTime:
-            freeIntervals.append( (busyIntervals[len(busyIntervals)-1]["endTime"], endTime) )
-
-    return freeIntervals;
+    return computeAvailableIntervals(startTime, endTime, busyIntervals); #returns a list of tuple intervals that this trainer is free to teach
 
 
 def searchMemberByName(name):
