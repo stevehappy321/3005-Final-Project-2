@@ -82,3 +82,20 @@ def getMemberNumber(e):
         cur.execute("Select MemberID From Members Where FirstName = {}".format(e))
         records = cur.fetchall()
         return records
+    
+def getNumberOfMembers(e, classID):
+    conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
+    with conn.cursor() as cur:
+        cur.execute("{}".format(e))
+        records = cur.fetchall()
+        found = False
+        classID = int(classID)
+        for a_tuple in records:
+            if a_tuple[0] == classID:
+                if a_tuple[1] > a_tuple[2]:
+                    found = True
+                    break
+
+        if not found:
+            return False
+        return True
