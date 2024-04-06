@@ -43,11 +43,9 @@ def user_input_received(user_input):
             InitializeGUI.broadcast(False, "No User Found")
     """
 
-print( TrainerBackend.getTrainerAvailableInvervals(datetime.date(2024, 4, 15) , 2) )
+print( TrainerBackend.getTrainerAvailableInvervals(datetime.date(2024, 4, 20) , 2) )
 TrainerGUI.trainerPortal(2)
 #AdminGUI.AdminPortal()
-
-
 
 if __name__ == "__main__":
     #InitializeGUI.Initialize(user_input_received)

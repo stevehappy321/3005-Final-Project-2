@@ -47,21 +47,21 @@ def trainerIsAvailable(trainerID, date, startTime, endTime):
     return True
 
 def getTrainerAvailableInvervals(date, trainerID):
-    def computeAvailableIntervals(startTime, endTime, busyIntervals):
+    def computeFreeIntervals(startTime, endTime, busyIntervals):
         freeIntervals = []
 
         if len(busyIntervals) == 0:
             freeIntervals.append( (startTime, endTime) )
         
         else:
-            for i in range( 0, len(busyIntervals) ):
+            for i in range(0, len(busyIntervals) ):
                 if i == 0:
                     freeIntervals.append( (startTime, busyIntervals[i]["startTime"]) )
                 else:
                     freeIntervals.append( (busyIntervals[i-1]["endTime"], busyIntervals[i]["startTime"]) )
-            
-            if busyIntervals[len(busyIntervals)-1]["endTime"] != endTime:
-                freeIntervals.append( (busyIntervals[len(busyIntervals)-1]["endTime"], endTime) )
+
+            if busyIntervals[-1]["endTime"] != endTime:
+                freeIntervals.append( (busyIntervals[-1]["endTime"], endTime) )
 
         return freeIntervals;
 
@@ -69,20 +69,19 @@ def getTrainerAvailableInvervals(date, trainerID):
     startTime = getTrainerHours(trainerID)["startTime"]
     endTime = getTrainerHours(trainerID)["endTime"]
 
-    busyIntervalsRecords = SQL.StrictSelect( #list of date-time pairs where this trainer is busy
+    busyIntervals = SQL.StrictSelect( #list of tuples where this trainer is busy
         f"""
-        SELECT classDate AS date, sessionTime AS startTime, endTime FROM FitnessClass
+        SELECT sessionTime AS startTime, endTime FROM FitnessClass
         WHERE trainerID = {trainerID} AND classDate = '{date}'
         UNION
-        SELECT sessionDate AS date, sessionTime AS startTime, endTime FROM PrivateSession
+        SELECT sessionTime AS startTime, endTime FROM PrivateSession
         WHERE trainerID = {trainerID} AND sessionDate = '{date}'
         """)
+    
+    for i in range (0, len(busyIntervals) ):
+        busyIntervals[i] = Utility.tupleToDict(busyIntervals[i], ["startTime", "endTime"])
 
-    busyIntervals = []
-    for occupiedInterval in busyIntervalsRecords:
-        busyIntervals.append( Utility.tupleToDict(occupiedInterval, ["date", "startTime", "endTime"]) )
-
-    return computeAvailableIntervals(startTime, endTime, busyIntervals); #returns a list of tuple intervals that this trainer is free to teach
+    return computeFreeIntervals(startTime, endTime, busyIntervals); #returns a list of tuple intervals that this trainer is free to teach
 
 
 def searchMemberByName(name):
