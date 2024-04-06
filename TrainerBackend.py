@@ -32,9 +32,19 @@ def getTrainerHours(trainerID):
         WHERE trainerID = {trainerID}
         """)[0] #get the only tuple in the list
 
-    print(trainerHours)
-
     return Utility.tupleToDict( trainerHours, ["startTime", "endTime"] )
+
+def trainerIsAvailable(trainerID, date, startTime, endTime):
+    trainerFreeIntervals = getTrainerAvailability(date, trainerID)
+
+    for interval in trainerFreeIntervals: #interval is a tuple (startTime, endTime)
+        if not(
+            Utility.inRange(interval[0], startTime, endTime, True) and 
+            Utility.inRange(interval[1], startTime, endTime, True)
+        ):
+            return False
+        
+    return True
 
 def getTrainerAvailability(date, trainerID):
     startTime = getTrainerHours(trainerID)["startTime"]
@@ -53,24 +63,24 @@ def getTrainerAvailability(date, trainerID):
     for occupiedInterval in busyIntervalsRecords:
         busyIntervals.append( Utility.tupleToDict(occupiedInterval, ["date", "startTime", "endTime"]) )
 
-    print( computeAvailability(startTime, endTime, busyIntervals) );
+    return computeAvailability(startTime, endTime, busyIntervals); #returns a list of tuple intervals that this trainer is free to teach
 
 
 def computeAvailability(startTime, endTime, busyIntervals):
     freeIntervals = []
 
-    print(busyIntervals)
-
-    for i in range( 0, len(busyIntervals) ):
-        if i == 0:
-            freeIntervals.append( (startTime, busyIntervals[i]["startTime"]) )
-        else:
-            freeIntervals.append( (busyIntervals[i-1]["endTime"], busyIntervals[i]["startTime"]) )
-
-        print(freeIntervals)
+    if len(busyIntervals) == 0:
+        freeIntervals.append( (startTime, endTime) )
     
-    if busyIntervals[len(busyIntervals)-1]["endTime"] != endTime:
-        freeIntervals.append( (busyIntervals[len(busyIntervals)-1]["endTime"], endTime) )
+    else:
+        for i in range( 0, len(busyIntervals) ):
+            if i == 0:
+                freeIntervals.append( (startTime, busyIntervals[i]["startTime"]) )
+            else:
+                freeIntervals.append( (busyIntervals[i-1]["endTime"], busyIntervals[i]["startTime"]) )
+        
+        if busyIntervals[len(busyIntervals)-1]["endTime"] != endTime:
+            freeIntervals.append( (busyIntervals[len(busyIntervals)-1]["endTime"], endTime) )
 
     return freeIntervals;
 

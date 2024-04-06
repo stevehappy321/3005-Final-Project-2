@@ -15,11 +15,7 @@ changingStartTime = False
 changingEndTime = False
 
 def trainerPortal(trainerID):
-    print("Trainer Portal")
-
-    def detach():
-        global frame
-        
+    print("Trainer Portal")        
 
     def manageHours_click():
         global frame
@@ -122,14 +118,6 @@ def trainerPortal(trainerID):
         changeStartTime_button.pack(side=tk.LEFT, padx=10)
         changeEndTime_button = tk.Button(trainerButtonFrame, text="Change End Hours", command=changeEndTime, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         changeEndTime_button.pack(side=tk.LEFT, padx=10)
-
-    def searchMembers_click():
-
-        executeSearchMembersButton = tk.Button(
-            trainerButtonFrame, 
-            text="Search", 
-            command=TrainerBackend.searchMemberByName("""search name"""), 
-            height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         
     # Create the main window
     root = tk.Tk()
@@ -163,6 +151,13 @@ def trainerPortal(trainerID):
 
     # Start the Tkinter event loop
     root.mainloop()
+
+def searchMembers_click():
+    executeSearchMembersButton = tk.Button(
+        trainerButtonFrame, 
+        text="Search", 
+        command=TrainerBackend.searchMemberByName("""search name"""), 
+        height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
 
 
 class PromptEntry:

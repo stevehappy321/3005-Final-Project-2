@@ -8,3 +8,9 @@ def tupleToDict(tuple, keys):
         tuplesList.append( (keys[i], tuple[i]) )
 
     return dict(tuplesList)
+
+def inRange(lower, x, upper, inclusivity):
+    if inclusivity:
+        return lower <= x and x <= upper
+    else:
+        return lower < x and x < upper
