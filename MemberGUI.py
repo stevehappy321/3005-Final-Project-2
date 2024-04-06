@@ -1,7 +1,8 @@
 import tkinter as tk
+from tkinter import messagebox
 import SQL
 
-testValue = 'Ryan Mastin'
+testValue = ''
 testValue2 = []
 frame = None
 globalBool = True
@@ -11,8 +12,8 @@ userID = 0
 def MemberPortal(e):
     testValue = e
     #TODO REMOVE THIS
-    testValue = 'Ryan Mastin'
-    testValue2 = testValue.split(" ")
+    #testValue = ''
+    testValue2 = e.split(" ")
     userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
     userID = str(userID).replace("[(", "").replace(",)]", "")
     userID = int(userID)
@@ -344,6 +345,7 @@ def MemberPortal(e):
         login_label = tk.Label(frame, text="Your Fitness Classes", font=('Helvetica', '14'))
         login_label.pack(padx=0)
         login_label2 = tk.Label(frame, text="Your Private Sessions", font=('Helvetica', '14'))
+        login_label3 = tk.Label(frame, text="Class Browser (Classes you are not in)", font=('Helvetica', '14'))
         frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
         listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
         listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
@@ -357,7 +359,7 @@ def MemberPortal(e):
                     FROM FitnessClass fc
                     JOIN ClassMembers cm ON fc.ClassID = cm.ClassID
                     WHERE cm.MemberID = {}
-                    Order By fc.ClassDate
+                    Order By fc.ClassDate, fc.SessionTime
                     """.format(userID)
 
         equip = SQL.StrictSelect(insertString)
@@ -365,18 +367,101 @@ def MemberPortal(e):
         if equip == []:
             listbox2.insert(tk.END, "")
             listbox2.insert(tk.END, "")
-            listbox2.insert(tk.END, "No Registed Classes")
+            listbox2.insert(tk.END, "No Registered Classes")
 
         for item in equip:
             listbox2.insert(tk.END, item)
 
+        def addFClass():
+            listbox2.delete(0, tk.END)
+            listbox2.pack_forget()
+            login_label.pack_forget()
+            login_label3.pack(padx=0)
+            listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            listbox2.insert(tk.END, "Available Classes")
+            listbox2.insert(tk.END, "")
+            listbox2.insert(tk.END, "ClassID, ClassName, TrainerNumber, RoomNumber, ClassDate, StartTime, EndTime, Cost, Class Capacity")
+            listbox2.insert(tk.END, "")
+            insertString = """
+                        SELECT fc.*
+                        FROM FitnessClass fc
+                        LEFT JOIN ClassMembers cm ON fc.ClassID = cm.ClassID AND cm.MemberID = {}
+                        WHERE cm.MemberID IS NULL
+                        Order By fc.ClassDate, fc.SessionTime
+            """.format(userID)
+            equip = SQL.StrictSelect(insertString)
+
+            for item in equip:
+                listbox2.insert(tk.END, item)
+
+            def getClass():
+                index = listbox2.curselection()
+                selected_item = listbox2.get(index)
+                print(index)
+                if((index) == (0,) or (index) == (1,) or (index) == (2,) or (index) == (3,) or selected_item == 'No Registered Classes' or selected_item ==''):
+                    print("bad index")
+                    return
+                selected_item = str(selected_item).split(",")
+                classID = selected_item[0].replace("(", "")
+                insertString = """
+                            SELECT 
+                            fc.ClassID, fc.Capacity,
+                            COUNT(cm.MemberID) AS RegisteredMembers
+                        FROM 
+                            FitnessClass fc
+                        LEFT JOIN 
+                            ClassMembers cm ON fc.ClassID = cm.ClassID
+                        GROUP BY 
+                            fc.ClassID, fc.ClassName, fc.Capacity
+                        ORDER BY 
+                            fc.ClassID;
+                """
+                if(SQL.getNumberOfMembers(insertString, classID)) == True:
+                    SQL.addSomething("ClassMembers (ClassID, MemberID) VALUES ({}, {});".format(classID, userID))
+                    messagebox.showinfo("Success!", "Successfully Registered")
+                    returnButton()
+                    button3_click()
+                else:
+                    messagebox.showinfo("Fail!", "Class is Full")   
+
+            buttonAddClass.pack_forget()
+            buttonLeaveClass.pack_forget()
+
+            buttonJoinClass = tk.Button(frame, text="Join Class", command=getClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonJoinClass.pack(side=tk.LEFT, padx=10)
+
+
+        def withdrawFClass():
+                def deleteClass():
+                    index = listbox2.curselection()
+                    selected_item = listbox2.get(index)
+                    print(index)
+                    if((index) == (0,) or selected_item == 'No Registered Classes' or selected_item ==''):
+                        print("bad index")
+                        return
+                    selected_item = str(selected_item).split(",")
+                    classID = selected_item[0].replace("(", "")
+                    print(classID)
+                    print(userID)
+                    print("deleteing")
+                    SQL.deleteSomething("ClassMembers WHERE ClassID = {} AND MemberID = {};".format(classID, userID))
+                    returnButton()
+                    button3_click()
+                    messagebox.showinfo("Success!", "You are no longer apart of the class")
+
+
+                buttonLeaveClass.pack_forget()
+
+                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass.pack(side=tk.LEFT, padx=10)
+
         def viewPrivate():
             listbox3.delete(0, tk.END)
             insertString = """
-                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost,
+                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost
                         FROM PrivateSession ps
                         WHERE ps.MemberID = {}
-                        ORDER BY ps.SessionDate;
+                        ORDER BY ps.SessionDate, ps.SessionTime;
             """.format(userID)
             login_label2.pack(padx=0)
             listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
@@ -391,18 +476,48 @@ def MemberPortal(e):
             if equip == []:
                 listbox3.insert(tk.END, "")
                 listbox3.insert(tk.END, "")
-                listbox3.insert(tk.END, "No Registed Sessions")
+                listbox3.insert(tk.END, "No Registered Sessions")
             button777.pack_forget()
+
+            buttonLeaveClass.pack_forget()
+            buttonAddClass.pack_forget()
+
+            def withdrawPClass():
+                def deleteClass():
+                    index = listbox3.curselection()
+                    selected_item = listbox3.get(index)
+                    print(index)
+                    if((index) == (0,) or selected_item == 'No Registered Sessions' or selected_item ==''):
+                        print("bad index")
+                        return
+                    print(selected_item)
+                    selected_item = str(selected_item).split(",")
+                    classID = selected_item[0].replace("(", "")
+                    print(classID)
+                    print(userID)
+                    print("deleteing")
+                    SQL.deleteSomething("PrivateSession WHERE SessionID = {} AND MemberID = {};".format(classID, userID))
+                    returnButton()
+                    button3_click()
+                    messagebox.showinfo("Success!", "You are no longer apart of that private session")
+
+
+                buttonPLeaveClass.pack_forget()
+
+                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass.pack(side=tk.LEFT, padx=10)
+            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawPClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPLeaveClass.pack(side=tk.LEFT, padx=10)
 
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
         button777 = tk.Button(button_frame1, text="View Private Sessions", command=viewPrivate, height=2, width=20, font=('Helvetica', '16'), bg='#4AE957')
         button777.pack(side=tk.LEFT, padx=10)
-        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#41D9DA')
+        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=addFClass, height=2, width=20, font=('Helvetica', '16'), bg='#41D9DA')
         buttonAddClass.pack(side=tk.LEFT, padx=10)
-        buttonAddClass = tk.Button(button_frame1, text="Withdraw From Class", command=quit, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
-        buttonAddClass.pack(side=tk.LEFT, padx=10)
+        buttonLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawFClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+        buttonLeaveClass.pack(side=tk.LEFT, padx=10)
 
 
 
