@@ -4,7 +4,6 @@ import SQL
 
 import TrainerGUI
 import TrainerBackend
-from  TrainerPages import TrainerMenu #alternative to TrainerGUI
 
 import datetime
 
