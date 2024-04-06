@@ -6,7 +6,7 @@ user = 'postgres'
 password = 'postgres'
 host = 'localhost'
 
-#Ryan
+#Steve
 
 def personExists2(table, e):
     name = e.split(" ")
@@ -25,6 +25,8 @@ def personExists2(table, e):
 
         conn.close()
         return potential != None
+
+#Ryan
 
 def personExists(e):
     name = e.split(" ")
