@@ -47,7 +47,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
-                button6.config(foreground='Black', background='#7A2727') 
+                button6.config(foreground='Black', background='#9389E5') 
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Rooms")
                 listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
@@ -58,7 +58,7 @@ def AdminPortal():
             global addCounter
             if addCounter == True:
                 return
-            button7.config(foreground='white', background='#9389E5')
+            button7.config(foreground='white', background='#E59989')
             login_label = tk.Label(frame, text="Enter Room Details (Seperate by commas and spaces *no brackets*)", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
@@ -81,11 +81,11 @@ def AdminPortal():
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Un-Used", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6 = tk.Button(button_frame1, text="Filter By Un-Used", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
       
    
@@ -110,7 +110,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
-                button6.config(foreground='Black', background='#7A2727')  
+                button6.config(foreground='Black', background='#9389E5')  
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment")
                 listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
@@ -121,7 +121,7 @@ def AdminPortal():
             global addCounter
             if addCounter == True:
                 return
-            button7.config(foreground='white', background='#9389E5')
+            button7.config(foreground='white', background='#E59989')
             login_label = tk.Label(frame, text="Enter First and Last Name", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
@@ -156,11 +156,11 @@ def AdminPortal():
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Old", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6 = tk.Button(button_frame1, text="Filter By Old", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
         
         scrollbar.config(command=listbox.yview)
@@ -213,7 +213,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
-                button6.config(foreground='Black', background='#7A2727')
+                button6.config(foreground='Black', background='#9389E5')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass")
                 listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
@@ -227,7 +227,7 @@ def AdminPortal():
             global addCounter
             if addCounter == True:
                 return
-            button7.config(foreground='white', background='#9389E5')
+            button7.config(foreground='white', background='#E59989')
             login_label = tk.Label(frame, text="Enter Fitness Class Details", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
@@ -256,7 +256,7 @@ def AdminPortal():
             global addCounter
             if addCounter == True:
                 return
-            button777.config(foreground='white', background='#9389E5')
+            button777.config(foreground='white', background='#E2EC70')
             login_label = tk.Label(frame, text="Enter Fitness Class Change", font=('Helvetica', '14'))
             login_label.pack()
             entries = []
@@ -315,13 +315,13 @@ def AdminPortal():
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Upcoming", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6 = tk.Button(button_frame1, text="Filter By Upcoming", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
-        button777 = tk.Button(button_frame1, text="Update Selected", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777 = tk.Button(button_frame1, text="Update Selected", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#E2EC70')
         button777.pack(side=tk.LEFT, padx=10)
 
         forgetButtons()
@@ -365,7 +365,7 @@ def AdminPortal():
                 reset()
                 x=0
         def reset():
-                button6.config(foreground='Black', background='#7A2727') 
+                button6.config(foreground='Black', background='#9389E5') 
                 listbox.delete(0, tk.END)
                 equip = SQL.StrictSelect("SELECT m.MemberID, m.FirstName, m.LastName, p.PaymentDate, p.AmountPayed, p.AmountOwed, p.PaymentMethod FROM Members m JOIN Payment p ON m.MemberID = p.MemberID ORDER BY m.MemberID;")
                 listbox.insert(tk.END, "MemberID, FirstName, LastName, Last Payment Date, AmountPayed, AmountOwed, PaymentMethod")
@@ -378,7 +378,7 @@ def AdminPortal():
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button6 = tk.Button(button_frame1, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
         button6.pack()
 
         forgetButtons()

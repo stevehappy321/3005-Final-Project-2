@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import SQL
 
-testValue = ''
+testValue = 'Jane Doe'
 testValue2 = []
 frame = None
 globalBool = True
@@ -12,8 +12,8 @@ userID = 0
 def MemberPortal(e):
     testValue = e
     #TODO REMOVE THIS
-    #testValue = ''
-    testValue2 = e.split(" ")
+    testValue = 'Jane Doe'
+    testValue2 = testValue.split(" ")
     userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
     userID = str(userID).replace("[(", "").replace(",)]", "")
     userID = int(userID)
@@ -397,7 +397,9 @@ def MemberPortal(e):
             def getClass():
                 index = listbox2.curselection()
                 selected_item = listbox2.get(index)
-                print(index)
+                temp = (str(selected_item).split(","))
+                temp = temp[-2].replace("\'", "").replace(",", "").replace("$", "").replace(" ", "")
+                print(temp)
                 if((index) == (0,) or (index) == (1,) or (index) == (2,) or (index) == (3,) or selected_item == 'No Registered Classes' or selected_item ==''):
                     print("bad index")
                     return
@@ -419,6 +421,7 @@ def MemberPortal(e):
                 if(SQL.getNumberOfMembers(insertString, classID)) == True:
                     SQL.addSomething("ClassMembers (ClassID, MemberID) VALUES ({}, {});".format(classID, userID))
                     messagebox.showinfo("Success!", "Successfully Registered")
+                    SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed + {} Where MemberID = {};".format(temp, userID))
                     returnButton()
                     button3_click()
                 else:
@@ -435,16 +438,15 @@ def MemberPortal(e):
                 def deleteClass():
                     index = listbox2.curselection()
                     selected_item = listbox2.get(index)
-                    print(index)
+                    temp = (str(selected_item).split(","))
+                    temp = temp[-1].replace("\'", "").replace(",", "").replace("$", "").replace(")", "").replace(" ", "")
                     if((index) == (0,) or selected_item == 'No Registered Classes' or selected_item ==''):
                         print("bad index")
                         return
                     selected_item = str(selected_item).split(",")
                     classID = selected_item[0].replace("(", "")
-                    print(classID)
-                    print(userID)
-                    print("deleteing")
                     SQL.deleteSomething("ClassMembers WHERE ClassID = {} AND MemberID = {};".format(classID, userID))
+                    SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(temp, userID))
                     returnButton()
                     button3_click()
                     messagebox.showinfo("Success!", "You are no longer apart of the class")
@@ -486,17 +488,16 @@ def MemberPortal(e):
                 def deleteClass():
                     index = listbox3.curselection()
                     selected_item = listbox3.get(index)
-                    print(index)
+                    temp = (str(selected_item).split(","))
+                    temp = temp[-1].replace("\'", "").replace(",", "").replace("$", "").replace(")", "").replace(" ", "")
                     if((index) == (0,) or selected_item == 'No Registered Sessions' or selected_item ==''):
                         print("bad index")
                         return
                     print(selected_item)
                     selected_item = str(selected_item).split(",")
                     classID = selected_item[0].replace("(", "")
-                    print(classID)
-                    print(userID)
-                    print("deleteing")
                     SQL.deleteSomething("PrivateSession WHERE SessionID = {} AND MemberID = {};".format(classID, userID))
+                    SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(temp, userID))
                     returnButton()
                     button3_click()
                     messagebox.showinfo("Success!", "You are no longer apart of that private session")
@@ -504,9 +505,9 @@ def MemberPortal(e):
 
                 buttonPLeaveClass.pack_forget()
 
-                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass = tk.Button(frame, text="Leave Session", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
                 buttonJoinClass.pack(side=tk.LEFT, padx=10)
-            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawPClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Session", command=withdrawPClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
             buttonPLeaveClass.pack(side=tk.LEFT, padx=10)
 
         global button_frame1
