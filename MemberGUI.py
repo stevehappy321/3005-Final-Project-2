@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
-import SQL
+import SQL, MemberBackend
 
-testValue = 'Jane Doe'
+import datetime
+from datetime import datetime
+
 testValue2 = []
 frame = None
 globalBool = True
@@ -11,8 +13,6 @@ currentSelection = ""
 userID = 0
 def MemberPortal(e):
     testValue = e
-    #TODO REMOVE THIS
-    testValue = 'Jane Doe'
     testValue2 = testValue.split(" ")
     userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
     userID = str(userID).replace("[(", "").replace(",)]", "")
@@ -484,6 +484,8 @@ def MemberPortal(e):
             buttonLeaveClass.pack_forget()
             buttonAddClass.pack_forget()
 
+
+
             def withdrawPClass():
                 def deleteClass():
                     index = listbox3.curselection()
@@ -507,8 +509,60 @@ def MemberPortal(e):
 
                 buttonJoinClass = tk.Button(frame, text="Leave Session", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
                 buttonJoinClass.pack(side=tk.LEFT, padx=10)
+
+            def createPrivSesh():
+                info = {0:"Date", 1:"Start Hours", 2:"Start Minutes", 3:"End Hours", 4:"End Minutes"}
+                print("Creating Priv Sesh")
+                login_label = tk.Label(frame, text="Enter the Date and Time to", font=('Helvetica', '14'))
+                login_label = tk.Label(frame, text="Schedule a Priv Sesh (1pm is 13)", font=('Helvetica', '14'))
+                login_label.pack()
+                entries = []
+                for i in range(5):
+                    entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                    entry.pack()  
+                    entry.insert(0, info.get(i))   
+                    entries.append(entry)
+                newClass = []
+                def dingl():
+                    for i in range (5):
+                        newClass.append(entries[i].get())
+                    date = datetime.strptime(str(newClass[0]), "%Y-%m-%d").date() 
+                    time1 = datetime.strptime(str(newClass[1] + " " + newClass[2] + " 00"), "%H %M %S").time()
+                    time2 = datetime.strptime(str(newClass[3] + " " + newClass[4] + " 00"), "%H %M %S").time()
+                    #10:30 to 12 is good on 2024-04-15
+                    avail = MemberBackend.getAvailableTrainers(date, time1, time2)
+                    for item in entries:
+                        item.pack_forget()
+                    login_label.pack_forget()
+                    button8.pack_forget()
+                    listbox3.delete(0, tk.END)
+                    listbox3.insert(tk.END, "Available Trainers")
+                    listbox3.insert(tk.END, "")
+                    for i in avail:
+                        listbox3.insert(tk.END, i)
+                    
+                    def selectTrainer():
+                        index = listbox3.curselection()
+                        selected_item = listbox3.get(index)
+                        if selected_item == '':
+                            return
+                        trainerID = str(selected_item).split(",")
+                        trainerID = (trainerID[0]).replace(",", "").replace("(", "")
+                        trainerID = int(trainerID)
+                        query = ""
+                        query += "PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES ({}, {}, 3, '{}', '{}', '{}', '100$');".format(trainerID, userID, date, time1, time2)
+                        SQL.addSomething(query)
+                        messagebox.showinfo("Success!", "Successfully Scheduled")
+                        returnButton()
+                    button9 = tk.Button(frame, text="Select Trainer", command=selectTrainer, height=1, width=20, font=('Helvetica', '12'), bg='#9389E5')
+                    button9.pack(side=tk.LEFT, padx=5)
+
+                button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+                button8.pack()
             buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Session", command=withdrawPClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
             buttonPLeaveClass.pack(side=tk.LEFT, padx=10)
+            buttonPCreateClass = tk.Button(button_frame1, text="Schedule Priv Session", command=createPrivSesh, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPCreateClass.pack(side=tk.LEFT, padx=10)
 
         global button_frame1
         button_frame1 = tk.Frame(root)
