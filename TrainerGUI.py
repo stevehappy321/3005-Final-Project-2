@@ -36,6 +36,8 @@ addCounter = False
 changingStartTime = False
 changingEndTime = False
 
+indent = '    '
+
 def trainerPortal(e):
     firstName = e.split(' ')[0]
     lastName = e.split(' ')[1]
@@ -172,7 +174,12 @@ def trainerPortal(e):
 
             listbox.delete(0, tk.END)
             for item in membersMatchingName:
-                listbox.insert( tk.END, (item["firstName"], item["lastName"]) )
+                #listbox.insert( tk.END, (item["firstName"], item["lastName"]) )
+                listbox.insert( tk.END, f"{item['firstName']} {item['lastName']}")
+                listbox.insert( tk.END, f"{indent} Address: {item['address']}")
+                listbox.insert( tk.END, f"{indent} City: {item['city']}")
+                listbox.insert( tk.END, f"{indent} Phone Number: {item['phoneNumber']}")
+                listbox.insert( tk.END, f"{indent} Email: {item['email']}")
 
         regenerateGUI()
 
