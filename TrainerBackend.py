@@ -38,13 +38,13 @@ def trainerIsAvailable(trainerID, date, startTime, endTime):
     trainerFreeIntervals = getTrainerAvailableInvervals(date, trainerID)
 
     for interval in trainerFreeIntervals: #interval is a tuple (startTime, endTime)
-        if not(
-            Utility.inRange(interval[0], startTime, endTime, True) and 
-            Utility.inRange(interval[1], startTime, endTime, True)
+        if (
+            Utility.inRange(interval[0], startTime, interval[1], True) and 
+            Utility.inRange(interval[0], endTime, interval[1], True)
         ):
-            return False
+            return True
         
-    return True
+    return False
 
 def getTrainerAvailableInvervals(date, trainerID):
     def computeFreeIntervals(startTime, endTime, busyIntervals):

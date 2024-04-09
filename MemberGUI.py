@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
-import SQL
+import SQL, MemberBackend
+
+import datetime
 
 testValue = 'Jane Doe'
 testValue2 = []
@@ -556,7 +558,9 @@ def MemberPortal(e):
     button1.pack(side=tk.LEFT, padx=10)
     button2.pack(side=tk.LEFT, padx=10)
     button3.pack(side=tk.LEFT, padx=10)
-
+    #('Morning Yoga', 1, 1, '2024-04-15', '10:00:00', '10:30:00', '10$', 10),
+    #('Lifting Class', 2, 2, '2024-04-15', '12:00:00', '12:24:00', '12$', 15);
+    print(MemberBackend.getAvailableTrainers(datetime.date(2024, 4, 15), datetime.time(10, 30, 00), datetime.time(12, 00, 1)))
 
     # Start the Tkinter event loop
     root.mainloop()
