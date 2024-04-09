@@ -36,8 +36,18 @@ addCounter = False
 changingStartTime = False
 changingEndTime = False
 
-def trainerPortal(trainerID):
-    print("Trainer Portal")        
+def trainerPortal(e):
+    firstName = e.split(' ')[0]
+    lastName = e.split(' ')[1]
+
+    trainerID = SQL.StrictSelect(
+        f"""
+        SELECT * FROM Trainers t
+        WHERE t.firstName = '{firstName}' AND t.lastName = '{lastName}'
+        """
+    )[0][0]
+
+    print("Trainer Portal")
 
     def manageHours_click():
         print("Hours Management")  

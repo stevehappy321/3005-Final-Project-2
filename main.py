@@ -10,25 +10,29 @@ def user_input_received(user_input):
     global user_input_global
     user_input_global = user_input
     user_input_global = user_input_global.split(":")
+
     if(user_input_global[0] == 'Admin' and user_input_global[-2] == 'ADMIN'):
         InitializeGUI.broadcast(True, "Now logged in as: {}".format(user_input_global[-2]))
         InitializeGUI.close_gui()
         AdminGUI.AdminPortal()
+
     elif (user_input_global[0] == 'Member'):
-        if(SQL.personExists(user_input_global[-2]) == True):
+        if(SQL.userExists(user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
             InitializeGUI.close_gui()
             MemberGUI.MemberPortal(user_input_global[-2])
         else:
             InitializeGUI.broadcast(False, "No Member Found")
+
     elif (user_input_global[0] == 'Trainer'):
-        if (SQL.personExists2("Trainers", user_input_global[-2]) == True):
+        if (SQL.userExists("Trainers", user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
             InitializeGUI.close_gui()
             #@STEVE CHANGE IN UR TRAINER PORTAL
-            TrainerGUI.trainerPortal()
+            TrainerGUI.trainerPortal(user_input_global[-2])
         else:
             InitializeGUI.broadcast(False, "No Trainer Found")
+            
     else:
         InitializeGUI.broadcast(False, "Login Not Valid. Try ADMIN")
     
