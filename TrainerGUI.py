@@ -152,10 +152,17 @@ def trainerPortal(trainerID):
         def refresh():
             membersMatchingName = TrainerBackend.searchMemberByName( entry.get() )
 
-            nonlocal listbox
+            for i in range( 0, len(membersMatchingName) ):
+                membersMatchingName[i] = Utility.tupleToDict(
+                    tuple= membersMatchingName[i],
+                    keys= ["memberID", "firstName", "lastName", "address", "city", "phoneNumber", "email"]
+                )
+
+            print(membersMatchingName)
+
             listbox.delete(0, tk.END)
             for item in membersMatchingName:
-                listbox.insert(item)
+                listbox.insert( tk.END, (item["firstName"], item["lastName"]) )
 
         regenerateGUI()
 
