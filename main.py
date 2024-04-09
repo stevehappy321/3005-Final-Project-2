@@ -4,6 +4,7 @@ import SQL
 
 import TrainerGUI
 import TrainerBackend
+import MemberBackend
 
 import datetime
 
@@ -43,6 +44,8 @@ def user_input_received(user_input):
     """
 
 print( TrainerBackend.getTrainerAvailableInvervals(datetime.date(2024, 4, 20) , 2) )
+print (MemberBackend.getAvailableTrainers( datetime.date(2024, 4, 20), datetime.time(12, 59, 0), datetime.time(13, 35, 0) ) )
+
 TrainerGUI.trainerPortal(2)
 #AdminGUI.AdminPortal()
 

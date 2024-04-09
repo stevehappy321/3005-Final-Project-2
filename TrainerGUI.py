@@ -5,9 +5,31 @@ import SQL
 import TrainerBackend
 import Utility
 
-root = None
-curFrame = None
-manageHoursFrame = None
+#root = None
+#masterFrame = None
+#subfunctionFrame = None
+
+#manageHoursFrame = None
+#earchMembersFrame = None
+"""
+layers:
+    masterFrame
+        manage hours
+        search members
+        prompts
+
+    subfunctionFrame
+        change start/end time
+
+
+    prompts - REMOVED
+        label
+        entry
+        submit
+"""
+masterFrame = None
+subfunctionFrame = None
+
 x=0
 addCounter = False
 
@@ -18,26 +40,27 @@ def trainerPortal(trainerID):
     print("Trainer Portal")        
 
     def manageHours_click():
-        global displayHoursFrame
+        print("Hours Management")  
+        regenerateGUI()
+        
+        global manageHoursFrame
 
-        displayHoursFrame = tk.Frame(root)
-        displayHoursFrame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
+        manageHoursFrame = tk.Frame(root)
+        manageHoursFrame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
 
-        #generate listboxes
-        listbox = tk.Listbox(displayHoursFrame, font=('Helvetica', '16'))
+        #generate listbox
+        listbox = tk.Listbox(manageHoursFrame, font=('Helvetica', '16'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         #forgetButtons()
 
         def refresh(): #refresh main listbox
             workingHours = TrainerBackend.getTrainerHours(trainerID)
-            startTime = workingHours["startTime"]
-            endTime = workingHours["endTime"]
 
             listbox.delete(0, tk.END)
             listbox.insert(tk.END, "CURRENT WORKING HOURS")
-            listbox.insert(tk.END, "Starting time: " + startTime.strftime("%H:%M"))
-            listbox.insert(tk.END, "Ending time: " + endTime.strftime("%H:%M"))
+            listbox.insert(tk.END, "Starting time: " + workingHours["startTime"].strftime("%H:%M"))
+            listbox.insert(tk.END, "Ending time: " + workingHours["endTime"].strftime("%H:%M"))
 
         def changeStartTime():
             def confirm():
@@ -64,9 +87,9 @@ def trainerPortal(trainerID):
             
             global changingStartTime
             if not changingStartTime:
-                label = tk.Label(displayHoursFrame, text= "Enter your new starting time as hh:mm", font=('Helvetica', '14'))
-                entry = tk.Entry(displayHoursFrame, font=('Helvetica', '14'), width=30)
-                submit = tk.Button(displayHoursFrame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+                label = tk.Label(manageHoursFrame, text= "Enter your new starting time as hh:mm", font=('Helvetica', '14'))
+                entry = tk.Entry(manageHoursFrame, font=('Helvetica', '14'), width=30)
+                submit = tk.Button(manageHoursFrame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
 
             label.pack()
             entry.pack(padx=40)
@@ -99,9 +122,9 @@ def trainerPortal(trainerID):
             
             global changingEndTime
             if not changingEndTime:
-                label = tk.Label(displayHoursFrame, text= "Enter your new end time as hh:mm", font=('Helvetica', '14'))
-                entry = tk.Entry(displayHoursFrame, font=('Helvetica', '14'), width=30)
-                submit = tk.Button(displayHoursFrame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+                label = tk.Label(manageHoursFrame, text= "Enter your new end time as hh:mm", font=('Helvetica', '14'))
+                entry = tk.Entry(manageHoursFrame, font=('Helvetica', '14'), width=30)
+                submit = tk.Button(manageHoursFrame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
 
             label.pack()
             entry.pack(padx=40)
@@ -109,42 +132,70 @@ def trainerPortal(trainerID):
 
             changingEndTime = True            
 
-        refresh();
+        refresh()
 
-        global manageHoursFrame #button frame for the trainer working hours prompts
-        manageHoursFrame = tk.Frame(root)
-        manageHoursFrame.pack(side=tk.BOTTOM, pady=30)
-        changeStartTime_button = tk.Button(manageHoursFrame, text="Change Start Hours", command=changeStartTime, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        global subfunctionFrame
+        subfunctionFrame = tk.Frame(root)
+        subfunctionFrame.pack(side=tk.BOTTOM, pady=30)
+
+        changeStartTime_button = tk.Button(subfunctionFrame, text="Change Start Hours", command=changeStartTime, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         changeStartTime_button.pack(side=tk.LEFT, padx=10)
-        changeEndTime_button = tk.Button(manageHoursFrame, text="Change End Hours", command=changeEndTime, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        changeEndTime_button = tk.Button(subfunctionFrame, text="Change End Hours", command=changeEndTime, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         changeEndTime_button.pack(side=tk.LEFT, padx=10)
 
+
+
+
     def searchMembers_click():
-        def confirm():
+        print("Search Members")  
+
+        def refresh():
             membersMatchingName = TrainerBackend.searchMemberByName( entry.get() )
-            refresh();
+
+            nonlocal listbox
+            listbox.delete(0, tk.END)
+            for item in membersMatchingName:
+                listbox.insert(item)
 
         regenerateGUI()
+
+        global searchMembersFrame
+        searchMembersFrame = tk.Frame(root)
+        searchMembersFrame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
+
+        #generate listbox
+        listbox = tk.Listbox(searchMembersFrame, font=('Helvetica', '16'))
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
-        label = tk.Label(displayHoursFrame, text= "Enter a name to search", font=('Helvetica', '14'))
-        entry = tk.Entry(displayHoursFrame, font=('Helvetica', '14'), width=30)
-        submit = tk.Button(displayHoursFrame, text="Submit", command=confirm, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
+        label = tk.Label(searchMembersFrame, text= "Enter a name to search", font=('Helvetica', '14'))
+        entry = tk.Entry(searchMembersFrame, font=('Helvetica', '14'), width=30)
+        submit = tk.Button(searchMembersFrame, text="Submit", command=refresh, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
 
         label.pack()
         entry.pack(padx=40)
         submit.pack()
 
-
     def destroyWidgets(master):
+        if master == None:
+            return;
+
         children = master.winfo_children()
         
         for widget in children:
             widget.destroy();
 
     def regenerateGUI():
-        destroyWidgets(masterFrame)
+        #nonlocal root;
+        nonlocal masterFrame;
+        nonlocal button_manageWorkingHours;
+        nonlocal button_searchMembers;
 
-        # Create and pack the buttons within the master button frame
+        destroyWidgets(root)
+
+        masterFrame = tk.Frame(root) # Create the master button frame
+        masterFrame.pack(side=tk.BOTTOM, pady=20)
+
+        # Create the buttons within the master button frame
         button_manageWorkingHours = tk.Button(
             masterFrame, 
             text="Manage Working Hours", 
@@ -165,9 +216,11 @@ def trainerPortal(trainerID):
 
         button_manageWorkingHours.pack(side=tk.LEFT, padx=10)
         button_searchMembers.pack(side=tk.LEFT, padx=10)
+                    
+    #"""
+    #global root
+    #global masterFrame
 
-            
-        
     # Create the main window
     root = tk.Tk()
     root.title("Trainer Controls")
@@ -176,8 +229,6 @@ def trainerPortal(trainerID):
     # Create and pack the buttons within the master button frame
     masterFrame = tk.Frame(root)
     masterFrame.pack(side=tk.BOTTOM, pady=20)
-
-    regenerateGUI();
     
     button_manageWorkingHours = tk.Button(
         masterFrame, 
@@ -199,6 +250,7 @@ def trainerPortal(trainerID):
 
     button_manageWorkingHours.pack(side=tk.LEFT, padx=10)
     button_searchMembers.pack(side=tk.LEFT, padx=10)
+    #"""
 
     # Start the Tkinter event loop
     root.mainloop()
