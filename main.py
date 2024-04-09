@@ -10,7 +10,6 @@ def user_input_received(user_input):
     global user_input_global
     user_input_global = user_input
     user_input_global = user_input_global.split(":")
-    print(user_input_global)
     if(user_input_global[0] == 'Admin' and user_input_global[-2] == 'ADMIN'):
         InitializeGUI.broadcast(True, "Now logged in as: {}".format(user_input_global[-2]))
         InitializeGUI.close_gui()
@@ -26,7 +25,8 @@ def user_input_received(user_input):
         if (SQL.personExists2("Trainers", user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
             InitializeGUI.close_gui()
-            TrainerGUI.trainerPortal(1)
+            #@STEVE CHANGE IN UR TRAINER PORTAL
+            TrainerGUI.trainerPortal()
         else:
             InitializeGUI.broadcast(False, "No Trainer Found")
     else:
