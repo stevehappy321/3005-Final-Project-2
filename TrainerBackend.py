@@ -92,19 +92,19 @@ def searchMemberByName(name):
          members = SQL.StrictSelect(
             f"""
             SELECT * FROM Members WHERE 
-            FirstName LIKE {name} OR 
-            LastName LIKE {name}
+            FirstName LIKE '{name}' OR 
+            LastName LIKE '{name}'
             """)
 
     elif len(givenNamesList) > 1:
         firstName = givenNamesList[0]
-        lastName = givenNamesList[len(givenNamesList) - 1]
+        lastName = givenNamesList[-1]
 
         members = SQL.StrictSelect(
             f"""
             SELECT * FROM Members WHERE 
-            FirstName LIKE {firstName} OR 
-            LastName LIKE {lastName}
+            FirstName LIKE '{firstName}' OR 
+            LastName LIKE '{lastName}'
             """)
 
     return members;

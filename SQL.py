@@ -8,7 +8,7 @@ host = 'localhost'
 
 #Steve
 
-def personExists2(table, e):
+def userExists(table, e):
     name = e.split(" ")
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
@@ -28,7 +28,7 @@ def personExists2(table, e):
 
 #Ryan
 
-def personExists(e):
+def memberExists(e):
     name = e.split(" ")
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
