@@ -5,7 +5,6 @@ import SQL, MemberBackend
 import datetime
 from datetime import datetime
 
-testValue = 'Jane Doe'
 testValue2 = []
 frame = None
 globalBool = True
@@ -14,8 +13,6 @@ currentSelection = ""
 userID = 0
 def MemberPortal(e):
     testValue = e
-    #TODO REMOVE THIS
-    testValue = 'Jane Doe'
     testValue2 = testValue.split(" ")
     userID = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))
     userID = str(userID).replace("[(", "").replace(",)]", "")
@@ -553,7 +550,7 @@ def MemberPortal(e):
                         trainerID = (trainerID[0]).replace(",", "").replace("(", "")
                         trainerID = int(trainerID)
                         query = ""
-                        query += "PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES ({}, {}, 1, '{}', '{}', '{}', '100$');".format(trainerID, userID, date, time1, time2)
+                        query += "PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES ({}, {}, 3, '{}', '{}', '{}', '100$');".format(trainerID, userID, date, time1, time2)
                         SQL.addSomething(query)
                         messagebox.showinfo("Success!", "Successfully Scheduled")
                         returnButton()

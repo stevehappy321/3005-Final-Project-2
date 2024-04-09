@@ -7,18 +7,24 @@ root = None
 x=[]
 entries = []
 registration = False
+loginMethod = ''
 def Initialize(submit_callback):
     def button1_click():
         enable_login()
         messagebox.showinfo("Member Login", "You are now logging in as a Member")
         root.title("Member Login")
         button4.pack()
+        global loginMethod
+        loginMethod = 'Member:'
     
     def submit_click():
         # Retrieve the input from the text box
         user_input = login_entry.get()
         messagebox.showinfo("Input Received", f"Logging in as: {user_input}")
-        submit_callback(user_input)
+        global loginMethod
+        loginMethod += user_input
+        loginMethod += ":"
+        submit_callback(loginMethod)
             
 
     def button2_click():
@@ -26,12 +32,16 @@ def Initialize(submit_callback):
         messagebox.showinfo("Trainer Login", "You are now logging in as a Trainer")
         root.title("Trainer Login")
         button4.pack()
+        global loginMethod
+        loginMethod = 'Trainer:'
 
     def button3_click():
         enable_login()
         messagebox.showinfo("Admin Login", "You are now logging in as a Admin")
         root.title("Admin Login")
         button4.pack()
+        global loginMethod
+        loginMethod = 'Admin:'
 
     def button4_click():
         forgetButtons()
@@ -110,6 +120,8 @@ def Initialize(submit_callback):
     def enable_login():
         login_label.pack()
         login_entry.pack()
+        login_entry.delete(0, tk.END)
+        print(login_entry.get())
         submit_button.pack()
         forgetButtons()
     

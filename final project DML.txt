@@ -123,7 +123,8 @@ INSERT INTO Trainers (FirstName, LastName, Address, City, PhoneNumber, Email, St
 
 INSERT INTO Rooms (Name, Capacity, Type) VALUES 
 ('Yoga Studio', 20, 'Yoga'),
-('Weight Room', 20, 'Weight Training');
+('Weight Room', 20, 'Weight Training'),
+('PrivateSessionStudio', 20, 'Sectioned Room for PrivateSessions');
 
 INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES 
 ('Yoga Mats', 'Yoga', '2023-01-15', 'New', 1),
