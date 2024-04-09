@@ -17,7 +17,7 @@ def user_input_received(user_input):
         AdminGUI.AdminPortal()
 
     elif (user_input_global[0] == 'Member'):
-        if(SQL.userExists(user_input_global[-2]) == True):
+        if(SQL.memberExists(user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
             InitializeGUI.close_gui()
             MemberGUI.MemberPortal(user_input_global[-2])
@@ -28,7 +28,6 @@ def user_input_received(user_input):
         if (SQL.userExists("Trainers", user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
             InitializeGUI.close_gui()
-            #@STEVE CHANGE IN UR TRAINER PORTAL
             TrainerGUI.trainerPortal(user_input_global[-2])
         else:
             InitializeGUI.broadcast(False, "No Trainer Found")

@@ -122,7 +122,7 @@ def AdminPortal():
             if addCounter == True:
                 return
             button7.config(foreground='white', background='#E59989')
-            login_label = tk.Label(frame, text="Enter First and Last Name", font=('Helvetica', '14'))
+            login_label = tk.Label(frame, text="Enter New Equipment Details", font=('Helvetica', '14'))
             login_label.pack()
             login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=30)
             login_entry.pack(padx=40)
