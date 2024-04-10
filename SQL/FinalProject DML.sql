@@ -1,6 +1,6 @@
 --Inserts
 INSERT INTO Members (FirstName, LastName, Address, City, PhoneNumber, Email) VALUES 
-('Jane', 'Doe', '123 Tree Street', 'Springfield', '111-555-6789', 'jane.doe@example.com'),
+('Jane', 'Doe', '123 Tree Court', 'Springfield', '111-555-6789', 'jdoe@hotmail.com'),
 ('Ryan', 'Mastin', '323 Mallard Avenue', 'Burlington', '905-555-6789', 'rmastin@gmail.com'),
 ('Steven', 'Wu', '124 Blue Avenue', 'Markham', '222-333-4444', 'SteveWu@gmail.com');
 
@@ -17,7 +17,7 @@ INSERT INTO Rooms (Name, Capacity, Type) VALUES
 ('Empty Room', 12, 'Room thats empty');
 
 INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES 
-('Yoga Mats', 'Yoga', '2023-01-15', 'New', 1),
+('Yoga Mats', 'Yoga Equipment', '2023-02-12', 'New', 1),
 ('Weight set 1', 'Weights', '2023-01-15', 'Old', 2),
 ('Weight set 2', 'Weights', '2023-01-20', 'New', 3),
 ('StairClimber', 'Cario', '2023-02-03', 'New', 3),
@@ -44,20 +44,20 @@ INSERT INTO ClassMembers (ClassID, MemberID) VALUES
 (5, 2);
 
 INSERT INTO FitnessStuffs (MemberID, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES 
-(1, '5km', '4:00 min/km', 100, 150, 100, '3km', '4:30 min/km', 80, 120, 500),
+(1, '7.5km', '3:00 min/km', 100, 150, 100, '2km', '4:24 min/km', 70, 110, 300),
 (2, '10km', '5:00 min/km', 120, 200, 150, '7km', '5:30 min/km', 90, 160, 700),
-(3, '15km', '2:00 min/km', 90, 90, 88, '8km', '3:30 min/km', 85, 111, 300);
+(3, '15km', '2:00 min/km', 90, 90, 88, '8km', '3:30 min/km', 85, 111, 200);
 
 
 INSERT INTO HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal) VALUES 
-(1, '2024-03-09', 200.00, '120/80', 70, 180.00, 65),
+(1, '2024-03-09', 224.00, '130/83', 71, 172.00, 65),
 (2, '2024-03-09', 150.00, '115/75', 75, 140.00, 72),
 (3, '2024-03-09', 250.00, '155/94', 80, 200.00, 79);
 
 INSERT INTO Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMethod) VALUES
 (1, '2023-03-25', 80.00, 100.00, 'Credit Card'),
 (2, '2024-03-10', 1.00, 300.00, 'Debt'),
-(3, '2024-03-10', 1.00, 2, 'Trading Fur');
+(3, '2024-03-10', 0.00, 2, 'Trading Fur');
 
 INSERT INTO FitnessRoutine (MemberID, LastUpdated, Routine) VALUES
 (1, '2024-04-09', '10x Jumping Jack, 30 Squats, 10km run, 40 cruntches'),
