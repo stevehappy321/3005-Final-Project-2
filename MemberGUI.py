@@ -103,7 +103,7 @@ def MemberPortal(e):
                     reset()
                     return
                 #if the amount is greater then the amount owed, set all to 0 and dont charge more
-                if(amount > payment1):
+                if(amount >= payment1):
                     SQL.UpdateSomething("Payment SET AmountOwed =  0 Where MemberID = {};".format(userID))
                     SQL.UpdateSomething("Payment SET AmountPayed = 0;")
                     messagebox.showinfo("Success!", "You have not been charged more than was due!")
