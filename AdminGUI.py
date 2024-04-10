@@ -1,5 +1,6 @@
 import tkinter as tk
 import SQL
+from tkinter import messagebox
 
 #Ryan
 
@@ -158,6 +159,39 @@ def AdminPortal():
             SQL.deleteSomething("Equipment Where EquipmentSerialNumber = {};".format(desired[0].replace("(", "")))
             reset()
 
+        def broken():
+            index = listbox.curselection()
+            selected_item = listbox.get(index)
+            desired = selected_item.split(",")
+            condition = SQL.StrictSelect("Select Condition From Equipment Where EquipmentSerialNumber = {}".format(desired[0].replace("(", "")))
+            condition = str(condition).replace("[(\'", "").replace("\',)]", "")
+            if(condition == "Under Maintenance"):
+                messagebox.showinfo("Error!", "The Equipment is already broken")
+                reset()
+                return
+            SQL.UpdateSomething("Equipment SET Condition = 'Under Maintenance', LastMaintenance = CURRENT_DATE Where EquipmentSerialNumber = {};".format(desired[0].replace("(", "")))
+            reset()
+        
+        def repair():
+            index = listbox.curselection()
+            selected_item = listbox.get(index)
+            desired = selected_item.split(",")
+            SQL.UpdateSomething("Equipment SET Condition = 'New', LastMaintenance = CURRENT_DATE Where EquipmentSerialNumber = {};".format(desired[0].replace("(", "")))
+            reset()
+
+        def old():
+            index = listbox.curselection()
+            selected_item = listbox.get(index)
+            desired = selected_item.split(",")
+            condition = SQL.StrictSelect("Select Condition From Equipment Where EquipmentSerialNumber = {}".format(desired[0].replace("(", "")))
+            condition = str(condition).replace("[(\'", "").replace("\',)]", "")
+            if(condition == "Under Maintenance"):
+                messagebox.showinfo("Error!", "The Equipment is still broken, not old, silly!")
+                reset()
+                return
+            SQL.UpdateSomething("Equipment SET Condition = 'Old' Where EquipmentSerialNumber = {};".format(desired[0].replace("(", "")))
+            reset()
+         
         global frame
         frame = tk.Frame(root)
         frame.pack(padx=100, pady=60, fill=tk.BOTH, expand=True)
@@ -175,10 +209,16 @@ def AdminPortal():
         buttonFrame2.pack(side=tk.BOTTOM, pady=30)
         button6 = tk.Button(buttonFrame2, text="Filter Under Maintenance / Old", command=filter, height=2, width=30, font=('Helvetica', '15'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(buttonFrame2, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '15'), bg='#E59989')
+        button7 = tk.Button(buttonFrame2, text="Add New", command=addNew, height=2, width=12, font=('Helvetica', '15'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(buttonFrame2, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
+        button77 = tk.Button(buttonFrame2, text="Delete Selected", command=delete, height=2, width=14, font=('Helvetica', '15'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
+        buttonMaintenance = tk.Button(buttonFrame2, text="Set to Broken", command=broken, height=2, width=12, font=('Helvetica', '15'), bg='#E59989')
+        buttonMaintenance.pack(side=tk.LEFT, padx=10)
+        buttonRepaired = tk.Button(buttonFrame2, text="Set to Repaired", command=repair, height=2, width=14, font=('Helvetica', '15'), bg='#89BAE5')
+        buttonRepaired.pack(side=tk.LEFT, padx=10)
+        buttonOld = tk.Button(buttonFrame2, text="Set to Old", command=old, height=2, width=12, font=('Helvetica', '15'), bg='#9389E5')
+        buttonOld.pack(side=tk.LEFT, padx=10)
         
         scrollbar.config(command=listbox.yview)
         #initially sets view to all equipment
@@ -399,11 +439,34 @@ def AdminPortal():
                     item = item.replace("Decimal", "")
                     listbox.insert(tk.END, item)
 
+        def collectFees():
+            def confirm():
+                amount = str(login_entry.get()).replace("$","").replace(" ", "")
+                amountGuard = amount.rfind('.')
+                if("-" in amount):
+                    messagebox.showinfo("Error!", "Bad idea to give everyone credit")
+                    return
+                if amountGuard == -1:
+                    amount = amount + '.00'
+                elif amountGuard ==2:
+                    amount = amount + '0'
+                SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed + {};".format(amount))
+                reset()
+                messagebox.showinfo("Success!", "Everyone was charged: {}".format(amount))
+                returnButton()
+            login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=15)
+            login_entry.pack(padx=30, pady=15)
+            login_entry.insert(0, "Enter Amount")
+            button8 = tk.Button(frame, text="Confirm?", command=confirm, height=1, width=10, font=('Helvetica', '12'), bg='#9389E5')
+            button8.pack(padx=30, pady=0)
+
         global buttonFrame2
         buttonFrame2 = tk.Frame(root)
         buttonFrame2.pack(side=tk.BOTTOM, pady=30)
         button6 = tk.Button(buttonFrame2, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
-        button6.pack()
+        button6.pack(side=tk.LEFT, padx=10)
+        buttonSendFees = tk.Button(buttonFrame2, text="Send Fees To All Members", command=collectFees, height=2, width=25, font=('Helvetica', '15'), bg='#9389E5')
+        buttonSendFees.pack(side=tk.LEFT, padx=10)
 
         forgetButtons()
     
@@ -451,3 +514,5 @@ def AdminPortal():
 
     # Start the Tkinter event loop
     root.mainloop()
+
+AdminPortal()
