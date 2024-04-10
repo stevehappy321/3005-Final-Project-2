@@ -27,7 +27,7 @@ def MemberPortal(e):
             MemberPortal(needed)
         return 
     #If Button 1 is clicked
-    def button1_click():
+    def button1Click():
         #checks name
         updateName()
         forgetButtons()
@@ -40,9 +40,9 @@ def MemberPortal(e):
         listbox.insert(tk.END, "                           Personal Info")
         equip = SQL.getAllSomething("Members WHERE FirstName = '{}' AND LastName = '{}';".format(testValue2[0], testValue2[1]))
         equip = str(equip)
-        cleaned_string = equip.replace('[(', '').replace(')]', '').replace(',', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace(',', '').replace("'", '')
         # Insert items into the Listbox
-        equip = cleaned_string.split(" ")
+        equip = cleanedString.split(" ")
         addrString =''
         info2 = ["MemberID:   ", "First Name:  ", "Last Name:  ", "Address:      ", "City:             ", "Phone #:      ", "Email:           "]
         for i in range(9):
@@ -63,17 +63,17 @@ def MemberPortal(e):
                 currentIndex = current_selection[0]
                 if currentIndex == 0:
                     listbox.selection_clear(0, tk.END)
-                    for index in previous_selection:
+                    for index in previousSelection:
                         listbox.selection_set(index)
             else:
                 pass
         # Update the previous selection
-        global previous_selection
-        previous_selection = listbox.curselection()
+        global previousSelection
+        previousSelection = listbox.curselection()
         #resets button1
         def reset():
                 returnButton()
-                button1_click()
+                button1Click()
         #def to pay bills
         def payBills():
             #gets and formats data
@@ -125,12 +125,12 @@ def MemberPortal(e):
             updateCounter = True
             #creates GUI
             button777.config(foreground='white', background='#9389E5')
-            login_label = tk.Label(frame, text="Enter Personal Info Change.", font=('Helvetica', '14'))
-            login_label.pack()
-            login_label = tk.Label(frame, text="(Select the item and then type in the desinated box)", font=('Helvetica', '14'))
-            login_label.pack()
-            login_label = tk.Label(frame, text="*Please only change 1 element at a time*", font=('Helvetica', '14'))
-            login_label.pack()
+            newLabel = tk.Label(frame, text="Enter Personal Info Change.", font=('Helvetica', '14'))
+            newLabel.pack()
+            newLabel = tk.Label(frame, text="(Select the item and then type in the desinated box)", font=('Helvetica', '14'))
+            newLabel.pack()
+            newLabel = tk.Label(frame, text="*Please only change 1 element at a time*", font=('Helvetica', '14'))
+            newLabel.pack()
             entries = []
             #Creates the fields to check
             info = {0:"MemberID", 1:"FirstName", 2:"LastName", 3:"Address", 4:"City", 5:"PhoneNumber", 6:"Email"}
@@ -152,7 +152,7 @@ def MemberPortal(e):
                         newClass.append(info.get(i))
                         newClass.append(entries[i].get())
                     entries[i].pack_forget()
-                login_label.pack_forget()
+                newLabel.pack_forget()
                 button8.pack_forget()
                 #X means that we have a value to extract, when X is true we extract its value from the next element on next iteration
                 x=False
@@ -206,7 +206,7 @@ def MemberPortal(e):
 
 
     #for if the user clicks button2
-    def button2_click():
+    def button2Click():
         forgetButtons()
         #create our buttons and stuffs
         global frame
@@ -225,8 +225,8 @@ def MemberPortal(e):
                 return
             updateCounter = True
             button777.config(foreground='white', background='#9389E5')
-            login_label = tk.Label(frame, text="Enter Personal Info Change", font=('Helvetica', '14'))
-            login_label.pack()
+            newLabel = tk.Label(frame, text="Enter Personal Info Change", font=('Helvetica', '14'))
+            newLabel.pack()
             entries = []
             #Creates the fields to check
             def dingl():
@@ -242,7 +242,7 @@ def MemberPortal(e):
                 if(infoUpdate == ['']):
                     print("returning")
                     returnButton()
-                    button2_click()
+                    button2Click()
                     return
                 #gets memberNumber for our queries below
                 currentSelection = ''
@@ -266,7 +266,7 @@ def MemberPortal(e):
                 #send the query to update
                 SQL.UpdateSomething(query)
                 returnButton()
-                button2_click()
+                button2Click()
             #unnessecary but creates the entry box for the change
             for i in range(1):
                 string = str("Enter Change Here")
@@ -301,10 +301,10 @@ def MemberPortal(e):
         info2 = ["DistanceRunningGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimmingDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
         equip = SQL.StrictSelect(insertString)
         equip = str(equip)
-        cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace("'", '')
         # Insert items into the Listbox
-        print(cleaned_string)
-        equip = cleaned_string.split(", ")
+        print(cleanedString)
+        equip = cleanedString.split(", ")
         for i in range(len(equip)):
             if(i ==5):
                listbox2.insert(tk.END, "________________________________________________________") 
@@ -328,9 +328,9 @@ def MemberPortal(e):
                         #& and * above are just so we can replace with ease
         equip = SQL.StrictSelect(insertString)
         equip = str(equip)
-        cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace("'", '')
         # Insert items into the Listbox
-        equip21 = cleaned_string.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
+        equip21 = cleanedString.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
         #split the query by ,
         equip = equip21.split(", ")
         info2 = ["LastMeasurementDate: ", "Weight: ", "BloodPressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: "]
@@ -352,7 +352,7 @@ def MemberPortal(e):
                 if currentIndex == 0 or currentIndex == 6:  # If the first item or 6th
                     # Revert to the previous selection (or clear selection if no previous)
                     listbox2.selection_clear(0, tk.END)
-                    for index in previous_selection:
+                    for index in previousSelection:
                         listbox2.selection_set(index)  
                 else:
                     global currentSelection
@@ -365,7 +365,7 @@ def MemberPortal(e):
                 currentIndex = current_selection[0]
                 if currentIndex == 0 or currentIndex == 5:  # If the first item or 6th
                     listbox3.selection_clear(0, tk.END)
-                    for index in previous_selection:
+                    for index in previousSelection:
                         listbox3.selection_set(index)
                 else:
                     global currentSelection
@@ -377,8 +377,8 @@ def MemberPortal(e):
         listbox3.bind('<<ListboxSelect>>', on_select3)  
     
     # Update the previous selection
-        global previous_selection
-        previous_selection = listbox2.curselection()
+        global previousSelection
+        previousSelection = listbox2.curselection()
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
@@ -386,13 +386,13 @@ def MemberPortal(e):
         button777.pack(side=tk.LEFT, padx=10)
 
     #button 3 is clicked
-    def button3_click():
+    def button3Click():
         forgetButtons()
         #create the listboxes and labels
         global frame
         frame = tk.Frame(root)
-        login_label = tk.Label(frame, text="Your Fitness Classes", font=('Helvetica', '14'))
-        login_label.pack(padx=0)
+        newLabel = tk.Label(frame, text="Your Fitness Classes", font=('Helvetica', '14'))
+        newLabel.pack(padx=0)
         login_label2 = tk.Label(frame, text="Your Private Sessions", font=('Helvetica', '14'))
         login_label3 = tk.Label(frame, text="Class Browser (Classes you are not in)", font=('Helvetica', '14'))
         frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
@@ -422,7 +422,7 @@ def MemberPortal(e):
         def addFClass():
             listbox2.delete(0, tk.END)
             listbox2.pack_forget()
-            login_label.pack_forget()
+            newLabel.pack_forget()
             login_label3.pack(padx=0)
             listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             #insert available classes
@@ -476,7 +476,7 @@ def MemberPortal(e):
                     messagebox.showinfo("Success!", "Successfully Registered")
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed + {} Where MemberID = {};".format(temp, userID))
                     returnButton()
-                    button3_click()
+                    button3Click()
                 else:
                     #class is full - inform
                     messagebox.showinfo("Fail!", "Class is Full")   
@@ -504,7 +504,7 @@ def MemberPortal(e):
                     SQL.deleteSomething("ClassMembers WHERE ClassID = {} AND MemberID = {};".format(classID, userID))
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(temp, userID))
                     returnButton()
-                    button3_click()
+                    button3Click()
                     #informs user of success
                     messagebox.showinfo("Success!", "You are no longer apart of the class")
 
@@ -528,7 +528,7 @@ def MemberPortal(e):
             listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             listbox3.insert(tk.END, "SessionID, SessionDate, SessionStart, SessionEnd, RoomNumber, TrainersID, Cost")
             listbox2.pack_forget()
-            login_label.pack_forget()
+            newLabel.pack_forget()
             equip = SQL.StrictSelect(insertString)
             # Insert items into the Listbox
             for item in equip:
@@ -561,7 +561,7 @@ def MemberPortal(e):
                     SQL.deleteSomething("PrivateSession WHERE SessionID = {} AND MemberID = {};".format(classID, userID))
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(temp, userID))
                     returnButton()
-                    button3_click()
+                    button3Click()
                     messagebox.showinfo("Success!", "You are no longer apart of that private session")
 
 
@@ -573,9 +573,9 @@ def MemberPortal(e):
             def createPrivSesh():
                 info = {0:"Date", 1:"Start Hours", 2:"Start Minutes", 3:"End Hours", 4:"End Minutes"}
                 
-                login_label = tk.Label(frame, text="Enter the Date and Time to", font=('Helvetica', '14'))
-                login_label = tk.Label(frame, text="Schedule a Priv Sesh (1pm is 13)", font=('Helvetica', '14'))
-                login_label.pack()
+                newLabel = tk.Label(frame, text="Enter the Date and Time to", font=('Helvetica', '14'))
+                newLabel = tk.Label(frame, text="Schedule a Priv Sesh (1pm is 13)", font=('Helvetica', '14'))
+                newLabel.pack()
                 #all buttons get added to array below
                 entries = []
                 for i in range(5):
@@ -598,7 +598,7 @@ def MemberPortal(e):
                     #remove buttons
                     for item in entries:
                         item.pack_forget()
-                    login_label.pack_forget()
+                    newLabel.pack_forget()
                     button8.pack_forget()
                     listbox3.delete(0, tk.END)
                     #prints all trainers found above
@@ -650,8 +650,8 @@ def MemberPortal(e):
     root = tk.Tk()
     root.title("Member Controls")
     root.geometry("1400x600")  # Width x Height
-    login_label = tk.Label(root, text="Hello, {}".format(e), font=('Helvetica', '14'))
-    login_label.pack(anchor='nw', padx=10)
+    newLabel = tk.Label(root, text="Hello, {}".format(e), font=('Helvetica', '14'))
+    newLabel.pack(anchor='nw', padx=10)
 
     def forgetButtons():
         button1.pack_forget()
@@ -669,12 +669,12 @@ def MemberPortal(e):
         global updateCounter
         updateCounter = False
 
-    button_frame = tk.Frame(root)
-    button_frame.pack(side=tk.BOTTOM, pady=20)
-    button1 = tk.Button(button_frame, text="Profile Management", command=button1_click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(button_frame, text="Dashboard Display", command=button2_click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(button_frame, text="Schedule Management", command=button3_click, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
-    button5 = tk.Button(button_frame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+    buttonFrame = tk.Frame(root)
+    buttonFrame.pack(side=tk.BOTTOM, pady=20)
+    button1 = tk.Button(buttonFrame, text="Profile Management", command=button1Click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
+    button2 = tk.Button(buttonFrame, text="Dashboard Display", command=button2Click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
+    button3 = tk.Button(buttonFrame, text="Schedule Management", command=button3Click, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
+    button5 = tk.Button(buttonFrame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
 
     button1.pack(side=tk.LEFT, padx=10)
     button2.pack(side=tk.LEFT, padx=10)
