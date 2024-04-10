@@ -27,7 +27,7 @@ def MemberPortal(e):
             MemberPortal(needed)
         return 
     #If Button 1 is clicked
-    def button1_click():
+    def button1Click():
         #checks name
         updateName()
         forgetButtons()
@@ -35,14 +35,14 @@ def MemberPortal(e):
         global updateCounter
         frame = tk.Frame(root)
         frame.pack(padx=150, pady=20, fill=tk.BOTH, expand=True)
-        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         listbox.insert(tk.END, "                           Personal Info")
         equip = SQL.getAllSomething("Members WHERE FirstName = '{}' AND LastName = '{}';".format(testValue2[0], testValue2[1]))
         equip = str(equip)
-        cleaned_string = equip.replace('[(', '').replace(')]', '').replace(',', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace(',', '').replace("'", '')
         # Insert items into the Listbox
-        equip = cleaned_string.split(" ")
+        equip = cleanedString.split(" ")
         addrString =''
         info2 = ["MemberID:   ", "First Name:  ", "Last Name:  ", "Address:      ", "City:             ", "Phone #:      ", "Email:           "]
         for i in range(9):
@@ -60,20 +60,20 @@ def MemberPortal(e):
         def on_select(event):
             current_selection = event.widget.curselection()
             if current_selection:
-                current_index = current_selection[0]
-                if current_index == 0:
+                currentIndex = current_selection[0]
+                if currentIndex == 0:
                     listbox.selection_clear(0, tk.END)
-                    for index in previous_selection:
+                    for index in previousSelection:
                         listbox.selection_set(index)
             else:
                 pass
         # Update the previous selection
-        global previous_selection
-        previous_selection = listbox.curselection()
+        global previousSelection
+        previousSelection = listbox.curselection()
         #resets button1
         def reset():
                 returnButton()
-                button1_click()
+                button1Click()
         #def to pay bills
         def payBills():
             #gets and formats data
@@ -112,9 +112,9 @@ def MemberPortal(e):
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(amount, userID))
                     SQL.UpdateSomething("Payment SET AmountPayed = AmountPayed + {} Where MemberID = {};".format(amount, userID))
                 reset()
-            entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+            entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
             entry.pack(side=tk.LEFT, padx=10)
-            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '16'), bg='#7A2727')
+            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '15'), bg='#7A2727')
             button1777.pack(side=tk.LEFT, padx=10)
         #This is for updating personal info
         def update():
@@ -125,12 +125,12 @@ def MemberPortal(e):
             updateCounter = True
             #creates GUI
             button777.config(foreground='white', background='#9389E5')
-            login_label = tk.Label(frame, text="Enter Personal Info Change.", font=('Helvetica', '14'))
-            login_label.pack()
-            login_label = tk.Label(frame, text="(Select the item and then type in the desinated box)", font=('Helvetica', '14'))
-            login_label.pack()
-            login_label = tk.Label(frame, text="*Please only change 1 element at a time*", font=('Helvetica', '14'))
-            login_label.pack()
+            newLabel = tk.Label(frame, text="Enter Personal Info Change.", font=('Helvetica', '14'))
+            newLabel.pack()
+            newLabel = tk.Label(frame, text="(Select the item and then type in the desinated box)", font=('Helvetica', '14'))
+            newLabel.pack()
+            newLabel = tk.Label(frame, text="*Please only change 1 element at a time*", font=('Helvetica', '14'))
+            newLabel.pack()
             entries = []
             #Creates the fields to check
             info = {0:"MemberID", 1:"FirstName", 2:"LastName", 3:"Address", 4:"City", 5:"PhoneNumber", 6:"Email"}
@@ -152,7 +152,7 @@ def MemberPortal(e):
                         newClass.append(info.get(i))
                         newClass.append(entries[i].get())
                     entries[i].pack_forget()
-                login_label.pack_forget()
+                newLabel.pack_forget()
                 button8.pack_forget()
                 #X means that we have a value to extract, when X is true we extract its value from the next element on next iteration
                 x=False
@@ -184,7 +184,7 @@ def MemberPortal(e):
             #Creates the buttons to change the fields. Adds each entry to the entries array so they can be deleted later
             for i in range(7):
                 string = str(info.get(i))
-                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                 entry.pack(pady=1)  
                 entry.insert(0, string)  
                 entries.append(entry)  
@@ -195,9 +195,9 @@ def MemberPortal(e):
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=20)
-        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
-        button1777 = tk.Button(button_frame1, text="Pay Bill", command=payBills, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button1777 = tk.Button(button_frame1, text="Pay Bill", command=payBills, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button1777.pack(side=tk.LEFT, padx=10)
 
 
@@ -206,15 +206,15 @@ def MemberPortal(e):
 
 
     #for if the user clicks button2
-    def button2_click():
+    def button2Click():
         forgetButtons()
         #create our buttons and stuffs
         global frame
         frame = tk.Frame(root)
         frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
-        listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox2 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        listbox3 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox3 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         listbox2.insert(tk.END, "                          Fitness Goals")
         listbox3.insert(tk.END, "                          Health Metrics")
@@ -225,8 +225,8 @@ def MemberPortal(e):
                 return
             updateCounter = True
             button777.config(foreground='white', background='#9389E5')
-            login_label = tk.Label(frame, text="Enter Personal Info Change", font=('Helvetica', '14'))
-            login_label.pack()
+            newLabel = tk.Label(frame, text="Enter Personal Info Change", font=('Helvetica', '14'))
+            newLabel.pack()
             entries = []
             #Creates the fields to check
             def dingl():
@@ -242,7 +242,7 @@ def MemberPortal(e):
                 if(infoUpdate == ['']):
                     print("returning")
                     returnButton()
-                    button2_click()
+                    button2Click()
                     return
                 #gets memberNumber for our queries below
                 currentSelection = ''
@@ -266,11 +266,11 @@ def MemberPortal(e):
                 #send the query to update
                 SQL.UpdateSomething(query)
                 returnButton()
-                button2_click()
+                button2Click()
             #unnessecary but creates the entry box for the change
             for i in range(1):
                 string = str("Enter Change Here")
-                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                 entry.pack(pady=1)  
                 entry.insert(0, string)  
                 entries.append(entry)  
@@ -301,10 +301,10 @@ def MemberPortal(e):
         info2 = ["DistanceRunningGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimmingDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
         equip = SQL.StrictSelect(insertString)
         equip = str(equip)
-        cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace("'", '')
         # Insert items into the Listbox
-        print(cleaned_string)
-        equip = cleaned_string.split(", ")
+        print(cleanedString)
+        equip = cleanedString.split(", ")
         for i in range(len(equip)):
             if(i ==5):
                listbox2.insert(tk.END, "________________________________________________________") 
@@ -328,9 +328,9 @@ def MemberPortal(e):
                         #& and * above are just so we can replace with ease
         equip = SQL.StrictSelect(insertString)
         equip = str(equip)
-        cleaned_string = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace("'", '')
         # Insert items into the Listbox
-        equip21 = cleaned_string.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
+        equip21 = cleanedString.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
         #split the query by ,
         equip = equip21.split(", ")
         info2 = ["LastMeasurementDate: ", "Weight: ", "BloodPressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: "]
@@ -348,65 +348,65 @@ def MemberPortal(e):
         def on_select2(event):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
-                current_index = current_selection[0]
-                if current_index == 0 or current_index == 6:  # If the first item or 6th
+                currentIndex = current_selection[0]
+                if currentIndex == 0 or currentIndex == 6:  # If the first item or 6th
                     # Revert to the previous selection (or clear selection if no previous)
                     listbox2.selection_clear(0, tk.END)
-                    for index in previous_selection:
+                    for index in previousSelection:
                         listbox2.selection_set(index)  
                 else:
                     global currentSelection
                     currentSelection += "LISTBOX2& "
-                    currentSelection += listbox2.get(current_index)
+                    currentSelection += listbox2.get(currentIndex)
          #if listbox3 is selected, and its a bad index, remove the selection. otherwise set the global var = to this listbox
         def on_select3(event):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
-                current_index = current_selection[0]
-                if current_index == 0 or current_index == 5:  # If the first item or 6th
+                currentIndex = current_selection[0]
+                if currentIndex == 0 or currentIndex == 5:  # If the first item or 6th
                     listbox3.selection_clear(0, tk.END)
-                    for index in previous_selection:
+                    for index in previousSelection:
                         listbox3.selection_set(index)
                 else:
                     global currentSelection
                     currentSelection += "LISTBOX3& "
-                    currentSelection += listbox3.get(current_index)
+                    currentSelection += listbox3.get(currentIndex)
                 
         #bind the behavior above 
         listbox2.bind('<<ListboxSelect>>', on_select2)
         listbox3.bind('<<ListboxSelect>>', on_select3)  
     
     # Update the previous selection
-        global previous_selection
-        previous_selection = listbox2.curselection()
+        global previousSelection
+        previousSelection = listbox2.curselection()
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
-        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
 
     #button 3 is clicked
-    def button3_click():
+    def button3Click():
         forgetButtons()
         #create the listboxes and labels
         global frame
         frame = tk.Frame(root)
-        login_label = tk.Label(frame, text="Your Fitness Classes", font=('Helvetica', '14'))
-        login_label.pack(padx=0)
+        newLabel = tk.Label(frame, text="Your Fitness Classes", font=('Helvetica', '14'))
+        newLabel.pack(padx=0)
         login_label2 = tk.Label(frame, text="Your Private Sessions", font=('Helvetica', '14'))
         login_label3 = tk.Label(frame, text="Class Browser (Classes you are not in)", font=('Helvetica', '14'))
         frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
-        listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox2 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        listbox3 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox3 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox2.insert(tk.END, "ClassID, ClassName, ClassDate, StartTime, EndTime, RoomNumber, Cost")
         #our string to select nessecary info for our members fitnessclasses
         insertString = """
-                    SELECT fc.ClassID, fc.ClassName, fc.ClassDate, fc.SessionTime, fc.EndTime, fc.RoomID, fc.Cost
-                    FROM FitnessClass fc
-                    JOIN ClassMembers cm ON fc.ClassID = cm.ClassID
-                    WHERE cm.MemberID = {}
-                    Order By fc.ClassDate, fc.SessionTime
+                    SELECT f.ClassID, f.ClassName, f.ClassDate, f.SessionTime, f.EndTime, f.RoomID, f.Cost
+                    FROM FitnessClass f
+                    JOIN ClassMembers c ON f.ClassID = c.ClassID
+                    WHERE c.MemberID = {}
+                    Order By f.ClassDate, f.SessionTime
                     """.format(userID)
 
         equip = SQL.StrictSelect(insertString)
@@ -422,7 +422,7 @@ def MemberPortal(e):
         def addFClass():
             listbox2.delete(0, tk.END)
             listbox2.pack_forget()
-            login_label.pack_forget()
+            newLabel.pack_forget()
             login_label3.pack(padx=0)
             listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             #insert available classes
@@ -432,11 +432,11 @@ def MemberPortal(e):
             listbox2.insert(tk.END, "")
             #finds classes where our user is not present
             insertString = """
-                        SELECT fc.*
-                        FROM FitnessClass fc
-                        LEFT JOIN ClassMembers cm ON fc.ClassID = cm.ClassID AND cm.MemberID = {}
-                        WHERE cm.MemberID IS NULL
-                        Order By fc.ClassDate, fc.SessionTime
+                        SELECT f.*
+                        FROM FitnessClass f
+                        LEFT JOIN ClassMembers c ON f.ClassID = c.ClassID AND c.MemberID = {}
+                        WHERE c.MemberID IS NULL
+                        Order By f.ClassDate, f.SessionTime
             """.format(userID)
             equip = SQL.StrictSelect(insertString)
             #prints these classes
@@ -458,16 +458,16 @@ def MemberPortal(e):
                 #create the select statement for our SQL func that finds the number of members in a class
                 insertString = """
                             SELECT 
-                            fc.ClassID, fc.Capacity,
-                            COUNT(cm.MemberID) AS RegisteredMembers
+                            f.ClassID, f.Capacity,
+                            COUNT(c.MemberID) AS RegisteredUsers
                         FROM 
-                            FitnessClass fc
+                            FitnessClass f
                         LEFT JOIN 
-                            ClassMembers cm ON fc.ClassID = cm.ClassID
+                            ClassMembers c ON f.ClassID = c.ClassID
                         GROUP BY 
-                            fc.ClassID, fc.ClassName, fc.Capacity
+                            f.ClassID, f.ClassName, f.Capacity
                         ORDER BY 
-                            fc.ClassID;
+                            f.ClassID;
                 """
                 #counts the number of members and checks if the class is full. if not, do below
                 if(SQL.getNumberOfMembers(insertString, classID)) == True:
@@ -476,7 +476,7 @@ def MemberPortal(e):
                     messagebox.showinfo("Success!", "Successfully Registered")
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed + {} Where MemberID = {};".format(temp, userID))
                     returnButton()
-                    button3_click()
+                    button3Click()
                 else:
                     #class is full - inform
                     messagebox.showinfo("Fail!", "Class is Full")   
@@ -484,7 +484,7 @@ def MemberPortal(e):
             buttonAddClass.pack_forget()
             buttonLeaveClass.pack_forget()
 
-            buttonJoinClass = tk.Button(frame, text="Join Class", command=getClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonJoinClass = tk.Button(frame, text="Join Class", command=getClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
             buttonJoinClass.pack(side=tk.LEFT, padx=10)
 
         #leave fitnessClass
@@ -504,14 +504,14 @@ def MemberPortal(e):
                     SQL.deleteSomething("ClassMembers WHERE ClassID = {} AND MemberID = {};".format(classID, userID))
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(temp, userID))
                     returnButton()
-                    button3_click()
+                    button3Click()
                     #informs user of success
                     messagebox.showinfo("Success!", "You are no longer apart of the class")
 
 
                 buttonLeaveClass.pack_forget()
 
-                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
                 buttonJoinClass.pack(side=tk.LEFT, padx=10)
         #view the users private sessions
         def viewPrivate():
@@ -519,16 +519,16 @@ def MemberPortal(e):
             listbox3.delete(0, tk.END)
             #query to find members private sessions
             insertString = """
-                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost
-                        FROM PrivateSession ps
-                        WHERE ps.MemberID = {}
-                        ORDER BY ps.SessionDate, ps.SessionTime;
+                        SELECT p.SessionID, p.SessionDate, p.SessionTime, p.EndTime, p.RoomID, p.TrainerID, p.Cost
+                        FROM PrivateSession p
+                        WHERE p.MemberID = {}
+                        ORDER BY p.SessionDate, p.SessionTime;
             """.format(userID)
             login_label2.pack(padx=0)
             listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             listbox3.insert(tk.END, "SessionID, SessionDate, SessionStart, SessionEnd, RoomNumber, TrainersID, Cost")
             listbox2.pack_forget()
-            login_label.pack_forget()
+            newLabel.pack_forget()
             equip = SQL.StrictSelect(insertString)
             # Insert items into the Listbox
             for item in equip:
@@ -561,25 +561,25 @@ def MemberPortal(e):
                     SQL.deleteSomething("PrivateSession WHERE SessionID = {} AND MemberID = {};".format(classID, userID))
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(temp, userID))
                     returnButton()
-                    button3_click()
+                    button3Click()
                     messagebox.showinfo("Success!", "You are no longer apart of that private session")
 
 
                 buttonPLeaveClass.pack_forget()
 
-                buttonJoinClass = tk.Button(frame, text="Leave Session", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass = tk.Button(frame, text="Leave Session", command=deleteClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
                 buttonJoinClass.pack(side=tk.LEFT, padx=10)
             #for creating a private session
             def createPrivSesh():
                 info = {0:"Date", 1:"Start Hours", 2:"Start Minutes", 3:"End Hours", 4:"End Minutes"}
                 
-                login_label = tk.Label(frame, text="Enter the Date and Time to", font=('Helvetica', '14'))
-                login_label = tk.Label(frame, text="Schedule a Priv Sesh (1pm is 13)", font=('Helvetica', '14'))
-                login_label.pack()
+                newLabel = tk.Label(frame, text="Enter the Date and Time to", font=('Helvetica', '14'))
+                newLabel = tk.Label(frame, text="Schedule a Priv Sesh (1pm is 13)", font=('Helvetica', '14'))
+                newLabel.pack()
                 #all buttons get added to array below
                 entries = []
                 for i in range(5):
-                    entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                    entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                     entry.pack()  
                     entry.insert(0, info.get(i))   
                     entries.append(entry)
@@ -598,7 +598,7 @@ def MemberPortal(e):
                     #remove buttons
                     for item in entries:
                         item.pack_forget()
-                    login_label.pack_forget()
+                    newLabel.pack_forget()
                     button8.pack_forget()
                     listbox3.delete(0, tk.END)
                     #prints all trainers found above
@@ -629,19 +629,19 @@ def MemberPortal(e):
 
                 button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
                 button8.pack()
-            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Session", command=withdrawPClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Session", command=withdrawPClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
             buttonPLeaveClass.pack(side=tk.LEFT, padx=10)
-            buttonPCreateClass = tk.Button(button_frame1, text="Schedule Priv Session", command=createPrivSesh, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPCreateClass = tk.Button(button_frame1, text="Schedule Priv Session", command=createPrivSesh, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
             buttonPCreateClass.pack(side=tk.LEFT, padx=10)
 
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
-        button777 = tk.Button(button_frame1, text="View Private Sessions", command=viewPrivate, height=2, width=20, font=('Helvetica', '16'), bg='#4AE957')
+        button777 = tk.Button(button_frame1, text="View Private Sessions", command=viewPrivate, height=2, width=20, font=('Helvetica', '15'), bg='#4AE957')
         button777.pack(side=tk.LEFT, padx=10)
-        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=addFClass, height=2, width=20, font=('Helvetica', '16'), bg='#41D9DA')
+        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=addFClass, height=2, width=20, font=('Helvetica', '15'), bg='#41D9DA')
         buttonAddClass.pack(side=tk.LEFT, padx=10)
-        buttonLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawFClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+        buttonLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawFClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
         buttonLeaveClass.pack(side=tk.LEFT, padx=10)
 
 
@@ -650,8 +650,8 @@ def MemberPortal(e):
     root = tk.Tk()
     root.title("Member Controls")
     root.geometry("1400x600")  # Width x Height
-    login_label = tk.Label(root, text="Hello, {}".format(e), font=('Helvetica', '14'))
-    login_label.pack(anchor='nw', padx=10)
+    newLabel = tk.Label(root, text="Hello, {}".format(e), font=('Helvetica', '14'))
+    newLabel.pack(anchor='nw', padx=10)
 
     def forgetButtons():
         button1.pack_forget()
@@ -669,12 +669,12 @@ def MemberPortal(e):
         global updateCounter
         updateCounter = False
 
-    button_frame = tk.Frame(root)
-    button_frame.pack(side=tk.BOTTOM, pady=20)
-    button1 = tk.Button(button_frame, text="Profile Management", command=button1_click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(button_frame, text="Dashboard Display", command=button2_click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(button_frame, text="Schedule Management", command=button3_click, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
-    button5 = tk.Button(button_frame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+    buttonFrame = tk.Frame(root)
+    buttonFrame.pack(side=tk.BOTTOM, pady=20)
+    button1 = tk.Button(buttonFrame, text="Profile Management", command=button1Click, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
+    button2 = tk.Button(buttonFrame, text="Dashboard Display", command=button2Click, height=2, width=30, font=('Helvetica', '15'), bg='#E59989')
+    button3 = tk.Button(buttonFrame, text="Schedule Management", command=button3Click, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
+    button5 = tk.Button(buttonFrame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
 
     button1.pack(side=tk.LEFT, padx=10)
     button2.pack(side=tk.LEFT, padx=10)

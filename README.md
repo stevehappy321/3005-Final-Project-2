@@ -6,13 +6,13 @@
 
 pip install psycopg2
 
-pip install Tkinter (May not need to)
+Tkinter is installed alongside Python in the majority of releases. If it is not present, re-install python to the latest version
 
 **Operation:**
 
 Ensure databased has been created and populated before operation (Check SQL folder in repo for DDL and DML files) and enter that in the pgAdmin query tool [after creating the db]
 
-Install pyscopg2 using the pip command above (In the folder with the file, do pip install pyscopgy2). Tkinter May already be installed. you can still do the pip install to check
+Install pyscopg2 using the pip command above (In the folder with the file, do pip install pyscopgy2). Tkinter SHOULD already be installed with modern python packages
 
 If any info differs in your postgres database you must change it in the Variables in the SQL script
 
