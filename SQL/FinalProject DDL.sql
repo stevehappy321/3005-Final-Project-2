@@ -76,8 +76,8 @@ CREATE TABLE IF NOT EXISTS Rooms (
 -- many to many with room
 CREATE TABLE IF NOT EXISTS Equipment (
     EquipmentID SERIAL PRIMARY KEY,
-    Name varchar        (255) NOT NULL,
-    Type varchar        (100) NOT NULL,
+    Name                varchar(255) NOT NULL,
+    Type                varchar(100) NOT NULL,
     PurchaseDate        DATE NOT NULL,
     Condition           varchar(100) NOT NULL,
     RoomID              INT,
