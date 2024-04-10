@@ -173,7 +173,7 @@ def AdminPortal():
         global buttonFrame2
         buttonFrame2 = tk.Frame(root)
         buttonFrame2.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(buttonFrame2, text="Filter By Old", command=filter, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
+        button6 = tk.Button(buttonFrame2, text="Filter Under Maintenance / Old", command=filter, height=2, width=30, font=('Helvetica', '15'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
         button7 = tk.Button(buttonFrame2, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '15'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)

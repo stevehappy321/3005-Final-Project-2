@@ -27,10 +27,10 @@ CREATE TABLE IF NOT EXISTS FitnessStuffs (
 CREATE TABLE IF NOT EXISTS HealthStuffs (
     MemberID INT PRIMARY KEY,
     MeasurementDate     DATE,
-    Weight              DECIMAL(4, 2),
+    Weight              DECIMAL(8, 2),
     BloodPressure       varchar(50),
     HeartRate           INT,
-    WeightGoal          DECIMAL(4, 2),
+    WeightGoal          DECIMAL(8, 2),
     HeartRateGoal       INT,
     FOREIGN KEY (MemberID) 
     REFERENCES Members (MemberID) ON DELETE CASCADE
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS HealthStuffs (
 CREATE TABLE IF NOT EXISTS Payment (
     MemberID INT PRIMARY KEY,
     PaymentDate     DATE,
-    AmountPayed     DECIMAL(5, 2) NOT NULL DEFAULT 0.00,
-    AmountOwed      DECIMAL(5, 2) NOT NULL DEFAULT 0.00,
+    AmountPayed     DECIMAL(8, 2) NOT NULL DEFAULT 0.00,
+    AmountOwed      DECIMAL(8, 2) NOT NULL DEFAULT 0.00,
     PaymentMethod   varchar(20),
     FOREIGN KEY (MemberID) 
     REFERENCES Members (MemberID) ON DELETE CASCADE
