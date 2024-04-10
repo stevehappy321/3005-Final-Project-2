@@ -19,13 +19,13 @@ INSERT INTO Rooms (Name, Capacity, Type) VALUES
 ('Empty Room', 12, 'Room thats empty');
 
 --Conditions dont nessecarily align with purchase date - fyi
-INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES 
-('Yoga Mats', 'Yoga Equipment', '2023-02-12', 'New', 1),
-('Weight set 1', 'Weights', '2023-01-15', 'Old', 2),
-('Weight set 2', 'Weights', '2023-01-20', 'New', 3),
-('StairClimber', 'Cario', '2023-02-03', 'Under Maintenance', 3),
-('Shake Weight', 'Arms', '2023-09-11', 'Under Maintenance', 3),
-('Swimming Pool', 'Utilities', '2023-01-01', 'Old', 4);
+INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID, LastMaintenance) VALUES 
+('Yoga Mats', 'Yoga Equipment', '2023-02-12', 'New', 1, '2022-02-12'),
+('Weight set 1', 'Weights', '2023-01-15', 'Old', 2, '2022-02-12'),
+('Weight set 2', 'Weights', '2023-01-20', 'New', 3, '2022-02-12'),
+('StairClimber', 'Cario', '2023-02-03', 'Under Maintenance', 3, CURRENT_DATE),
+('Shake Weight', 'Arms', '2023-09-11', 'Under Maintenance', 3, CURRENT_DATE),
+('Swimming Pool', 'Utilities', '2023-01-01', 'Old', 4, '2022-02-12');
 
 --random assortment of classes, 0 person class has no capacity, full class will have 1 person registered (Member 2)
 INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES 
