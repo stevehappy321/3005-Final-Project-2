@@ -402,11 +402,11 @@ def MemberPortal(e):
         listbox2.insert(tk.END, "ClassID, ClassName, ClassDate, StartTime, EndTime, RoomNumber, Cost")
         #our string to select nessecary info for our members fitnessclasses
         insertString = """
-                    SELECT fc.ClassID, fc.ClassName, fc.ClassDate, fc.SessionTime, fc.EndTime, fc.RoomID, fc.Cost
-                    FROM FitnessClass fc
-                    JOIN ClassMembers cm ON fc.ClassID = cm.ClassID
-                    WHERE cm.MemberID = {}
-                    Order By fc.ClassDate, fc.SessionTime
+                    SELECT f.ClassID, f.ClassName, f.ClassDate, f.SessionTime, f.EndTime, f.RoomID, f.Cost
+                    FROM FitnessClass f
+                    JOIN ClassMembers c ON f.ClassID = c.ClassID
+                    WHERE c.MemberID = {}
+                    Order By f.ClassDate, f.SessionTime
                     """.format(userID)
 
         equip = SQL.StrictSelect(insertString)
@@ -432,11 +432,11 @@ def MemberPortal(e):
             listbox2.insert(tk.END, "")
             #finds classes where our user is not present
             insertString = """
-                        SELECT fc.*
-                        FROM FitnessClass fc
-                        LEFT JOIN ClassMembers cm ON fc.ClassID = cm.ClassID AND cm.MemberID = {}
-                        WHERE cm.MemberID IS NULL
-                        Order By fc.ClassDate, fc.SessionTime
+                        SELECT f.*
+                        FROM FitnessClass f
+                        LEFT JOIN ClassMembers c ON f.ClassID = c.ClassID AND c.MemberID = {}
+                        WHERE c.MemberID IS NULL
+                        Order By f.ClassDate, f.SessionTime
             """.format(userID)
             equip = SQL.StrictSelect(insertString)
             #prints these classes
@@ -458,16 +458,16 @@ def MemberPortal(e):
                 #create the select statement for our SQL func that finds the number of members in a class
                 insertString = """
                             SELECT 
-                            fc.ClassID, fc.Capacity,
-                            COUNT(cm.MemberID) AS RegisteredMembers
+                            f.ClassID, f.Capacity,
+                            COUNT(c.MemberID) AS RegisteredUsers
                         FROM 
-                            FitnessClass fc
+                            FitnessClass f
                         LEFT JOIN 
-                            ClassMembers cm ON fc.ClassID = cm.ClassID
+                            ClassMembers c ON f.ClassID = c.ClassID
                         GROUP BY 
-                            fc.ClassID, fc.ClassName, fc.Capacity
+                            f.ClassID, f.ClassName, f.Capacity
                         ORDER BY 
-                            fc.ClassID;
+                            f.ClassID;
                 """
                 #counts the number of members and checks if the class is full. if not, do below
                 if(SQL.getNumberOfMembers(insertString, classID)) == True:
@@ -519,10 +519,10 @@ def MemberPortal(e):
             listbox3.delete(0, tk.END)
             #query to find members private sessions
             insertString = """
-                        SELECT ps.SessionID, ps.SessionDate, ps.SessionTime, ps.EndTime, ps.RoomID, ps.TrainerID, ps.Cost
-                        FROM PrivateSession ps
-                        WHERE ps.MemberID = {}
-                        ORDER BY ps.SessionDate, ps.SessionTime;
+                        SELECT p.SessionID, p.SessionDate, p.SessionTime, p.EndTime, p.RoomID, p.TrainerID, p.Cost
+                        FROM PrivateSession p
+                        WHERE p.MemberID = {}
+                        ORDER BY p.SessionDate, p.SessionTime;
             """.format(userID)
             login_label2.pack(padx=0)
             listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
