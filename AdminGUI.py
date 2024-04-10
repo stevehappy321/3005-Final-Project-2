@@ -515,4 +515,4 @@ def AdminPortal():
     # Start the Tkinter event loop
     root.mainloop()
 
-AdminPortal()
+#AdminPortal()
