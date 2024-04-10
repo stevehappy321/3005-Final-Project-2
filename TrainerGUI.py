@@ -215,6 +215,8 @@ def trainerPortal(e):
         nonlocal button_searchMembers;
 
         destroyWidgets(root)
+        #everything below the root disappears
+        #reinstantiate widgets that need to be used immediately
 
         masterFrame = tk.Frame(root) # Create the master button frame
         masterFrame.pack(side=tk.BOTTOM, pady=20)
