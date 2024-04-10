@@ -5,7 +5,7 @@ import SQL
 
 root = None
 curFrame = None
-button_frame1 = None
+buttonFrame2 = None
 x=0
 addCounter = False
 def AdminPortal():
@@ -16,13 +16,13 @@ def AdminPortal():
     ############################
 
 
-    def button1_click():
+    def button1Click():
         global frame
 
         frame = tk.Frame(root)
         frame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
 
-        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         #gets all rooms
@@ -85,14 +85,14 @@ def AdminPortal():
             SQL.deleteSomething("Rooms Where RoomID = {};".format(desired[0].replace("(", "")))
             reset()
 
-        global button_frame1
-        button_frame1 = tk.Frame(root)
-        button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Un-Used", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
+        global buttonFrame2
+        buttonFrame2 = tk.Frame(root)
+        buttonFrame2.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(buttonFrame2, text="Filter By Un-Used", command=filter, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#E59989')
+        button7 = tk.Button(buttonFrame2, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '15'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
+        button77 = tk.Button(buttonFrame2, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
       
    
@@ -100,7 +100,7 @@ def AdminPortal():
     ###### BEGIN BUTTON 2 ###### 
     ############################
 
-    def button2_click():
+    def button2Click():
         global frame
         #used to filter the equipment by conditon "Old"
         def filter():
@@ -167,17 +167,17 @@ def AdminPortal():
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         # Create the Listbox and attach the Scrollbar, not seen elserwhere - too much work for not much return
-        listbox = tk.Listbox(frame, yscrollcommand=scrollbar.set, font=('Helvetica', '16'))
+        listbox = tk.Listbox(frame, yscrollcommand=scrollbar.set, font=('Helvetica', '15'))
         listbox.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-        global button_frame1
-        button_frame1 = tk.Frame(root)
-        button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Old", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
+        global buttonFrame2
+        buttonFrame2 = tk.Frame(root)
+        buttonFrame2.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(buttonFrame2, text="Filter By Old", command=filter, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#E59989')
+        button7 = tk.Button(buttonFrame2, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '15'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
+        button77 = tk.Button(buttonFrame2, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
         
         scrollbar.config(command=listbox.yview)
@@ -196,13 +196,13 @@ def AdminPortal():
     ############################
 
 
-    def button3_click():
+    def button3Click():
         global frame
 
         frame = tk.Frame(root)
         frame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
 
-        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         #gets all fitness Classes
         equip = SQL.getAllSomething("FitnessClass")
@@ -324,7 +324,7 @@ def AdminPortal():
             #Creates the buttons to change the fields
             for i in range(8):
                 string = str(info.get(i))
-                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                 entry.pack()  
                 entry.insert(0, string)  
                 entries.append(entry)  
@@ -333,16 +333,16 @@ def AdminPortal():
             addCounter = True
         
 
-        global button_frame1
-        button_frame1 = tk.Frame(root)
-        button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Upcoming", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
+        global buttonFrame2
+        buttonFrame2 = tk.Frame(root)
+        buttonFrame2.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(buttonFrame2, text="Filter By Upcoming", command=filter, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
         button6.pack(side=tk.LEFT, padx=10)
-        button7 = tk.Button(button_frame1, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '16'), bg='#E59989')
+        button7 = tk.Button(buttonFrame2, text="Add New", command=addNew, height=2, width=20, font=('Helvetica', '15'), bg='#E59989')
         button7.pack(side=tk.LEFT, padx=10)
-        button77 = tk.Button(button_frame1, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
+        button77 = tk.Button(buttonFrame2, text="Delete Selected", command=delete, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
         button77.pack(side=tk.LEFT, padx=10)
-        button777 = tk.Button(button_frame1, text="Update Selected", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#E2EC70')
+        button777 = tk.Button(buttonFrame2, text="Update Selected", command=update, height=2, width=20, font=('Helvetica', '15'), bg='#E2EC70')
         button777.pack(side=tk.LEFT, padx=10)
 
         forgetButtons()
@@ -353,13 +353,13 @@ def AdminPortal():
     ############################
 
 
-    def button4_click():
+    def button4Click():
         global frame
 
         frame = tk.Frame(root)
         frame.pack(padx=140, pady=60, fill=tk.BOTH, expand=True)
 
-        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         #selects desired info from users. We have to join because we want the first and last name in member, but mainly the payment info in payments
@@ -399,10 +399,10 @@ def AdminPortal():
                     item = item.replace("Decimal", "")
                     listbox.insert(tk.END, item)
 
-        global button_frame1
-        button_frame1 = tk.Frame(root)
-        button_frame1.pack(side=tk.BOTTOM, pady=30)
-        button6 = tk.Button(button_frame1, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
+        global buttonFrame2
+        buttonFrame2 = tk.Frame(root)
+        buttonFrame2.pack(side=tk.BOTTOM, pady=30)
+        button6 = tk.Button(buttonFrame2, text="Filter By Amount Owed", command=filter, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
         button6.pack()
 
         forgetButtons()
@@ -419,7 +419,7 @@ def AdminPortal():
         button4.pack(side=tk.LEFT, padx=10)
         button5.pack_forget()
         frame.destroy()
-        button_frame1.destroy()
+        buttonFrame2.destroy()
         global addCounter
         addCounter = False
 
@@ -436,13 +436,13 @@ def AdminPortal():
     root.geometry("1400x600")  # Width x Height
 
     # Create and pack the buttons within the button frame
-    button_frame = tk.Frame(root)
-    button_frame.pack(side=tk.BOTTOM, pady=20)
-    button1 = tk.Button(button_frame, text="Room Booking Mgmnt", command=button1_click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(button_frame, text="Equipment Maintenance Monitoring", command=button2_click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(button_frame, text="Class Schedule Updating", command=button3_click, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
-    button4 = tk.Button(button_frame, text="Billing and Payment Proccessing", command=button4_click, height=2, width=30, font=('Helvetica', '16'), bg='#7A2727')
-    button5 = tk.Button(button_frame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+    buttonFrame = tk.Frame(root)
+    buttonFrame.pack(side=tk.BOTTOM, pady=20)
+    button1 = tk.Button(buttonFrame, text="Room Booking Mgmnt", command=button1Click, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
+    button2 = tk.Button(buttonFrame, text="Equipment Maintenance Monitoring", command=button2Click, height=2, width=30, font=('Helvetica', '15'), bg='#E59989')
+    button3 = tk.Button(buttonFrame, text="Class Schedule Updating", command=button3Click, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
+    button4 = tk.Button(buttonFrame, text="Billing and Payment Proccessing", command=button4Click, height=2, width=30, font=('Helvetica', '15'), bg='#7A2727')
+    button5 = tk.Button(buttonFrame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
 
     button1.pack(side=tk.LEFT, padx=10)
     button2.pack(side=tk.LEFT, padx=10)

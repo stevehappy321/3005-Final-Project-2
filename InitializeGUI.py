@@ -103,7 +103,7 @@ def Initialize(submit_callback):
         loginLabel.pack()
         for i in range(6):
             string = str(info.get(i))
-            entry = tk.Entry(loginFrame, font=('Helvetica', '16'), width=25)
+            entry = tk.Entry(loginFrame, font=('Helvetica', '15'), width=25)
             entry.pack(pady=0)  
             entry.insert(0, string)  
             entries.append(entry)  
@@ -162,11 +162,11 @@ def Initialize(submit_callback):
     buttonFrame = tk.Frame(root)
     buttonFrame.pack(pady=20)
 
-    button1 = tk.Button(buttonFrame, text="Member Login", command=button1Click, height=2, width=12, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(buttonFrame, text="Trainer Login", command=button2Click, height=2, width=12, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(buttonFrame, text="Admin Login", command=button3Click, height=2, width=12, font=('Helvetica', '16'), bg='#9389E5')
-    button4 = tk.Button(buttonFrame, text="Switch Login", command=switchLogin, height=2, width=12, font=('Helvetica', '16'), bg='#7A2727')
-    button5 = tk.Button(buttonFrame, text="Member Registration", command=button4Click, height=2, width=18, font=('Helvetica', '16'), bg='#E2EC70')
+    button1 = tk.Button(buttonFrame, text="Member Login", command=button1Click, height=2, width=12, font=('Helvetica', '15'), bg='#89BAE5')
+    button2 = tk.Button(buttonFrame, text="Trainer Login", command=button2Click, height=2, width=12, font=('Helvetica', '15'), bg='#E59989')
+    button3 = tk.Button(buttonFrame, text="Admin Login", command=button3Click, height=2, width=12, font=('Helvetica', '15'), bg='#9389E5')
+    button4 = tk.Button(buttonFrame, text="Switch Login", command=switchLogin, height=2, width=12, font=('Helvetica', '15'), bg='#7A2727')
+    button5 = tk.Button(buttonFrame, text="Member Registration", command=button4Click, height=2, width=18, font=('Helvetica', '15'), bg='#E2EC70')
     #this is so we can delete the buttons later using pack and forget all buttons
     global x
     x = [button1, button2, button3, button5]

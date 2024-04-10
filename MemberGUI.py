@@ -35,7 +35,7 @@ def MemberPortal(e):
         global updateCounter
         frame = tk.Frame(root)
         frame.pack(padx=150, pady=20, fill=tk.BOTH, expand=True)
-        listbox = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         listbox.insert(tk.END, "                           Personal Info")
         equip = SQL.getAllSomething("Members WHERE FirstName = '{}' AND LastName = '{}';".format(testValue2[0], testValue2[1]))
@@ -112,9 +112,9 @@ def MemberPortal(e):
                     SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(amount, userID))
                     SQL.UpdateSomething("Payment SET AmountPayed = AmountPayed + {} Where MemberID = {};".format(amount, userID))
                 reset()
-            entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+            entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
             entry.pack(side=tk.LEFT, padx=10)
-            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '16'), bg='#7A2727')
+            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '15'), bg='#7A2727')
             button1777.pack(side=tk.LEFT, padx=10)
         #This is for updating personal info
         def update():
@@ -184,7 +184,7 @@ def MemberPortal(e):
             #Creates the buttons to change the fields. Adds each entry to the entries array so they can be deleted later
             for i in range(7):
                 string = str(info.get(i))
-                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                 entry.pack(pady=1)  
                 entry.insert(0, string)  
                 entries.append(entry)  
@@ -195,9 +195,9 @@ def MemberPortal(e):
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=20)
-        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
-        button1777 = tk.Button(button_frame1, text="Pay Bill", command=payBills, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button1777 = tk.Button(button_frame1, text="Pay Bill", command=payBills, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button1777.pack(side=tk.LEFT, padx=10)
 
 
@@ -212,9 +212,9 @@ def MemberPortal(e):
         global frame
         frame = tk.Frame(root)
         frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
-        listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox2 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        listbox3 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox3 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         listbox2.insert(tk.END, "                          Fitness Goals")
         listbox3.insert(tk.END, "                          Health Metrics")
@@ -270,7 +270,7 @@ def MemberPortal(e):
             #unnessecary but creates the entry box for the change
             for i in range(1):
                 string = str("Enter Change Here")
-                entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                 entry.pack(pady=1)  
                 entry.insert(0, string)  
                 entries.append(entry)  
@@ -382,7 +382,7 @@ def MemberPortal(e):
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
-        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
 
     #button 3 is clicked
@@ -396,9 +396,9 @@ def MemberPortal(e):
         login_label2 = tk.Label(frame, text="Your Private Sessions", font=('Helvetica', '14'))
         login_label3 = tk.Label(frame, text="Class Browser (Classes you are not in)", font=('Helvetica', '14'))
         frame.pack(padx=40, pady=20, fill=tk.BOTH, expand=True)
-        listbox2 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox2 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        listbox3 = tk.Listbox(frame, font=('Helvetica', '16'))
+        listbox3 = tk.Listbox(frame, font=('Helvetica', '15'))
         listbox2.insert(tk.END, "ClassID, ClassName, ClassDate, StartTime, EndTime, RoomNumber, Cost")
         #our string to select nessecary info for our members fitnessclasses
         insertString = """
@@ -484,7 +484,7 @@ def MemberPortal(e):
             buttonAddClass.pack_forget()
             buttonLeaveClass.pack_forget()
 
-            buttonJoinClass = tk.Button(frame, text="Join Class", command=getClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonJoinClass = tk.Button(frame, text="Join Class", command=getClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
             buttonJoinClass.pack(side=tk.LEFT, padx=10)
 
         #leave fitnessClass
@@ -511,7 +511,7 @@ def MemberPortal(e):
 
                 buttonLeaveClass.pack_forget()
 
-                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass = tk.Button(frame, text="Leave Class", command=deleteClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
                 buttonJoinClass.pack(side=tk.LEFT, padx=10)
         #view the users private sessions
         def viewPrivate():
@@ -567,7 +567,7 @@ def MemberPortal(e):
 
                 buttonPLeaveClass.pack_forget()
 
-                buttonJoinClass = tk.Button(frame, text="Leave Session", command=deleteClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+                buttonJoinClass = tk.Button(frame, text="Leave Session", command=deleteClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
                 buttonJoinClass.pack(side=tk.LEFT, padx=10)
             #for creating a private session
             def createPrivSesh():
@@ -579,7 +579,7 @@ def MemberPortal(e):
                 #all buttons get added to array below
                 entries = []
                 for i in range(5):
-                    entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+                    entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
                     entry.pack()  
                     entry.insert(0, info.get(i))   
                     entries.append(entry)
@@ -629,19 +629,19 @@ def MemberPortal(e):
 
                 button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
                 button8.pack()
-            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Session", command=withdrawPClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPLeaveClass = tk.Button(button_frame1, text="Withdraw From Session", command=withdrawPClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
             buttonPLeaveClass.pack(side=tk.LEFT, padx=10)
-            buttonPCreateClass = tk.Button(button_frame1, text="Schedule Priv Session", command=createPrivSesh, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+            buttonPCreateClass = tk.Button(button_frame1, text="Schedule Priv Session", command=createPrivSesh, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
             buttonPCreateClass.pack(side=tk.LEFT, padx=10)
 
         global button_frame1
         button_frame1 = tk.Frame(root)
         button_frame1.pack(side=tk.BOTTOM, pady=0)
-        button777 = tk.Button(button_frame1, text="View Private Sessions", command=viewPrivate, height=2, width=20, font=('Helvetica', '16'), bg='#4AE957')
+        button777 = tk.Button(button_frame1, text="View Private Sessions", command=viewPrivate, height=2, width=20, font=('Helvetica', '15'), bg='#4AE957')
         button777.pack(side=tk.LEFT, padx=10)
-        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=addFClass, height=2, width=20, font=('Helvetica', '16'), bg='#41D9DA')
+        buttonAddClass = tk.Button(button_frame1, text="Add Class", command=addFClass, height=2, width=20, font=('Helvetica', '15'), bg='#41D9DA')
         buttonAddClass.pack(side=tk.LEFT, padx=10)
-        buttonLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawFClass, height=2, width=20, font=('Helvetica', '16'), bg='#DA8441')
+        buttonLeaveClass = tk.Button(button_frame1, text="Withdraw From Class", command=withdrawFClass, height=2, width=20, font=('Helvetica', '15'), bg='#DA8441')
         buttonLeaveClass.pack(side=tk.LEFT, padx=10)
 
 
@@ -671,10 +671,10 @@ def MemberPortal(e):
 
     buttonFrame = tk.Frame(root)
     buttonFrame.pack(side=tk.BOTTOM, pady=20)
-    button1 = tk.Button(buttonFrame, text="Profile Management", command=button1Click, height=2, width=20, font=('Helvetica', '16'), bg='#89BAE5')
-    button2 = tk.Button(buttonFrame, text="Dashboard Display", command=button2Click, height=2, width=30, font=('Helvetica', '16'), bg='#E59989')
-    button3 = tk.Button(buttonFrame, text="Schedule Management", command=button3Click, height=2, width=20, font=('Helvetica', '16'), bg='#9389E5')
-    button5 = tk.Button(buttonFrame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+    button1 = tk.Button(buttonFrame, text="Profile Management", command=button1Click, height=2, width=20, font=('Helvetica', '15'), bg='#89BAE5')
+    button2 = tk.Button(buttonFrame, text="Dashboard Display", command=button2Click, height=2, width=30, font=('Helvetica', '15'), bg='#E59989')
+    button3 = tk.Button(buttonFrame, text="Schedule Management", command=button3Click, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
+    button5 = tk.Button(buttonFrame, text="Return", command=returnButton, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
 
     button1.pack(side=tk.LEFT, padx=10)
     button2.pack(side=tk.LEFT, padx=10)
