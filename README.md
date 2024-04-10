@@ -31,8 +31,9 @@ Navigate to the folder where you placed my file, and run using Python. e.g (In f
 5. SQL.py - Hosts the SQL psycopg2 statements for selecting, inserting, updating...etc
 6. \SQL\ Final Project DDL.sql - Hosts the DDL File for database Creation
 7. \SQL\ Final Project DML.sql - Hosts the DML File for database Inserts
-8. TrainerGUI - Hosts the trainer GUI
-9. TrainerBackend - Hosts the logic that runs when buttons on the trainer GUI are clicked
+8. TrainerGUI.py - Hosts the trainer GUI
+9. TrainerBackend.py - Hosts the logic that runs when buttons on the trainer GUI are clicked
+10. Utility.py - contains non-specific helper functions
 
 **Trainer Functions**
 1. manage trainer working hours
