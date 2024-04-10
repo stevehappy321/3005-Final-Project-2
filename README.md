@@ -14,7 +14,7 @@ Ensure databased has been created and populated before operation (Check SQL fold
 
 Install pyscopg2 using the pip command above (In the folder with the file, do pip install pyscopgy2). Tkinter May already be installed. you can still do the pip install to check
 
-If any info differs in your postgres database you must change it in the connReqs Variable in the script
+If any info differs in your postgres database you must change it in the Variables in the SQL script
 
 (Current Database Setup [Change to match your setup]): host = localhost, dbname (database name) = FinalProject, user = postgres, password = postgres
 
