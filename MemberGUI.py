@@ -73,7 +73,40 @@ def MemberPortal(e):
         def reset():
                 returnButton()
                 button1_click()
-
+        def payBills():
+            payment = SQL.getAllSomething("Payment Where MemberID = {};".format(userID))
+            payment = str(payment).replace("Decimal(", "").replace(")", "").replace("[", "").replace("]", "").replace("datetime.date", "").replace("(", "").replace("\'", "")
+            paymentInserts = payment.split(",")
+            listbox.delete(0, tk.END)
+            listbox.insert(tk.END, "Last Payment: {}{}{}".format(paymentInserts[1], paymentInserts[2], paymentInserts[3]))
+            listbox.insert(tk.END, "Current Amount Paid:             {}".format(paymentInserts[4]))
+            listbox.insert(tk.END, "Remaining Amount Due:         {}".format(paymentInserts[5]))
+            listbox.insert(tk.END, "Current Payment Choice:       {}".format(paymentInserts[6]))
+            def payFull():
+                amount = entry.get()
+                amount = amount.replace(" ", "")
+                amountGuard = amount.rfind('.')
+                if amountGuard == -1:
+                    amount = amount + '.00'
+                elif amountGuard ==2:
+                    amount = amount + '0'
+                payment1 = paymentInserts[5].replace(" ", "")
+                if(float(payment1) < 0):
+                    messagebox.showinfo("Error!", "You are Currently in a Credit Position. You cannot Pay when you have valid Credits on your account")
+                    reset()
+                    return
+                if(amount > payment1):
+                    SQL.UpdateSomething("Payment SET AmountOwed =  0 Where MemberID = {};".format(userID))
+                    SQL.UpdateSomething("Payment SET AmountPayed = 0;")
+                    messagebox.showinfo("Success!", "You have not been charged more than was due!")
+                else:
+                    SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed - {} Where MemberID = {};".format(amount, userID))
+                    SQL.UpdateSomething("Payment SET AmountPayed = AmountPayed + {} Where MemberID = {};".format(amount, userID))
+                reset()
+            entry = tk.Entry(frame, font=('Helvetica', '16'), width=16)
+            entry.pack(side=tk.LEFT, padx=10)
+            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '16'), bg='#7A2727')
+            button1777.pack(side=tk.LEFT, padx=10)
         def update():
             global updateCounter
             if updateCounter == True:
@@ -151,7 +184,8 @@ def MemberPortal(e):
         button_frame1.pack(side=tk.BOTTOM, pady=20)
         button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
-
+        button1777 = tk.Button(button_frame1, text="Pay Bill", command=payBills, height=2, width=20, font=('Helvetica', '16'), bg='#7A2727')
+        button1777.pack(side=tk.LEFT, padx=10)
 
 
 

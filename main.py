@@ -1,5 +1,4 @@
-import AdminGUI, MemberGUI, TrainerGUI
-import InitializeGUI
+import AdminGUI, MemberGUI, TrainerGUI, InitializeGUI
 import SQL
 
 #Ryan
