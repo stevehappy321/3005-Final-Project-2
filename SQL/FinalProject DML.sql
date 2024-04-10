@@ -28,7 +28,7 @@ INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES
 
 --random assortment of classes, 0 person class has no capacity, full class will have 1 person registered (Member 2)
 INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES 
-('Morning Yoga', 1, 1, '2024-04-18', '10:00:00', '10:30:00', '10$', 10),
+('Morning Meditation', 1, 1, '2024-04-18', '10:00:00', '10:30:00', '10$', 10),
 ('Full Class', 3, 3, '2024-04-15', '10:00:00', '10:30:00', '10$', 1),
 ('Afternoon Yoga', 1, 1, '2024-04-20', '13:00:00', '14:30:00', '15$', 8),
 ('Swim Lessions', 3, 4, '2024-04-12', '8:00:00', '10:00:00', '20$', 6),
