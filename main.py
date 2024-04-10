@@ -14,13 +14,13 @@ def user_input_received(user_input):
     #if the method for logging in was admin and their credentials was ADMIN, start the GUI
     if(user_input_global[0] == 'Admin' and user_input_global[-2] == 'ADMIN'):
         InitializeGUI.broadcast(True, "Now logged in as: {}".format(user_input_global[-2]))
-        InitializeGUI.close_gui()
+        InitializeGUI.closeGUI()
         AdminGUI.AdminPortal()
     #if the method for logging in was Member and their credentials was a valid member, start the member GUI
     elif (user_input_global[0] == 'Member'):
         if(SQL.memberExists(user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
-            InitializeGUI.close_gui()
+            InitializeGUI.closeGUI()
             MemberGUI.MemberPortal(user_input_global[-2])
         else:
             InitializeGUI.broadcast(False, "No Member Found")
@@ -28,7 +28,7 @@ def user_input_received(user_input):
     elif (user_input_global[0] == 'Trainer'):
         if (SQL.userExists("Trainers", user_input_global[-2]) == True):
             InitializeGUI.broadcast(True, "User Found! Now logged in as: {}".format(user_input_global[-2]))
-            InitializeGUI.close_gui()
+            InitializeGUI.closeGUI()
             TrainerGUI.trainerPortal(user_input_global[-2])
         else:
             InitializeGUI.broadcast(False, "No Trainer Found")
