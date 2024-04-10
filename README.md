@@ -1,6 +1,6 @@
 {YOUTUBE LINK HERE}
 
-10 Files -> AdminGUI, InitalizeGUI, main.py, MemberBackend.py, MemberGUI, Page.py, SQL.py, TrainerBackend.py, TrainerGUI.py, Utility.py
+9 Files -> AdminGUI, InitalizeGUI, main.py, MemberBackend.py, MemberGUI, SQL.py, TrainerBackend.py, TrainerGUI.py, Utility.py
 
 **Installs:**
 
@@ -34,12 +34,6 @@ Navigate to the folder where you placed my file, and run using Python. e.g (In f
 8. TrainerGUI.py - Hosts the trainer GUI
 9. TrainerBackend.py - Hosts the logic that runs when buttons on the trainer GUI are clicked
 10. Utility.py - contains functions to: convert tuple to dictionary, and check if a value is within a given range
-
-**Trainer Functions**
-1. manage trainer working hours
-    displays current start/end time and provides prompts to change them
-2. search members by name
-    provides a prompt to search all members with a given name and display their personal data
 
 **Development Data**
 
