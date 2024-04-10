@@ -23,10 +23,10 @@ def Initialize(submit_callback):
     #sends the login info back to the main.py file
     def submitClick():
         # Retrieve the input from the text box
-        user_input = login_entry.get()
-        messagebox.showinfo("Input Received", f"Logging in as: {user_input}")
+        userInput = login_entry.get()
+        messagebox.showinfo("Input Received", f"Logging in as: {userInput}")
         global loginMethod
-        loginMethod += user_input
+        loginMethod += userInput
         loginMethod += ":"
         submit_callback(loginMethod)
             
@@ -141,7 +141,7 @@ def Initialize(submit_callback):
     #create the window
     global root
     root = tk.Tk()
-    root.title("Health Login")
+    root.title("HealthClub Login")
     root.geometry("800x400")
 
     login_frame = tk.Frame(root)
