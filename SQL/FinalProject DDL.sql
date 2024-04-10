@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS Equipment (
     PurchaseDate            DATE NOT NULL,
     Condition               varchar(100) NOT NULL,
     RoomID                  INT,
+    LastMaintenance         DATE,
     FOREIGN KEY (RoomID) 
     REFERENCES Rooms(RoomID) ON DELETE SET NULL
 );

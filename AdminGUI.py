@@ -111,7 +111,7 @@ def AdminPortal():
                 button6.config(foreground='white', background='#9389E5')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment ORDER BY Condition DESC;")
-                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
+                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location, LastMaintenenace")
                 #formats
                 for item in equip:
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
@@ -125,7 +125,7 @@ def AdminPortal():
                 button6.config(foreground='Black', background='#9389E5')  
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment")
-                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
+                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location, LastMaintenenace")
                 # Insert items into the Listbox
                 for item in equip:
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
@@ -143,7 +143,7 @@ def AdminPortal():
             #if user clicks dingl it will add a new Equipment to db based on inputted values
             def dingl():
                 user_input = login_entry.get()
-                SQL.addSomething("Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES ({});".format(user_input))
+                SQL.addSomething("Equipment (Name, Type, PurchaseDate, Condition, RoomID, LastMaintenance) VALUES ({});".format(user_input))
                 #resets view
                 reset()
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
@@ -155,7 +155,7 @@ def AdminPortal():
             selected_item = listbox.get(index)
             desired = selected_item.split(",")
             #deleted the Equipment by the ID
-            SQL.deleteSomething("Equipment Where equipmentID = {};".format(desired[0].replace("(", "")))
+            SQL.deleteSomething("Equipment Where EquipmentSerialNumber = {};".format(desired[0].replace("(", "")))
             reset()
 
         global frame
@@ -183,7 +183,7 @@ def AdminPortal():
         scrollbar.config(command=listbox.yview)
         #initially sets view to all equipment
         equip = SQL.getAllSomething("Equipment")
-        listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location")
+        listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location, LastMaintenance")
         # Insert items into the Listbox
         for item in equip:
             listbox.insert(tk.END, str(item).replace("datetime.date", ""))
