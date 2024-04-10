@@ -7,9 +7,12 @@ Member Functions:
 4. Schedule Management (Scheduling personal training sessions or group fitness classes. The system
 must ensure that the trainer is available)
 
-Trainer Functions:
+~~Trainer Functions:~~
 1. Schedule Management (Trainer can set the time for which they are available.)
+    -changes the working hours
 2. Member Profile Viewing (Search by Member’s name)
+    -search all members that match a given name and display their personal data
+
 
 ~~Administrative Staff Functions:~~
 1. Room Booking Management

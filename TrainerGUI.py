@@ -174,7 +174,6 @@ def trainerPortal(e):
 
             listbox.delete(0, tk.END)
             for item in membersMatchingName:
-                #listbox.insert( tk.END, (item["firstName"], item["lastName"]) )
                 listbox.insert( tk.END, f"{item['firstName']} {item['lastName']}")
                 listbox.insert( tk.END, f"{indent} Address: {item['address']}")
                 listbox.insert( tk.END, f"{indent} City: {item['city']}")
