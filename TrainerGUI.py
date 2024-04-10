@@ -36,6 +36,8 @@ addCounter = False
 changingStartTime = False
 changingEndTime = False
 
+indent = '    '
+
 def trainerPortal(e):
     firstName = e.split(' ')[0]
     lastName = e.split(' ')[1]
@@ -172,7 +174,11 @@ def trainerPortal(e):
 
             listbox.delete(0, tk.END)
             for item in membersMatchingName:
-                listbox.insert( tk.END, (item["firstName"], item["lastName"]) )
+                listbox.insert( tk.END, f"{item['firstName']} {item['lastName']}")
+                listbox.insert( tk.END, f"{indent} Address: {item['address']}")
+                listbox.insert( tk.END, f"{indent} City: {item['city']}")
+                listbox.insert( tk.END, f"{indent} Phone Number: {item['phoneNumber']}")
+                listbox.insert( tk.END, f"{indent} Email: {item['email']}")
 
         regenerateGUI()
 
@@ -208,6 +214,8 @@ def trainerPortal(e):
         nonlocal button_searchMembers;
 
         destroyWidgets(root)
+        #everything below the root disappears
+        #reinstantiate widgets that need to be used immediately
 
         masterFrame = tk.Frame(root) # Create the master button frame
         masterFrame.pack(side=tk.BOTTOM, pady=20)
