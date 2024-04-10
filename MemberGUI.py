@@ -60,8 +60,8 @@ def MemberPortal(e):
         def on_select(event):
             current_selection = event.widget.curselection()
             if current_selection:
-                current_index = current_selection[0]
-                if current_index == 0:
+                currentIndex = current_selection[0]
+                if currentIndex == 0:
                     listbox.selection_clear(0, tk.END)
                     for index in previous_selection:
                         listbox.selection_set(index)
@@ -348,8 +348,8 @@ def MemberPortal(e):
         def on_select2(event):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
-                current_index = current_selection[0]
-                if current_index == 0 or current_index == 6:  # If the first item or 6th
+                currentIndex = current_selection[0]
+                if currentIndex == 0 or currentIndex == 6:  # If the first item or 6th
                     # Revert to the previous selection (or clear selection if no previous)
                     listbox2.selection_clear(0, tk.END)
                     for index in previous_selection:
@@ -357,20 +357,20 @@ def MemberPortal(e):
                 else:
                     global currentSelection
                     currentSelection += "LISTBOX2& "
-                    currentSelection += listbox2.get(current_index)
+                    currentSelection += listbox2.get(currentIndex)
          #if listbox3 is selected, and its a bad index, remove the selection. otherwise set the global var = to this listbox
         def on_select3(event):
             current_selection = event.widget.curselection()
             if current_selection:  # Check if there's any selection
-                current_index = current_selection[0]
-                if current_index == 0 or current_index == 5:  # If the first item or 6th
+                currentIndex = current_selection[0]
+                if currentIndex == 0 or currentIndex == 5:  # If the first item or 6th
                     listbox3.selection_clear(0, tk.END)
                     for index in previous_selection:
                         listbox3.selection_set(index)
                 else:
                     global currentSelection
                     currentSelection += "LISTBOX3& "
-                    currentSelection += listbox3.get(current_index)
+                    currentSelection += listbox3.get(currentIndex)
                 
         #bind the behavior above 
         listbox2.bind('<<ListboxSelect>>', on_select2)
