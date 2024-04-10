@@ -45,6 +45,14 @@ CREATE TABLE IF NOT EXISTS Payment (
     REFERENCES Members (MemberID) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS FitnessRoutine (
+    MemberID INT PRIMARY KEY,
+    LastUpdated     DATE NOT NULL,
+    Routine         Text,
+    FOREIGN KEY (MemberID) 
+    REFERENCES Members (MemberID) ON DELETE CASCADE
+);
+
 --Maybe remove address
 CREATE TABLE IF NOT EXISTS Trainers (
     TrainerID SERIAL Primary Key,

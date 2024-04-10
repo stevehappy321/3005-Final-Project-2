@@ -29,7 +29,7 @@ INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, 
 ('Afternoon Yoga', 1, 1, '2024-04-20', '13:00:00', '14:30:00', '15$', 8),
 ('Swim Lessions', 3, 4, '2024-04-12', '8:00:00', '10:00:00', '20$', 6),
 ('Lifting Class', 2, 2, '2024-04-11', '12:00:00', '12:24:00', '12$', 15),
-('0 person Class', 3, 3, '2024-04-15', '10:00:00', '10:30:00', '10$', 0),
+('0 person Class', 3, 3, '2024-04-15', '10:00:00', '10:30:00', '10$', 0);
 
 INSERT INTO PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES 
 (1, 1, 1, '2024-04-16', '10:00:00', '10:30:00', '100$'),
@@ -58,3 +58,8 @@ INSERT INTO Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMeth
 (1, '2023-03-25', 80.00, 100.00, 'Credit Card'),
 (2, '2024-03-10', 1.00, 300.00, 'Debt'),
 (3, '2024-03-10', 1.00, 2, 'Trading Fur');
+
+INSERT INTO FitnessRoutine (MemberID, LastUpdated, Routine) VALUES
+(1, '2024-04-09', '10x Jumping Jack, 30 Squats, 10km run, 40 cruntches'),
+(2, '2024-04-09', '11x Jumping Jack, 10 Squats, 10km run, 30 min swim, 10 mins monkey bars'),
+(3, '2024-04-09', '50x Supermans, 5 minute plank, 5km run, 1 min sprint, 5 toe touches');
