@@ -18,7 +18,7 @@ If any info differs in your postgres database you must change it in the Variable
 
 (Current Database Setup [Change to match your setup]): host = localhost, dbname (database name) = FinalProject, user = postgres, password = postgres
 
-Navigate to the folder where you placed my file, and run using Python. e.g (In folder with the file) -> python main.py
+Navigate to the folder where you placed my file, and run using Python. e.g (In folder with the file [in cmd]) -> python main.py
 
 **A GUI will pop up. You can enter the first and last name of any trainer or member to login. to access admin type ADMIN. ***
 
