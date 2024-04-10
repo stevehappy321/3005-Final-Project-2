@@ -27,7 +27,7 @@ def userExists(table, e):
         return potential != None
 
 #Ryan
-
+#checks if a member exists in the database. Used to initialize
 def memberExists(e):
     name = e.split(" ")
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
@@ -45,7 +45,8 @@ def memberExists(e):
         else:
             conn.close()
             return False
-   
+
+#gets all of something
 def getAllSomething(e):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
@@ -53,38 +54,46 @@ def getAllSomething(e):
         records = cur.fetchall()
         return records
     
+#adds something
 def addSomething(e):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
         cur.execute("Insert INTO {}".format(e))
         conn.commit()
 
+#deletes something
 def deleteSomething(e):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
         cur.execute("Delete From {}".format(e))
         conn.commit()
 
+#updates something
 def UpdateSomething(e):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
         cur.execute("UPDATE {}".format(e))
         conn.commit()
 
+#allows users to strictly select items if needed
 def StrictSelect(e):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
         cur.execute("{}".format(e))
         records = cur.fetchall()
         return records
-
+    
+#gets a members number based on their first and last name
 def getMemberNumber(e):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
         cur.execute("Select MemberID From Members Where FirstName = {}".format(e))
         records = cur.fetchall()
         return records
-    
+
+#this function gives all power to the calling query.
+#fairly specific query needed so we leave it to the user
+#counts the number of people in a class to check for capacity though
 def getNumberOfMembers(e, classID):
     conn = psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
     with conn.cursor() as cur:
