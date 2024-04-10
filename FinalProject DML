@@ -13,7 +13,8 @@ INSERT INTO Rooms (Name, Capacity, Type) VALUES
 ('Yoga Studio', 11, 'Yoga'),
 ('Weight Room', 13, 'Weight Training'),
 ('Private Session Studio', 20, 'Sectioned Room for PrivateSessions'),
-('Main Hall', 100, 'Event Hall For Grand Occasions');
+('Main Hall', 100, 'Event Hall For Grand Occasions'),
+('Empty Room', 12, 'Room thats empty');
 
 INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES 
 ('Yoga Mats', 'Yoga', '2023-01-15', 'New', 1),
@@ -24,9 +25,11 @@ INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES
 
 INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES 
 ('Morning Yoga', 1, 1, '2024-04-18', '10:00:00', '10:30:00', '10$', 10),
+('Full Class', 3, 3, '2024-04-15', '10:00:00', '10:30:00', '10$', 1),
 ('Afternoon Yoga', 1, 1, '2024-04-20', '13:00:00', '14:30:00', '15$', 8),
 ('Swim Lessions', 3, 4, '2024-04-12', '8:00:00', '10:00:00', '20$', 6),
-('Lifting Class', 2, 2, '2024-04-11', '12:00:00', '12:24:00', '12$', 15);
+('Lifting Class', 2, 2, '2024-04-11', '12:00:00', '12:24:00', '12$', 15),
+('0 person Class', 3, 3, '2024-04-15', '10:00:00', '10:30:00', '10$', 0),
 
 INSERT INTO PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES 
 (1, 1, 1, '2024-04-16', '10:00:00', '10:30:00', '100$'),
@@ -35,8 +38,10 @@ INSERT INTO PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTim
 
 INSERT INTO ClassMembers (ClassID, MemberID) VALUES 
 (1, 1),
-(2, 2),
-(3, 3);
+(2, 1),
+(3, 2),
+(4, 3),
+(5, 2);
 
 INSERT INTO FitnessStuffs (MemberID, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES 
 (1, '5km', '4:00 min/km', 100, 150, 100, '3km', '4:30 min/km', 80, 120, 500),
@@ -52,4 +57,4 @@ INSERT INTO HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, Hear
 INSERT INTO Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMethod) VALUES
 (1, '2023-03-25', 80.00, 100.00, 'Credit Card'),
 (2, '2024-03-10', 1.00, 300.00, 'Debt'),
-(3, '2024-03-10', 1.00, 0, 'Trading Fur');
+(3, '2024-03-10', 1.00, 2, 'Trading Fur');
