@@ -110,3 +110,14 @@ def getNumberOfMembers(e, classID):
         if not found:
             return False
         return True
+
+def getAllConditional(table, condition = None):
+    return (
+        getAllSomething(table) if (condition == None) 
+        else StrictSelect(
+            f"""
+            SELECT * FROM {table}
+            WHERE {condition}
+            """
+            )
+    )
