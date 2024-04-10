@@ -23,7 +23,8 @@ INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID) VALUES
 ('Yoga Mats', 'Yoga Equipment', '2023-02-12', 'New', 1),
 ('Weight set 1', 'Weights', '2023-01-15', 'Old', 2),
 ('Weight set 2', 'Weights', '2023-01-20', 'New', 3),
-('StairClimber', 'Cario', '2023-02-03', 'New', 3),
+('StairClimber', 'Cario', '2023-02-03', 'Under Maintenance', 3),
+('Shake Weight', 'Arms', '2023-09-11', 'Under Maintenance', 3),
 ('Swimming Pool', 'Utilities', '2023-01-01', 'Old', 4);
 
 --random assortment of classes, 0 person class has no capacity, full class will have 1 person registered (Member 2)
