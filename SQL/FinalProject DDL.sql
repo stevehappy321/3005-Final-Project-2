@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS Members (
     LastName    varchar(150)  NOT NULL,
     Address     TEXT NOT NULL,
     City        varchar(50) NOT NULL,
-	PhoneNumber varchar(150) NOT NULL,
-	Email       TEXT UNIQUE NOT NULL
+    PhoneNumber varchar(150) NOT NULL,
+    Email       TEXT UNIQUE NOT NULL
 );
 CREATE TABLE IF NOT EXISTS FitnessStuffs (
     MemberID INT PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS FitnessStuffs (
 	SwimmingDistanceGoal INT,
 	CurrentRunDistance	 varchar(50),
 	CurrentFastestLap	 varchar(50),
-	CurrentBenchPress	 INT,
+    CurrentBenchPress	 INT,
 	CurrentSquat		 INT,
 	CurrentSwimDistance	 INT,
     FOREIGN KEY (MemberID) 
