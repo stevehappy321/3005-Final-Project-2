@@ -249,22 +249,30 @@ def MemberPortal(e):
                 memberNumber = SQL.getMemberNumber("'{}' AND LastName = '{}'".format(testValue2[0], testValue2[1]))[0]
                 memberNumber = str(memberNumber).replace(",)", "").replace("(", "")
                 query =''
+                updateTime = True
                 #if the listbox they selected from was the first one do below
                 #the if brantches activate based on req's if they are strings insert, else (special case of just int and not string) insert with no ''s same with listbox3
                 if(infoUpdate[0] == 'LISTBOX2&'):
                     if(infoUpdate[1] == 'DistanceRunningGoal:' or infoUpdate[1] == 'FastestLapGoal:'or infoUpdate[1] == 'CurrentRunDistance:'or infoUpdate[1] == 'CurrentFastestLap:'):
                         query+= "FitnessStuffs SET {} = '{}' Where MemberID = {};".format(str(infoUpdate[1]).strip(":"), (entries[0].get()), int(memberNumber))
+                    elif(infoUpdate[1] == 'MeasurementDate:'):
+                        query+= "FitnessStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};".format(int(memberNumber))
+                        updateTime = False
                     else:
                         query+= 'FitnessStuffs SET {} = {} Where MemberID = {};'.format(str(infoUpdate[1]).strip(":"), entries[0].get(), int(memberNumber))
                 if(infoUpdate[0] == 'LISTBOX3&'):
                     if(infoUpdate[1] == 'LastMeasurementDate:'):
-                        query+= 'HealthStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};'.format(int(memberNumber))
-                    elif(infoUpdate[1] == 'BloodPressure:'):
-                        query+= "HealthStuffs SET BloodPressure = '{}' Where MemberID = {};".format((entries[0].get()), int(memberNumber))
+                        query+= "HealthStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};".format(int(memberNumber))
+                        updateTime = False
+                    elif(infoUpdate[1] == 'BloodPressure:' or infoUpdate[1] == 'BloodPressureGoal:'):
+                        query+= "HealthStuffs SET {} = '{}' Where MemberID = {};".format(str(infoUpdate[1]).strip(":"),(entries[0].get()), int(memberNumber))
                     else:
                         query+= 'HealthStuffs SET {} = {} Where MemberID = {};'.format(str(infoUpdate[1]).strip(":"), entries[0].get(), int(memberNumber))
                 #send the query to update
                 SQL.UpdateSomething(query)
+                if(updateTime == True):
+                    SQL.UpdateSomething("HealthStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};".format(int(memberNumber)))
+                    SQL.UpdateSomething("FitnessStuffs SET MeasurementDate = CURRENT_DATE Where MemberID = {};".format(int(memberNumber)))
                 returnButton()
                 button2Click()
             #unnessecary but creates the entry box for the change
@@ -278,7 +286,8 @@ def MemberPortal(e):
             button8.pack()
         #our query to return the fitnessStuffs from our member
         insertString = f"""
-                        SELECT 
+                        SELECT
+                            f.MeasurementDate, 
                             f.DistanceRunningGoal, 
                             f.FastestLapGoal, 
                             f.BenchPressGoal, 
@@ -298,17 +307,21 @@ def MemberPortal(e):
                         """.replace('&', testValue2[0]).replace('*', testValue2[1])
                         #& and * above are just so we can replace with ease
         #create the listbox view
-        info2 = ["DistanceRunningGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimmingDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
+        info2 = ["MeasurementDate:    ", "DistanceRunningGoal:    ", "FastestLapGoal:      ", "BenchPressGoal:     ", "SquatGoal:               ", "SwimmingDistanceGoal:  ", "CurrentRunDistance: ", "CurrentFastestLap: ", "CurrentBenchPress: ", "CurrentSquat: ", "CurrentSwimDistance: "]
         equip = SQL.StrictSelect(insertString)
         equip = str(equip)
-        cleanedString = equip.replace('[(', '').replace(')]', '').replace("'", '')
+        cleanedString = equip.replace('[(', '').replace(')]', '').replace("'", '').replace("datetime.date", "").replace("(", "").replace(")", "")
         # Insert items into the Listbox
         print(cleanedString)
         equip = cleanedString.split(", ")
         for i in range(len(equip)):
-            if(i ==5):
+            if(i == 0 or i == 1 or i == 2):
+                if(i==2):
+                    listbox2.insert(tk.END, info2[0] + equip[0] + " " +  equip[1] + " " + equip[2])
+                continue 
+            if(i == 8):
                listbox2.insert(tk.END, "________________________________________________________") 
-            listbox2.insert(tk.END, info2[i] + equip[i])
+            listbox2.insert(tk.END, info2[i-2] + equip[i])
         #our listbox3 query
         insertString = f"""
                         SELECT  
@@ -317,7 +330,8 @@ def MemberPortal(e):
                             h.BloodPressure, 
                             h.HeartRate,
                             h.WeightGoal, 
-                            h.HeartRateGoal
+                            h.HeartRateGoal,
+                            h.BloodPressureGoal
                         FROM 
                             Members m
                         JOIN 
@@ -333,7 +347,7 @@ def MemberPortal(e):
         equip21 = cleanedString.replace("Decimal(", "").replace("datetime.date(", "").replace(")", "").replace(")", "")
         #split the query by ,
         equip = equip21.split(", ")
-        info2 = ["LastMeasurementDate: ", "Weight: ", "BloodPressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: "]
+        info2 = ["LastMeasurementDate: ", "Weight: ", "BloodPressure: ", "HeartRate: ", "WeightGoal: ", "HeartRateGoal: ", "BloodPressureGoal:"]
         #for loop adjusts for any value that would be incorrectly split e.g 2024,03,02 would be 3 elements, so below we craft the correct view
         for i in range(len(equip)):
             if(i == 0 or i==1 or i==2 or i==6):

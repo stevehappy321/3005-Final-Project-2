@@ -92,8 +92,8 @@ def Initialize(submit_callback):
             userID = str(userID).replace("[(", "").replace(",)]", "")
             userID = int(userID)
             #adds default values to the mebers profile
-            SQL.addSomething("FitnessStuffs (MemberID, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES ({}, '0km', '0: 00 min/km', 0, 0, 0, '0km', '0:00 min/km', 0, 0, 0);".format(userID))
-            SQL.addSomething("HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal) VALUES ({}, CURRENT_DATE, 00.00, '0/0', 0, 000.00, 0);".format(userID))
+            SQL.addSomething("FitnessStuffs (MemberID, MeasurementDate, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES ({}, CURRENT_DATE, '0km', '0: 00 min/km', 0, 0, 0, '0km', '0:00 min/km', 0, 0, 0);".format(userID))
+            SQL.addSomething("HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal, BloodPressureGoal) VALUES ({}, CURRENT_DATE, 00.00, '0/0', 0, 000.00, 0, '0/0');".format(userID))
             SQL.addSomething("Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMethod) VALUES ({}, CURRENT_DATE, 0, 80, 'Debit');".format(userID))
             messagebox.showinfo("Input Received", f"Log in as: {newClass[1] + ' ' + newClass[3]}")
             #return
