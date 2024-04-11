@@ -76,6 +76,8 @@ def MemberPortal(e):
                 button1Click()
         #def to pay bills
         def payBills():
+            global button_frame1
+            button_frame1.destroy()
             #gets and formats data
             payment = SQL.getAllSomething("Payment Where MemberID = {};".format(userID))
             payment = str(payment).replace("Decimal(", "").replace(")", "").replace("[", "").replace("]", "").replace("datetime.date", "").replace("(", "").replace("\'", "")
@@ -114,10 +116,11 @@ def MemberPortal(e):
                 reset()
             entry = tk.Entry(frame, font=('Helvetica', '15'), width=16)
             entry.pack(side=tk.LEFT, padx=10)
-            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '15'), bg='#7A2727')
+            button1777 = tk.Button(frame, text="Make Payment", command=payFull, height=1, width=15, font=('Helvetica', '15'), bg='#9389E5')
             button1777.pack(side=tk.LEFT, padx=10)
         #This is for updating personal info
         def update():
+            button1777.pack_forget()
             #stops user from adding more and more add buttons
             global updateCounter
             if updateCounter == True:
@@ -220,6 +223,7 @@ def MemberPortal(e):
         listbox3.insert(tk.END, "                          Health Metrics")
         #stops user from continously adding buttons
         def update():
+            buttonExerciseRoutine.pack_forget()
             global updateCounter
             if updateCounter == True:
                 return
