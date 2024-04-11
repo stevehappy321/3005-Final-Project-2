@@ -389,7 +389,35 @@ def MemberPortal(e):
         #bind the behavior above 
         listbox2.bind('<<ListboxSelect>>', on_select2)
         listbox3.bind('<<ListboxSelect>>', on_select3)  
-    
+        def viewRoutine():
+            button777.pack_forget()
+            listbox3.pack_forget()
+            listbox2.delete(0, tk.END)
+            routine = SQL.getAllSomething("FitnessRoutine Where MemberID = 2")
+            listbox2.insert(tk.END, "MemberID")
+            listbox2.insert(tk.END, routine[0][0])
+            listbox2.insert(tk.END, "")
+            listbox2.insert(tk.END, "LastUpdated")
+            listbox2.insert(tk.END, routine[0][1])
+            listbox2.insert(tk.END, "")
+            listbox2.insert(tk.END, "Routine")
+            listbox2.insert(tk.END, routine[0][2])
+            listbox2.insert(tk.END, "")
+            def updateRoutine():
+                def sendUpdate():
+                    newRoutine = login_entry.get()
+                    SQL.UpdateSomething("FitnessRoutine SET Routine = '{}' Where MemberID = {};".format(newRoutine, userID))
+                    SQL.UpdateSomething("FitnessRoutine SET LastUpdated = CURRENT_DATE Where MemberID = {};".format(userID))
+                    messagebox.showinfo("Success!", "Successfully Updated")
+                    returnButton()
+                login_entry = tk.Entry(frame, font=('Helvetica', '14'), width=60)
+                login_entry.pack(padx=30, pady=15)
+                login_entry.insert(0, "Enter Routine")
+                button8 = tk.Button(frame, text="Confirm?", command=sendUpdate, height=1, width=10, font=('Helvetica', '12'), bg='#9389E5')
+                button8.pack(padx=30, pady=0)
+            buttonExerciseRoutine.pack_forget()
+            buttonUpdate = tk.Button(button_frame1, text="Update Routine", command=updateRoutine, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
+            buttonUpdate.pack(side=tk.LEFT, padx=10)
     # Update the previous selection
         global previousSelection
         previousSelection = listbox2.curselection()
@@ -398,6 +426,8 @@ def MemberPortal(e):
         button_frame1.pack(side=tk.BOTTOM, pady=0)
         button777 = tk.Button(button_frame1, text="Update Info", command=update, height=2, width=20, font=('Helvetica', '15'), bg='#7A2727')
         button777.pack(side=tk.LEFT, padx=10)
+        buttonExerciseRoutine = tk.Button(button_frame1, text="View Exercise Routine", command=viewRoutine, height=2, width=20, font=('Helvetica', '15'), bg='#9389E5')
+        buttonExerciseRoutine.pack(side=tk.LEFT, padx=10)
 
     #button 3 is clicked
     def button3Click():
@@ -638,6 +668,7 @@ def MemberPortal(e):
                         SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed + 100 Where MemberID = {};".format(userID))
                         messagebox.showinfo("Success!", "Successfully Scheduled")
                         returnButton()
+                        messagebox.showinfo("Success!", "Successfully ")
                     button9 = tk.Button(frame, text="Select Trainer", command=selectTrainer, height=1, width=20, font=('Helvetica', '12'), bg='#9389E5')
                     button9.pack(side=tk.LEFT, padx=5)
 
