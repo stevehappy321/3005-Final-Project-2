@@ -393,7 +393,7 @@ def MemberPortal(e):
             button777.pack_forget()
             listbox3.pack_forget()
             listbox2.delete(0, tk.END)
-            routine = SQL.getAllSomething("FitnessRoutine Where MemberID = 2")
+            routine = SQL.getAllSomething("FitnessRoutine Where MemberID = {};".format(userID))
             listbox2.insert(tk.END, "MemberID")
             listbox2.insert(tk.END, routine[0][0])
             listbox2.insert(tk.END, "")
