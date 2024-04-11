@@ -28,7 +28,7 @@ def AdminPortal():
 
         #gets all rooms
         equip = SQL.getAllSomething("Rooms")
-        listbox.insert(tk.END, "RoomID, Room Name, Capacity, Room Purpose")
+        listbox.insert(tk.END, "RoomNumber, Room Name, Capacity, Room Purpose")
         # Insert items into the Listbox
         for item in equip:
             listbox.insert(tk.END, str(item))
@@ -41,8 +41,8 @@ def AdminPortal():
                 button6.config(foreground='white', background='#9389E5')   
                 listbox.delete(0, tk.END)
                 #selects all rooms where there does not exist a private session or fitnessclass as its registered rooms
-                equip = SQL.getAllSomething("Rooms r WHERE NOT EXISTS (SELECT * FROM PrivateSession ps WHERE ps.RoomID = r.RoomID) AND NOT EXISTS (SELECT * FROM FitnessClass fc WHERE fc.RoomID = r.RoomID);")
-                listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
+                equip = SQL.getAllSomething("Rooms r WHERE NOT EXISTS (SELECT * FROM PrivateSession ps WHERE ps.RoomNumber = r.RoomNumber) AND NOT EXISTS (SELECT * FROM FitnessClass fc WHERE fc.RoomNumber = r.RoomNumber);")
+                listbox.insert(tk.END, "RoomNumber, Name, Capacity, Type of Room")
                 #insert
                 for item in equip:
                     listbox.insert(tk.END, str(item))
@@ -55,7 +55,7 @@ def AdminPortal():
                 button6.config(foreground='Black', background='#9389E5') 
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Rooms")
-                listbox.insert(tk.END, "RoomID, Name, Capacity, Type of Room")
+                listbox.insert(tk.END, "RoomNumber, Name, Capacity, Type of Room")
                 # Insert items into the Listbox
                 for item in equip:
                     listbox.insert(tk.END, str(item))
@@ -83,7 +83,7 @@ def AdminPortal():
             index = listbox.curselection()
             selected_item = listbox.get(index)
             desired = selected_item.split(",")
-            SQL.deleteSomething("Rooms Where RoomID = {};".format(desired[0].replace("(", "")))
+            SQL.deleteSomething("Rooms Where RoomNumber = {};".format(desired[0].replace("(", "")))
             reset()
 
         global buttonFrame2
@@ -112,7 +112,7 @@ def AdminPortal():
                 button6.config(foreground='white', background='#9389E5')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment ORDER BY Condition DESC;")
-                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location, LastMaintenenace")
+                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, RoomNumber, LastMaintenenace")
                 #formats
                 for item in equip:
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
@@ -126,7 +126,7 @@ def AdminPortal():
                 button6.config(foreground='Black', background='#9389E5')  
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("Equipment")
-                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location, LastMaintenenace")
+                listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, RoomNumber, LastMaintenenace")
                 # Insert items into the Listbox
                 for item in equip:
                     listbox.insert(tk.END, str(item).replace("datetime.date", ""))
@@ -144,7 +144,7 @@ def AdminPortal():
             #if user clicks dingl it will add a new Equipment to db based on inputted values
             def dingl():
                 user_input = login_entry.get()
-                SQL.addSomething("Equipment (Name, Type, PurchaseDate, Condition, RoomID, LastMaintenance) VALUES ({});".format(user_input))
+                SQL.addSomething("Equipment (Name, Type, PurchaseDate, Condition, RoomNumber, LastMaintenance) VALUES ({});".format(user_input))
                 #resets view
                 reset()
             button8 = tk.Button(frame, text="Submit", command=dingl, height=1, width=8, font=('Helvetica', '12'), bg='#9389E5')
@@ -223,7 +223,7 @@ def AdminPortal():
         scrollbar.config(command=listbox.yview)
         #initially sets view to all equipment
         equip = SQL.getAllSomething("Equipment")
-        listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, Room Location, LastMaintenance")
+        listbox.insert(tk.END, "ItemID, Item Name, Item Category, Purchase Date, Condition, RoomNumber, LastMaintenance")
         # Insert items into the Listbox
         for item in equip:
             listbox.insert(tk.END, str(item).replace("datetime.date", ""))
@@ -246,7 +246,7 @@ def AdminPortal():
         listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         #gets all fitness Classes
         equip = SQL.getAllSomething("FitnessClass")
-        listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
+        listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomNumber, ClassDate, StartTime, EndTime, Cost, Capacity")
         # Insert items into the Listbox
         for item in equip:
             newItem = str(item).replace("datetime.date", "")
@@ -261,7 +261,7 @@ def AdminPortal():
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass ORDER BY (ClassDate + SessionTIME) ASC;")
                 #print(equip)
-                listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
+                listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomNumber, ClassDate, StartTime, EndTime, Cost, Capacity")
                 for item in equip:
                     newItem = str(item).replace("datetime.date", "")
                     newItem = str(newItem).replace("datetime.time", "")
@@ -275,7 +275,7 @@ def AdminPortal():
                 button6.config(foreground='Black', background='#9389E5')
                 listbox.delete(0, tk.END)
                 equip = SQL.getAllSomething("FitnessClass")
-                listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomID, ClassDate, StartTime, EndTime, Cost, Capacity")
+                listbox.insert(tk.END, "ClassID, ClassName, TrainerID, RoomNumber, ClassDate, StartTime, EndTime, Cost, Capacity")
                 # Insert items into the Listbox
                 for item in equip:
                     newItem = str(item).replace("datetime.date", "")
@@ -295,7 +295,7 @@ def AdminPortal():
             #adds the users input to the fintessclasses
             def dingl():
                 user_input = login_entry.get()
-                SQL.addSomething("FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES ({});".format(user_input))
+                SQL.addSomething("FitnessClass (ClassName, TrainerID, RoomNumber, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES ({});".format(user_input))
                 reset()
                 login_label.pack_forget()
                 login_entry.pack_forget()
@@ -322,8 +322,8 @@ def AdminPortal():
             login_label.pack()
             entries = []
             #Creates the fields to check
-            info = {0:"ClassName", 1:"TrainerID", 2:"RoomID", 3:"ClassDate", 4:"SessionTime", 5:"EndTime", 6:"Cost", 7:"Capacity"}
-            info2 = ["ClassName", "TrainerID", "RoomID", "ClassDate", "SessionTime", "EndTime", "Cost", "Capacity"]
+            info = {0:"ClassName", 1:"TrainerID", 2:"RoomNumber", 3:"ClassDate", 4:"SessionTime", 5:"EndTime", 6:"Cost", 7:"Capacity"}
+            info2 = ["ClassName", "TrainerID", "RoomNumber", "ClassDate", "SessionTime", "EndTime", "Cost", "Capacity"]
             def dingl():
                 newClass = []
                 #gets the index from the box to be updated
