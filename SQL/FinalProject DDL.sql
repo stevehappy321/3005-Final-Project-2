@@ -68,14 +68,14 @@ CREATE TABLE IF NOT EXISTS Trainers (
     StartTime   TIME,
     EndTime     TIME
 );
-
+--type is for "type" of room - or description
 CREATE TABLE IF NOT EXISTS Rooms (
     RoomNumber  SERIAL PRIMARY KEY,
     Name        Text NOT NULL,
     Capacity    INT NOT NULL,
     Type        varchar(150)
 );
--- many to many with room
+-- many equipment for 1 room
 CREATE TABLE IF NOT EXISTS Equipment (
     EquipmentSerialNumber   SERIAL PRIMARY KEY,
     Name                    varchar(255) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS FitnessClass (
     FOREIGN KEY (RoomNumber) 
     REFERENCES Rooms (RoomNumber) ON DELETE SET NULL
 );
--- needed for one to many 
+-- needed for many members attending many classes
 CREATE TABLE IF NOT EXISTS ClassMembers (
     ClassID     INT NOT NULL,
     MemberID    INT NOT NULL,
