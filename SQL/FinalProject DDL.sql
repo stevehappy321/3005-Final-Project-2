@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Members (
 -- 1 to 1 with member
 CREATE TABLE IF NOT EXISTS FitnessStuffs (
     MemberID INT PRIMARY KEY,
-    MeasurementDate     DATE,
+    MeasurementDate      DATE,
     DistanceRunningGoal  varchar(50),
     FastestLapGoal       varchar(50),
     BenchPressGoal       INT,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS Equipment (
     Type                    varchar(100) NOT NULL,
     PurchaseDate            DATE NOT NULL,
     Condition               varchar(100) NOT NULL,
-    RoomNumber                  INT,
+    RoomNumber              INT,
     LastMaintenance         DATE,
     FOREIGN KEY (RoomNumber) 
     REFERENCES Rooms(RoomNumber) ON DELETE SET NULL
