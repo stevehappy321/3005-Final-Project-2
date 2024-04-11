@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS Members (
 -- 1 to 1 with member
 CREATE TABLE IF NOT EXISTS FitnessStuffs (
     MemberID INT PRIMARY KEY,
+    MeasurementDate     DATE,
     DistanceRunningGoal  varchar(50),
     FastestLapGoal       varchar(50),
     BenchPressGoal       INT,
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS HealthStuffs (
     HeartRate           INT,
     WeightGoal          DECIMAL(8, 2),
     HeartRateGoal       INT,
+    BloodPressureGoal   varchar(50),
     FOREIGN KEY (MemberID) 
     REFERENCES Members (MemberID) ON DELETE CASCADE
 );

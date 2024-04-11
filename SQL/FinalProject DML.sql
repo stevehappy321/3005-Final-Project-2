@@ -50,16 +50,16 @@ INSERT INTO ClassMembers (ClassID, MemberID) VALUES
 (5, 2);
 
 --random values for this, if unrealistic dont blame me :P
-INSERT INTO FitnessStuffs (MemberID, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES 
-(1, '7.5km', '3:00 min/km', 100, 150, 100, '2km', '4:24 min/km', 70, 110, 300),
-(2, '10km', '5:00 min/km', 120, 200, 150, '7km', '5:30 min/km', 90, 160, 700),
-(3, '15km', '2:00 min/km', 90, 90, 88, '8km', '3:30 min/km', 85, 111, 200);
+INSERT INTO FitnessStuffs (MemberID, MeasurementDate, DistanceRunningGoal, FastestLapGoal, BenchPressGoal, SquatGoal, SwimmingDistanceGoal, CurrentRunDistance, CurrentFastestLap, CurrentBenchPress, CurrentSquat, CurrentSwimDistance) VALUES 
+(1, '2024-03-09', '7.5km', '3:00 min/km', 100, 150, 100, '2km', '4:24 min/km', 70, 110, 300),
+(2, '2024-03-09', '10km', '5:00 min/km', 120, 200, 150, '7km', '5:30 min/km', 90, 160, 700),
+(3, '2024-03-09', '15km', '2:00 min/km', 90, 90, 88, '8km', '3:30 min/km', 85, 111, 200);
 
 
-INSERT INTO HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal) VALUES 
-(1, '2024-03-09', 224.00, '130/83', 71, 172.00, 65),
-(2, '2024-03-09', 150.00, '115/75', 75, 140.00, 72),
-(3, '2024-03-09', 250.00, '155/94', 80, 200.00, 79);
+INSERT INTO HealthStuffs (MemberID, MeasurementDate, Weight, BloodPressure, HeartRate, WeightGoal, HeartRateGoal, BloodPressureGoal) VALUES 
+(1, '2024-03-09', 224.00, '130/83', 71, 172.00, 65, '129/82'),
+(2, '2024-03-09', 150.00, '115/75', 75, 140.00, 72, '100/74'),
+(3, '2024-03-09', 250.00, '155/94', 80, 200.00, 79, '154/93');
 
 --Each user generally starts with a debit
 INSERT INTO Payment (MemberID, PaymentDate, AmountPayed, AmountOwed, PaymentMethod) VALUES
