@@ -19,7 +19,7 @@ INSERT INTO Rooms (Name, Capacity, Type) VALUES
 ('Empty Room', 12, 'Room thats empty');
 
 --Conditions dont nessecarily align with purchase date - fyi
-INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID, LastMaintenance) VALUES 
+INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomNumber, LastMaintenance) VALUES 
 ('Yoga Mats', 'Yoga Equipment', '2023-02-12', 'New', 1, '2022-02-12'),
 ('Weight set 1', 'Weights', '2023-01-15', 'Old', 2, '2022-02-12'),
 ('Weight set 2', 'Weights', '2023-01-20', 'New', 3, '2022-02-12'),
@@ -28,7 +28,7 @@ INSERT INTO Equipment (Name, Type, PurchaseDate, Condition, RoomID, LastMaintena
 ('Swimming Pool', 'Utilities', '2023-01-01', 'Old', 4, '2022-02-12');
 
 --random assortment of classes, 0 person class has no capacity, full class will have 1 person registered (Member 2)
-INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES 
+INSERT INTO FitnessClass (ClassName, TrainerID, RoomNumber, ClassDate, SessionTime, EndTime, Cost, Capacity) VALUES 
 ('Morning Meditation', 1, 1, '2024-04-18', '10:00:00', '10:30:00', '10$', 10),
 ('Full Class', 3, 3, '2024-04-15', '10:00:00', '10:30:00', '10$', 1),
 ('Afternoon Yoga', 1, 1, '2024-04-20', '13:00:00', '14:30:00', '15$', 8),
@@ -37,7 +37,7 @@ INSERT INTO FitnessClass (ClassName, TrainerID, RoomID, ClassDate, SessionTime, 
 ('0 person Class', 3, 3, '2024-04-28', '10:00:00', '10:30:00', '10$', 0);
 
 --random private session times.
-INSERT INTO PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES 
+INSERT INTO PrivateSession (TrainerID, MemberID, RoomNumber, SessionDate, SessionTime, EndTime, Cost) VALUES 
 (1, 1, 1, '2024-04-16', '10:00:00', '10:30:00', '100$'),
 (2, 2, 2, '2024-04-10', '15:00:00', '16:00:00', '100$'),
 (3, 3, 3, '2024-04-15', '08:00:00', '10:24:00', '100$');

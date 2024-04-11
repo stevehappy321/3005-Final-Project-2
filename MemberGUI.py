@@ -446,7 +446,7 @@ def MemberPortal(e):
         listbox2.insert(tk.END, "ClassID, ClassName, ClassDate, StartTime, EndTime, RoomNumber, Cost")
         #our string to select nessecary info for our members fitnessclasses
         insertString = """
-                    SELECT f.ClassID, f.ClassName, f.ClassDate, f.SessionTime, f.EndTime, f.RoomID, f.Cost
+                    SELECT f.ClassID, f.ClassName, f.ClassDate, f.SessionTime, f.EndTime, f.RoomNumber, f.Cost
                     FROM FitnessClass f
                     JOIN ClassMembers c ON f.ClassID = c.ClassID
                     WHERE c.MemberID = {}
@@ -563,7 +563,7 @@ def MemberPortal(e):
             listbox3.delete(0, tk.END)
             #query to find members private sessions
             insertString = """
-                        SELECT p.SessionID, p.SessionDate, p.SessionTime, p.EndTime, p.RoomID, p.TrainerID, p.Cost
+                        SELECT p.SessionID, p.SessionDate, p.SessionTime, p.EndTime, p.RoomNumber, p.TrainerID, p.Cost
                         FROM PrivateSession p
                         WHERE p.MemberID = {}
                         ORDER BY p.SessionDate, p.SessionTime;
@@ -662,7 +662,7 @@ def MemberPortal(e):
                         trainerID = int(trainerID)
                         #create the query using the chosen trainer, memberid, and dates and times
                         query = ""
-                        query += "PrivateSession (TrainerID, MemberID, RoomID, SessionDate, SessionTime, EndTime, Cost) VALUES ({}, {}, 3, '{}', '{}', '{}', '100$');".format(trainerID, userID, date, time1, time2)
+                        query += "PrivateSession (TrainerID, MemberID, RoomNumber, SessionDate, SessionTime, EndTime, Cost) VALUES ({}, {}, 3, '{}', '{}', '{}', '100$');".format(trainerID, userID, date, time1, time2)
                         #add the privatesession to the database and charge the user
                         SQL.addSomething(query)
                         SQL.UpdateSomething("Payment SET AmountOwed = AmountOwed + 100 Where MemberID = {};".format(userID))

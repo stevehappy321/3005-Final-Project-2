@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Trainers (
 );
 
 CREATE TABLE IF NOT EXISTS Rooms (
-    RoomID      SERIAL PRIMARY KEY,
+    RoomNumber  SERIAL PRIMARY KEY,
     Name        Text NOT NULL,
     Capacity    INT NOT NULL,
     Type        varchar(150)
@@ -82,17 +82,17 @@ CREATE TABLE IF NOT EXISTS Equipment (
     Type                    varchar(100) NOT NULL,
     PurchaseDate            DATE NOT NULL,
     Condition               varchar(100) NOT NULL,
-    RoomID                  INT,
+    RoomNumber                  INT,
     LastMaintenance         DATE,
-    FOREIGN KEY (RoomID) 
-    REFERENCES Rooms(RoomID) ON DELETE SET NULL
+    FOREIGN KEY (RoomNumber) 
+    REFERENCES Rooms(RoomNumber) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS FitnessClass (
     ClassID         SERIAL PRIMARY KEY,
     ClassName       varchar(150) NOT NULL,
     TrainerID       INT NOT NULL,
-    RoomID          INT,
+    RoomNumber      INT,
     ClassDate       DATE NOT NULL,
     SessionTime     TIME NOT NULL,
     EndTime         TIME NOT NULL,
@@ -100,8 +100,8 @@ CREATE TABLE IF NOT EXISTS FitnessClass (
     Capacity        INT NOT NULL,
     FOREIGN KEY (TrainerID) 
     REFERENCES Trainers (TrainerID) ON DELETE CASCADE,
-    FOREIGN KEY (RoomID) 
-    REFERENCES Rooms (RoomID) ON DELETE SET NULL
+    FOREIGN KEY (RoomNumber) 
+    REFERENCES Rooms (RoomNumber) ON DELETE SET NULL
 );
 -- needed for one to many 
 CREATE TABLE IF NOT EXISTS ClassMembers (
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS PrivateSession (
     SessionID   SERIAL PRIMARY KEY,
     TrainerID   INT NOT NULL,
     MemberID    INT NOT NULL,
-    RoomID      INT,
+    RoomNumber  INT,
     SessionDate DATE NOT NULL,
     SessionTime TIME NOT NULL,
     EndTime     TIME NOT NULL,
@@ -127,6 +127,6 @@ CREATE TABLE IF NOT EXISTS PrivateSession (
     REFERENCES Trainers (TrainerID),
     FOREIGN KEY (MemberID) 
     REFERENCES Members (MemberID),
-    FOREIGN KEY (RoomID) 
-    REFERENCES Rooms (RoomID) ON DELETE SET NULL
+    FOREIGN KEY (RoomNumber) 
+    REFERENCES Rooms (RoomNumber) ON DELETE SET NULL
 );
