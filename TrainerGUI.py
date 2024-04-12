@@ -13,19 +13,14 @@ import Utility
 #earchMembersFrame = None
 """
 layers:
-    masterFrame
+    master frame
         manage hours
         search members
+
         prompts
 
-    subfunctionFrame
+    subframe
         change start/end time
-
-
-    prompts - REMOVED
-        label
-        entry
-        submit
 """
 masterFrame = None
 subfunctionFrame = None
